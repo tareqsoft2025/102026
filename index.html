@@ -7,7 +7,7 @@
 <title>نظام تقييم الأداء</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Readex+Pro:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="core.js"></script>
 <style>
@@ -198,6 +198,37 @@
     .band { height: 360px; }
     .foot { flex-direction: column; }
   }
+  /* ===== v3 theme: instrument panel. Mist canvas, saffron accent, the gauge as the signature. ===== */
+  :root {
+    --pine: #0b6171; --pine-2: #094e5b; --brass: #f2a516; --brass-soft: #fdf0d0;
+    --paper: #eceff4; --ink: #0f1b2d; --muted: #5d697c; --line: #dde3ec;
+    --font-body: "Readex Pro", "Segoe UI", Tahoma, sans-serif; --font-display: "El Messiri", "Readex Pro", "Segoe UI", Tahoma, sans-serif;
+  }
+  html, body { background: var(--paper); }
+  body::before { content: ""; position: fixed; inset-block-start: -300px; inset-inline-start: -220px; width: 760px; height: 760px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: repeating-radial-gradient(circle, transparent 0 40px, rgba(11,97,113,.07) 40px 42px); }
+  .band { display: none; }
+  .top { color: var(--ink); } .org b { color: var(--ink); } .org small { color: var(--muted); }
+  .emblem g { stroke: var(--pine); } .emblem circle:first-child { stroke: var(--brass); } .emblem circle:last-child { fill: var(--brass); }
+  .btn-line { color: var(--ink); border-color: #cfd7e2; background: #fff; } .btn-line:hover { background: #f4f7fa; border-color: #b9c5d4; }
+  .intro { color: var(--ink); } .intro p { color: var(--muted); }
+  .chip { color: #7a5300; border-color: #efd9a0; background: var(--brass-soft); } .chip i { background: var(--brass); }
+  h1 { color: var(--ink); font-size: clamp(34px, 5vw, 60px); line-height: 1.2; }
+  .perks li { color: var(--ink); } .perks svg { stroke: var(--pine); }
+  .hero-gauge { max-width: 320px; margin-top: 24px; display: grid; justify-items: center; }
+  .gsvg { width: 100%; height: auto; overflow: visible; }
+  .gsvg .needle { transform-origin: 100px 100px; transition: transform 1.4s cubic-bezier(.2, .9, .25, 1.05); }
+  .gsvg .val { font-family: var(--font-display); font-size: 27px; font-weight: 700; fill: var(--ink); } .gsvg .lab { font-size: 8.5px; fill: #8995a8; }
+  .gl { font-weight: 600; color: var(--pine); font-size: 14px; }
+  .card { border-radius: 22px; border-color: rgba(15,27,45,.07); box-shadow: 0 1px 2px rgba(15,27,45,.05), 0 26px 60px rgba(15,27,45,.14); }
+  .tabs { background: #f6f8fb; } .tab[aria-selected="true"]::after { background: var(--brass); }
+  h2 { font-family: var(--font-display); font-weight: 700; color: var(--ink); }
+  input[type="text"], input[type="email"], input[type="password"] { border-radius: 12px; border-color: #cfd7e2; }
+  input:focus { border-color: var(--pine); box-shadow: 0 0 0 4px rgba(11,97,113,.15); }
+  .btn { border-radius: 12px; } .btn-primary { box-shadow: 0 8px 18px rgba(11,97,113,.28); }
+  :focus-visible { outline-color: var(--brass); }
+  .stage { padding-block: 40px 56px; }
+  .foot { position: relative; z-index: 1; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -222,6 +253,7 @@
     <span class="chip"><i></i> <span id="modeChip">النسخة التجريبية</span></span>
     <h1>نظام تقييم الأداء الوظيفي</h1>
     <p>سجّل الدخول لتقييم فريقك أو الاطلاع على تقييماتك ومتابعة تطوّر أدائك عبر الدورات.</p>
+    <div class="hero-gauge" id="heroGauge" aria-hidden="true"></div>
     <ul class="perks">
       <li><svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>قيّم الموظفين بمعايير موحّدة ومرجّحة بالأوزان</li>
       <li><svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>اطلع على نتيجتك وأقرّ بالاستلام إلكترونيًا</li>
@@ -660,6 +692,7 @@
   };
 
   /* ---------------- boot ---------------- */
+  $('#heroGauge').innerHTML = gaugeSvg(87) + '<div class="gl">مثال: نتيجة 87% · جيد جدًا</div>'; animateGauges();
   function bootSim() {
     if (PORTAL_CONFIG.showDemoLogin === false) $('#demoNote').hidden = true;
     loadDb();

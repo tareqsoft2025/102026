@@ -416,3 +416,35 @@ Object.assign(Eval, {
   nineBox: function (pct, pot) { var p = pct >= 85 ? 3 : pct >= 70 ? 2 : 1; return { p: p, q: pot, label: NB[pot][p - 1] }; },
   saveCycleMethods: function (id, methods, me) { Eval.cycle(id).methods = methods; audit('cycle_methods', me, { note: 'تعديل طرق التقييم لدورة: ' + Eval.cycle(id).name }); saveDb(); }
 });
+
+
+/* ======================================================================
+   v3: delete evaluation + shared performance gauge (used by both pages).
+   ====================================================================== */
+Eval.remove = function (ev, me) {
+  var emp = Eval.user(ev.employeeId) || {};
+  db.evals = db.evals.filter(function (e) { return e.id !== ev.id; });
+  audit('eval_delete', me, { note: 'حذف تقييم: ' + emp.name + ' (' + ((Eval.cycle(ev.cycleId) || {}).name || '') + ')' });
+  saveDb();
+};
+
+/* Semicircle gauge: five band segments, tick marks, needle that sweeps to the value. */
+function gaugeSvg(v) {
+  var cx = 100, cy = 100, r = 78, segs = [[0, 60, '#b3261e'], [60, 70, '#d08a1a'], [70, 80, '#b8962e'], [80, 90, '#5f9a3b'], [90, 100, '#1c7a4c']];
+  var pt = function (val, rad) { var a = Math.PI * (1 - val / 100); return [Math.round((cx + rad * Math.cos(a)) * 100) / 100, Math.round((cy - rad * Math.sin(a)) * 100) / 100]; };
+  var arcs = segs.map(function (s) {
+    var a = pt(s[0] + 0.6, r), b = pt(s[1] - 0.6, r);
+    return '<path d="M' + a[0] + ' ' + a[1] + ' A' + r + ' ' + r + ' 0 0 1 ' + b[0] + ' ' + b[1] + '" fill="none" stroke="' + s[2] + '" stroke-width="13"/>';
+  }).join('');
+  var ticks = '';
+  for (var t = 0; t <= 100; t += 5) { var major = t % 10 === 0, p1 = pt(t, major ? 62 : 65), p2 = pt(t, 70); ticks += '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + p2[0] + '" y2="' + p2[1] + '" stroke="#9aa6b8" stroke-width="' + (major ? 1.4 : 0.8) + '"/>'; }
+  var labels = [0, 50, 100].map(function (t) { var p = pt(t, 52); return '<text x="' + p[0] + '" y="' + (p[1] + 4) + '" text-anchor="middle" class="lab">' + t + '</text>'; }).join('');
+  var has = v != null, deg = has ? -90 + Math.min(100, Math.max(0, v)) / 100 * 180 : -90;
+  return '<svg viewBox="0 0 200 142" role="img" aria-label="' + (has ? 'النتيجة ' + v + '%' : 'لا توجد نتيجة') + '" class="gsvg" dir="ltr">' + arcs + ticks + labels +
+    '<g class="needle" data-deg="' + deg + '" style="transform:rotate(-90deg)"><path d="M96.5 100 L100 34 L103.5 100 Z" fill="#0f1b2d"/></g><circle cx="100" cy="100" r="7" fill="#f2a516" stroke="#0f1b2d" stroke-width="2.5"/>' +
+    '<text x="100" y="131" text-anchor="middle" class="val">' + (has ? v + '%' : '—') + '</text></svg>';
+}
+function animateGauges() {
+  var els = document.querySelectorAll('.needle[data-deg]');
+  requestAnimationFrame(function () { requestAnimationFrame(function () { Array.prototype.forEach.call(els, function (n) { n.style.transform = 'rotate(' + n.getAttribute('data-deg') + 'deg)'; }); }); });
+}
