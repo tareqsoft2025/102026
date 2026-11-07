@@ -7,7 +7,8 @@
 <title>بوابة الخدمات الإلكترونية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="config.js"></script>
 <style>
   /* Concept: an institutional portal. A pine-green band tiled with an eight-point star lattice,
      and a white sign-in card that hangs across the band's lower edge.
@@ -26,8 +27,8 @@
     --danger-soft: #fbe9e7;
     --ok: #1c7a4c;
     --ok-soft: #e4f3ea;
-    --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-    --font-display: "Reem Kufi", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --font-body: "Cairo", "Segoe UI", Tahoma, sans-serif;
+    --font-display: "Cairo", "Segoe UI", Tahoma, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
     --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.11' stroke-width='1'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='11'/%3E%3Cpath d='M0 0L24 24M88 0L64 24M0 88L24 64M88 88L64 64'/%3E%3C/g%3E%3C/svg%3E");
   }
@@ -214,7 +215,7 @@
 
 <main class="stage gut">
   <section class="intro">
-    <span class="chip"><i></i> النسخة التجريبية</span>
+    <span class="chip"><i></i> <span id="modeChip">النسخة التجريبية</span></span>
     <h1>حسابٌ واحد لجميع خدماتك</h1>
     <p>سجّل الدخول لمتابعة طلباتك وتحديث بياناتك والاطلاع على سجل نشاط حسابك.</p>
     <ul class="perks">
@@ -256,7 +257,7 @@
             <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.4-4.7 7.1l7.3 5.7c4.3-4 6.8-9.9 6.8-17.2z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2 1.4-4.7 2.3-8.6 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
             المتابعة بحساب Google</button><div id="gisBtnL" class="gis" hidden></div></div>
         </form>
-        <p class="demo-note">حساب تجريبي جاهز: <code>demo@portal.demo</code> وكلمة المرور <code>Demo@12345</code><br><button type="button" class="link" id="fillDemo">تعبئة البيانات تلقائيًا</button></p>
+        <p class="demo-note" id="demoNote">حساب تجريبي جاهز: <code>demo@portal.demo</code> وكلمة المرور <code>Demo@12345</code><br><button type="button" class="link" id="fillDemo">تعبئة البيانات تلقائيًا</button></p>
       </div>
 
       <div class="pane" id="paneReg" role="tabpanel" aria-labelledby="tabReg" hidden>
@@ -301,7 +302,7 @@
   </section>
 </main>
 
-<footer class="foot gut"><span>بوابة الخدمات الإلكترونية، نسخة تجريبية.</span><span>البيانات تُحفظ في متصفحك فقط ولا تُرسل إلى أي خادم.</span></footer>
+<footer class="foot gut"><span>بوابة الخدمات الإلكترونية</span><span id="footNote">نسخة تجريبية: البيانات تُحفظ في متصفحك فقط ولا تُرسل إلى أي خادم.</span></footer>
 
 <!-- Google account chooser (simulation, used when no Google client ID is configured) -->
 <dialog id="gDlg" aria-labelledby="gTitle">
@@ -331,7 +332,7 @@
     </form>
     <form id="fSet" hidden novalidate style="gap:12px">
       <div class="alert info" id="fCodeNote"></div>
-      <div class="field"><label for="fCode">رمز التحقق</label><input id="fCode" class="ltr" type="text" inputmode="numeric" maxlength="6" placeholder="000000"></div>
+      <div class="field" id="fCodeField"><label for="fCode">رمز التحقق</label><input id="fCode" class="ltr" type="text" inputmode="numeric" maxlength="6" placeholder="000000"></div>
       <div class="field"><label for="fPass">كلمة المرور الجديدة</label><input id="fPass" class="ltr" type="password" autocomplete="new-password"></div>
       <p class="err" id="fErr2"></p>
       <button class="btn btn-primary" type="submit">حفظ كلمة المرور</button>
@@ -357,12 +358,11 @@
 (function () {
   'use strict';
 
-  /* ======================================================================
-     Settings. To turn on the real Google sign-in, paste your OAuth Web client ID here
-     and add https://tareqsoft2025.github.io to its "Authorized JavaScript origins".
-     Left empty, the page uses the simulated account chooser instead.
-     ====================================================================== */
-  var PORTAL_CONFIG = { googleClientId: '' };
+  /* Settings come from config.js. With supabaseUrl + supabaseAnonKey set, the page uses a real
+     Supabase backend (accounts, Google, database). Otherwise it runs the browser-only simulation. */
+  var PORTAL_CONFIG = Object.assign({ googleClientId: '', supabaseUrl: '', supabaseAnonKey: '' }, window.PORTAL_CONFIG || {});
+  var REMOTE = !!(PORTAL_CONFIG.supabaseUrl && PORTAL_CONFIG.supabaseAnonKey);
+  var SB = null;
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -484,6 +484,67 @@
     }
   };
 
+  /* ---------------- real backend (Supabase), used when config.js has the project keys ---------------- */
+  function loadScript(src) { return new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+  function mapErr(e) {
+    var m = String((e && e.message) || '').toLowerCase(), st = e && e.status;
+    if (/already registered|already been registered/.test(m)) return { field: 'email', msg: 'هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول.' };
+    if (/invalid login/.test(m)) return { msg: 'البريد أو كلمة المرور غير صحيحة.' };
+    if (/not confirmed/.test(m)) return { msg: 'فعّل بريدك أولًا من الرسالة التي أرسلناها إليك.' };
+    if (st === 429 || /rate limit|too many/.test(m)) return { msg: 'محاولات كثيرة. انتظر قليلًا ثم أعد المحاولة.' };
+    if (/password should|weak password/.test(m)) return { msg: 'كلمة المرور لا تستوفي شروط الأمان.' };
+    if (/provider is not enabled|unsupported provider/.test(m)) return { msg: 'تسجيل Google غير مفعّل في إعدادات Supabase بعد.' };
+    if (/failed to fetch|network/.test(m)) return { msg: 'تعذّر الاتصال بالخادم. تحقق من الإنترنت.' };
+    return { msg: 'تعذّر تنفيذ العملية. ' + ((e && e.message) || '') };
+  }
+  function toCur(session) {
+    var u = session.user, md = u.user_metadata || {};
+    return { user: { id: u.id, name: md.full_name || md.name || String(u.email || '').split('@')[0], email: u.email, provider: (u.app_metadata && u.app_metadata.provider) || 'email', createdAt: Date.parse(u.created_at), prevLoginAt: null },
+             session: { expiresAt: (session.expires_at || 0) * 1000 } };
+  }
+  function rlog(uid, event, detail) { return SB.from('audit_log').insert({ user_id: uid, event: event, detail: detail }).then(function () {}, function () {}); }
+  var Remote = {
+    init: function () {
+      return loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js').then(function () {
+        SB = window.supabase.createClient(PORTAL_CONFIG.supabaseUrl, PORTAL_CONFIG.supabaseAnonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+      });
+    },
+    register: function (o) {
+      return SB.auth.signUp({ email: o.email.trim().toLowerCase(), password: o.password, options: { data: { full_name: o.name.trim() }, emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
+        if (r.error) throw mapErr(r.error);
+        if (!r.data.session) {
+          if (r.data.user && r.data.user.identities && !r.data.user.identities.length) throw { field: 'email', msg: 'هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول.' };
+          return { needsConfirm: true };
+        }
+        var cur = toCur(r.data.session);
+        return rlog(cur.user.id, 'register', 'إنشاء حساب بالبريد').then(function () { return rlog(cur.user.id, 'login', 'تسجيل دخول بالبريد'); }).then(function () { return cur; });
+      });
+    },
+    login: function (email, pw) {
+      return SB.auth.signInWithPassword({ email: email.trim().toLowerCase(), password: pw }).then(function (r) {
+        if (r.error) throw mapErr(r.error);
+        var cur = toCur(r.data.session);
+        return rlog(cur.user.id, 'login', 'تسجيل دخول بالبريد').then(function () { return cur; });
+      });
+    },
+    google: function () {
+      sset('sessionStorage', 'portal.oauth', '1');
+      return SB.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } }).then(function (r) { if (r.error) { sdel('sessionStorage', 'portal.oauth'); throw mapErr(r.error); } });
+    },
+    logout: function () {
+      return SB.auth.getSession().then(function (r) { var s = r.data.session; return (s ? rlog(s.user.id, 'logout', 'تسجيل خروج') : Promise.resolve()).then(function () { return SB.auth.signOut(); }); });
+    },
+    requestReset: function (email) { return SB.auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo: location.origin + location.pathname }).then(function (r) { if (r.error) throw mapErr(r.error); }); },
+    setPassword: function (p) {
+      return SB.auth.updateUser({ password: p }).then(function (r) {
+        if (r.error) throw mapErr(r.error);
+        return SB.auth.getSession().then(function (x) { if (x.data.session) return rlog(x.data.session.user.id, 'reset_done', 'تغيير كلمة المرور'); });
+      });
+    },
+    session: function () { return SB.auth.getSession().then(function (r) { return r.data.session ? toCur(r.data.session) : null; }); },
+    rows: function (uid) { return SB.from('audit_log').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(50).then(function (r) { return r.data || []; }); }
+  };
+
   /* ---------------- UI helpers ---------------- */
   var fmt = function (t) { return t ? new Date(t).toLocaleString('ar', { dateStyle: 'medium', timeStyle: 'short' }) : '—'; };
   var fmtD = function (t) { return t ? new Date(t).toLocaleDateString('ar', { dateStyle: 'long' }) : '—'; };
@@ -491,7 +552,7 @@
   var toastT;
   function toast(msg) { $('#toastTxt').textContent = msg; $('#toast').classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { $('#toast').classList.remove('on'); }, 3200); }
   function setErr(input, errEl, msg) { errEl.textContent = msg || ''; if (input) { if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid'); } return !msg; }
-  function showAlert(el, msg) { el.textContent = msg; el.hidden = !msg; }
+  function showAlert(el, msg, kind) { el.className = 'alert ' + (kind || 'bad'); el.textContent = msg; el.hidden = !msg; }
   function busy(btn, on, label) { btn.disabled = on; btn.innerHTML = on ? '<span class="spin"></span>' + esc(label) : esc(label); }
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -517,7 +578,16 @@
 
   /* ---------------- views ---------------- */
   var LABELS = { register: 'إنشاء الحساب', login: 'تسجيل دخول', google_login: 'دخول عبر Google', login_failed: 'محاولة دخول فاشلة', logout: 'تسجيل خروج', lockout: 'قفل مؤقت للحساب', reset_request: 'طلب استعادة كلمة المرور', reset_done: 'تغيير كلمة المرور', link_google: 'ربط حساب Google' };
-  function renderAccount(cur, welcome) {
+  function showAccount(cur, welcome, fresh) {
+    if (!REMOTE) { renderAccount(cur, welcome); return Promise.resolve(); }
+    return Remote.rows(cur.user.id).then(function (rows) {
+      var logins = rows.filter(function (r) { return r.event === 'login' || r.event === 'google_login'; });
+      var prev = fresh ? logins[1] : logins[0];
+      cur.user.prevLoginAt = prev ? Date.parse(prev.created_at) : null;
+      renderAccount(cur, welcome, rows.map(function (r) { return { type: r.event, ts: Date.parse(r.created_at) }; }));
+    }, function () { renderAccount(cur, welcome, []); });
+  }
+  function renderAccount(cur, welcome, rowsOverride) {
     var u = cur.user;
     $('#authView').hidden = true; $('#accountView').hidden = false;
     $('#avatar').textContent = (u.name || '؟').trim().charAt(0);
@@ -526,11 +596,14 @@
     $('#aCreated').textContent = fmtD(u.createdAt); $('#aLast').textContent = u.prevLoginAt ? fmt(u.prevLoginAt) : 'هذا أول دخول';
     $('#aExp').textContent = fmt(cur.session.expiresAt);
     var wn = $('#welcomeNote'); wn.hidden = !welcome; wn.textContent = welcome || '';
-    var rows = db.audit.filter(function (e) { return e.userId === u.id; }).slice(0, 6);
+    var rows = (rowsOverride || db.audit.filter(function (e) { return e.userId === u.id; })).slice(0, 6);
+    $('#aProv').innerHTML = u.provider === 'google' || u.googleSub ? '<span class="pill g">Google</span>' : '<span class="pill">بريد وكلمة مرور</span>';
     $('#aLog').innerHTML = rows.map(function (e) { return '<li><span>' + esc(LABELS[e.type] || e.type) + '</span><time>' + esc(fmt(e.ts)) + '</time></li>'; }).join('') || '<li>لا يوجد نشاط بعد.</li>';
   }
   function renderAuth() { $('#authView').hidden = false; $('#accountView').hidden = true; }
-  $('#logoutBtn').onclick = function () { Auth.logout(); renderAuth(); setTab('login'); toast('تم تسجيل الخروج.'); };
+  $('#logoutBtn').onclick = function () {
+    (REMOTE ? Remote.logout() : Promise.resolve(Auth.logout())).then(function () { renderAuth(); setTab('login'); toast('تم تسجيل الخروج.'); }, function () { toast('تعذّر تسجيل الخروج. حاول مرة أخرى.'); });
+  };
 
   /* ---------------- login form ---------------- */
   var lEmail = $('#lEmail'), lPass = $('#lPass');
@@ -541,8 +614,8 @@
     var b = setErr(lPass, $('#lPassErr'), lPass.value ? '' : 'أدخل كلمة المرور.');
     if (!a || !b) { (a ? lPass : lEmail).focus(); return; }
     var btn = $('#lSubmit'); busy(btn, true, 'جارٍ التحقق');
-    Auth.login(lEmail.value, lPass.value, $('#lRemember').checked).then(function (r) {
-      lPass.value = ''; renderAccount(r, ''); toast('تم تسجيل الدخول.');
+    (REMOTE ? Remote.login(lEmail.value, lPass.value) : Auth.login(lEmail.value, lPass.value, $('#lRemember').checked)).then(function (r) {
+      lPass.value = ''; return showAccount(r, '', true).then(function () { toast('تم تسجيل الدخول.'); });
     }, function (err) { showAlert($('#loginAlert'), err.msg || 'تعذّر تسجيل الدخول.'); }).then(function () { busy(btn, false, 'تسجيل الدخول'); });
   });
   lEmail.addEventListener('input', function () { if (lEmail.getAttribute('aria-invalid')) setErr(lEmail, $('#lEmailErr')); });
@@ -571,10 +644,11 @@
     ];
     var bad = ok.indexOf(false); if (bad > -1) { [rName, rEmail, rPass, rPass2, $('#rTerms')][bad].focus(); return; }
     var btn = $('#rSubmit'); busy(btn, true, 'جارٍ إنشاء الحساب');
-    Auth.register({ name: rName.value, email: rEmail.value, password: rPass.value }).then(function (u) {
-      return Auth.login(u.email, rPass.value, true);
-    }).then(function (r) {
-      $('#regForm').reset(); $('#meter').setAttribute('data-s', 0); renderAccount(r, 'تم إنشاء حسابك وتسجيل دخولك. تجد سجلّك الآن في قاعدة البيانات.'); toast('تم إنشاء الحساب.');
+    var reg = { name: rName.value, email: rEmail.value, password: rPass.value };
+    (REMOTE ? Remote.register(reg) : Auth.register(reg).then(function (u) { return Auth.login(u.email, rPass.value, true); })).then(function (r) {
+      $('#regForm').reset(); $('#meter').setAttribute('data-s', 0);
+      if (r.needsConfirm) { showAlert($('#regAlert'), 'أرسلنا رسالة تفعيل إلى بريدك. افتح الرابط فيها ثم سجّل دخولك.', 'ok'); return; }
+      return showAccount(r, 'تم إنشاء حسابك وتسجيل دخولك.', true).then(function () { toast('تم إنشاء الحساب.'); });
     }, function (err) { if (err.field === 'email') setErr(rEmail, $('#rEmailErr'), err.msg); else showAlert($('#regAlert'), err.msg || 'تعذّر إنشاء الحساب.'); }).then(function () { busy(btn, false, 'إنشاء الحساب'); });
   });
 
@@ -602,6 +676,7 @@
 
   function decodeJwt(t) { var p = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(p).split('').map(function (c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''))); }
   function initGoogle() {
+    if (REMOTE) { $$('[data-google]').forEach(function (b) { b.onclick = function () { Remote.google().catch(function (err) { toast(err.msg || 'تعذّر بدء تسجيل Google.'); }); }; }); return; }
     if (!PORTAL_CONFIG.googleClientId) { $$('[data-google]').forEach(function (b) { b.onclick = openChooser; }); return; }
     var s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
     s.onload = function () {
@@ -614,11 +689,20 @@
   }
 
   /* ---------------- forgot password ---------------- */
-  var resetEmail = '';
+  var resetEmail = '', recovery = false;
+  function openRecovery() {
+    recovery = true; $('#fReq').hidden = true; $('#fSet').hidden = false; $('#fSet').style.display = 'grid'; $('#fErr2').textContent = '';
+    $('#fCodeField').hidden = true; $('#fCodeNote').textContent = 'اختر كلمة مرور جديدة لحسابك.';
+    if (!$('#fDlg').open) $('#fDlg').showModal(); $('#fPass').focus();
+  }
   $('#forgotBtn').onclick = function () { $('#fReq').hidden = false; $('#fSet').hidden = true; $('#fEmail').value = lEmail.value; $('#fErr1').textContent = ''; $('#fDlg').showModal(); $('#fEmail').focus(); };
   $('#fReq').addEventListener('submit', function (e) {
     e.preventDefault(); var m = $('#fEmail').value.trim();
     if (!EMAIL_RE.test(m)) { $('#fErr1').textContent = 'أدخل بريدًا صحيحًا.'; return; }
+    if (REMOTE) {
+      Remote.requestReset(m).then(function () { $('#fDlg').close(); toast('إذا كان البريد مسجّلًا فستصلك رسالة لاستعادة كلمة المرور.'); }, function (err) { $('#fErr1').textContent = err.msg; });
+      return;
+    }
     var code = Auth.requestReset(m); resetEmail = m; $('#fReq').hidden = true; $('#fSet').hidden = false; $('#fSet').style.display = 'grid'; $('#fErr2').textContent = '';
     $('#fCodeNote').innerHTML = code ? 'نسخة تجريبية لا ترسل بريدًا فعليًا. رمزك: <b class="m" style="font-family:var(--font-mono);letter-spacing:2px">' + code + '</b>' : 'إذا كان البريد مسجّلًا فسيصل إليه رمز التحقق. (النسخة التجريبية لا ترسل بريدًا فعليًا.)';
     $('#fCode').focus();
@@ -626,6 +710,10 @@
   $('#fSet').addEventListener('submit', function (e) {
     e.preventDefault(); var p = $('#fPass').value;
     if (p.length < 8 || !/\d/.test(p) || !/[A-Za-z]/.test(p)) { $('#fErr2').textContent = 'كلمة المرور 8 أحرف على الأقل وتتضمن حروفًا وأرقامًا.'; return; }
+    if (recovery) {
+      Remote.setPassword(p).then(function () { recovery = false; $('#fDlg').close(); $('#fSet').reset(); history.replaceState(null, '', location.pathname); toast('تم تغيير كلمة المرور.'); Remote.session().then(function (c) { if (c) showAccount(c, '', false); }); }, function (err) { $('#fErr2').textContent = err.msg; });
+      return;
+    }
     Auth.confirmReset(resetEmail, $('#fCode').value.trim(), p).then(function () { $('#fDlg').close(); $('#fSet').reset(); setTab('login'); lEmail.value = resetEmail; toast('تم تغيير كلمة المرور. سجّل دخولك الآن.'); }, function (err) { $('#fErr2').textContent = err.msg; });
   });
 
@@ -637,7 +725,27 @@
     sessions: { cols: ['id', 'المستخدم', 'بدأت', 'تنتهي', 'مدّة'], row: function (s) { return [['m', s.id], ['m', s.userId], ['', fmt(s.createdAt)], ['', fmt(s.expiresAt)], ['', s.remember ? '30 يومًا' : '8 ساعات']]; }, data: function () { return db.sessions; } },
     audit: { cols: ['الوقت', 'الحدث', 'البريد', 'ملاحظة'], row: function (a) { return [['', fmt(a.ts)], ['', LABELS[a.type] || a.type], ['m', a.email || '—'], ['', a.detail]]; }, data: function () { return db.audit; } }
   };
+  var RVIEWS = {
+    users: { cols: ['id', 'الاسم', 'البريد', 'المزوّد', 'أُنشئ في'], row: function (p) { return [['m', p.id], ['', p.full_name], ['m', p.email], ['', p.provider], ['', fmt(Date.parse(p.created_at))]]; } },
+    audit: { cols: ['الوقت', 'الحدث', 'ملاحظة'], row: function (a) { return [['', fmt(Date.parse(a.created_at))], ['', LABELS[a.event] || a.event], ['', a.detail || '']]; } }
+  };
+  var lastRows = [];
+  function renderRemoteDb() {
+    if (dTab === 'sessions') dTab = 'users';
+    var v = RVIEWS[dTab];
+    $$('#dTabs .dtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.t === dTab); });
+    $('#dBody').innerHTML = '<div class="empty">جارٍ التحميل…</div>';
+    var q = dTab === 'users' ? SB.from('profiles').select('*') : SB.from('audit_log').select('*').order('created_at', { ascending: false }).limit(100);
+    q.then(function (r) {
+      var rows = r.data || []; lastRows = rows;
+      $('#dBody').innerHTML = r.error ? '<div class="empty">تعذّر تحميل الجدول. تأكد من تشغيل ملف schema.sql في Supabase.</div>' : rows.length ?
+        '<table><thead><tr>' + v.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+        rows.map(function (x) { return '<tr>' + v.row(x).map(function (c) { return '<td' + (c[0] ? ' class="' + c[0] + '"' : '') + '>' + esc(c[1]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>' : '<div class="empty">لا توجد سجلات.</div>';
+      $('#dCount').textContent = rows.length + ' سجل. المصدر: Supabase (تظهر بياناتك أنت فقط)';
+    });
+  }
   function renderDb() {
+    if (REMOTE) { renderRemoteDb(); return; }
     var v = VIEWS[dTab], rows = v.data();
     $$('#dTabs .dtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.t === dTab); });
     $('#dBody').innerHTML = rows.length ? '<table><thead><tr>' + v.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
@@ -648,7 +756,7 @@
   $('#openDb').onclick = openDb; $('#openDb2').onclick = openDb;
   $$('#dTabs .dtab').forEach(function (b) { b.onclick = function () { dTab = b.dataset.t; renderDb(); }; });
   $('#dExport').onclick = function () {
-    var safe = JSON.parse(JSON.stringify(db)); // keep password hashes, drop nothing: it is demo data
+    var safe = REMOTE ? lastRows : JSON.parse(JSON.stringify(db));
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(safe, null, 2)], { type: 'application/json' })); a.download = 'portal-db.json'; document.body.appendChild(a); a.click(); a.remove();
   };
   var resetArmed = false;
@@ -661,11 +769,36 @@
   };
 
   /* ---------------- boot ---------------- */
-  loadDb();
-  Auth.seed().then(function () {
+  function bootSim() {
+    loadDb();
+    Auth.seed().then(function () {
+      initGoogle();
+      var cur = currentSession(); if (cur) renderAccount(cur, '');
+    });
+  }
+  function bootRemote() {
+    $('#modeChip').textContent = 'متصل بالخادم';
+    $('#footNote').textContent = 'الحسابات والبيانات محفوظة في خادم مؤمَّن.';
+    $('#demoNote').hidden = true; $('label[for="lRemember"]').hidden = true;
+    $('#dbTitle').textContent = 'مستكشف قاعدة البيانات'; $('#dReset').hidden = true;
+    $$('#dTabs .dtab').forEach(function (b) { if (b.dataset.t === 'sessions') b.hidden = true; if (b.dataset.t === 'users') b.textContent = 'ملفي الشخصي'; });
     initGoogle();
-    var cur = currentSession(); if (cur) renderAccount(cur, '');
-  });
+    SB.auth.onAuthStateChange(function (ev, session) {
+      setTimeout(function () {
+        if (ev === 'PASSWORD_RECOVERY') { openRecovery(); return; }
+        if (ev === 'SIGNED_OUT') { renderAuth(); return; }
+        if (ev === 'SIGNED_IN' && session && sget('sessionStorage', 'portal.oauth')) {
+          sdel('sessionStorage', 'portal.oauth');
+          var cur = toCur(session);
+          rlog(cur.user.id, 'google_login', 'دخول عبر Google').then(function () { return showAccount(cur, 'تم تسجيل دخولك عبر Google.', true); });
+        }
+      }, 0);
+    });
+    Remote.session().then(function (cur) { if (cur) showAccount(cur, '', false); });
+  }
+  if (REMOTE) {
+    Remote.init().then(bootRemote, function () { REMOTE = false; toast('تعذّر تحميل خدمة الخادم، تم التبديل إلى الوضع التجريبي.'); bootSim(); });
+  } else { bootSim(); }
 })();
 </script>
 </body>
