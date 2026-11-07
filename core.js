@@ -162,7 +162,7 @@ function mkUser(p, id, pwd) {
 }
 function lcg(seed) { var s = seed; return function () { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; }
 
-function ensureOrg() {
+function ensureOrgV1() {
   db.criteria = db.criteria && db.criteria.length ? db.criteria : null;
   var needsSeed = !db.meta.org;
   db.users.forEach(function (u) { if (!u.role) u.role = 'employee'; if (u.active === undefined) u.active = true; });
@@ -206,7 +206,7 @@ function ensureOrg() {
 }
 
 var Eval = {
-  calc: function (ev) { var s = 0; ev.criteria.forEach(function (c) { var v = ev.scores[c.id]; if (v) s += v / 5 * c.weight; }); return Math.round(s * 10) / 10; },
+  rating: function (ev) { var s = 0; ev.criteria.forEach(function (c) { var v = ev.scores[c.id]; if (v) s += v / 5 * c.weight; }); return Math.round(s * 10) / 10; },
   complete: function (ev) { return ev.criteria.every(function (c) { return ev.scores[c.id]; }); },
   user: function (id) { return db.users.filter(function (u) { return u.id === id; })[0]; },
   cycle: function (id) { return db.cycles.filter(function (c) { return c.id === id; })[0]; },
@@ -239,3 +239,180 @@ var Eval = {
     saveDb(); return null;
   }
 };
+
+
+/* ======================================================================
+   v2: evaluation methods (rating scale + BARS, goals MBO/OKR/KPI, 360 feedback,
+   self-assessment, weighted checklist, 9-box, critical incidents, 1:1 check-ins,
+   paired comparison, forced distribution).
+   ====================================================================== */
+var METHODS = [
+  { key: 'rating', kind: 'score', name: 'مقياس التقدير الرسومي', en: 'Graphic Rating Scale', desc: 'يقيّم المدير كل معيار بدرجة من 1 إلى 5، وتُجمع الدرجات بأوزان المعايير.', how: 'تبويب «المقياس والكفاءات». أكثر الطرق شيوعًا وأسهلها في المقارنة.', when: 'تقييم دوري موحّد لجميع الوظائف.' },
+  { key: 'bars', kind: 'score', name: 'المقاييس المرتبطة بالسلوك (<bdi>BARS</bdi>)', en: 'Behaviorally Anchored Rating Scales', desc: 'لكل درجة وصف سلوكي محدد يقلّل التحيّز ويوحّد فهم المقيّمين للدرجات.', how: 'يظهر الوصف السلوكي تحت كل معيار عند اختيار الدرجة، ويمكن تعديله من صفحة المعايير.', when: 'عندما تختلف تقديرات المديرين لنفس الأداء.' },
+  { key: 'competency', kind: 'score', name: 'التقييم بالكفاءات', en: 'Competency-based', desc: 'يقيس السلوكيات والمهارات المطلوبة للوظيفة بدل النتائج وحدها.', how: 'المعايير في النظام كفاءات يمكن إضافتها وتعديل أوزانها.', when: 'عند ربط التقييم بإطار الكفاءات ومسارات التطوير.' },
+  { key: 'goals', kind: 'score', name: 'الإدارة بالأهداف والنتائج الرئيسية (<bdi>MBO / OKR / KPI</bdi>)', en: 'MBO, OKR, KPI', desc: 'أهداف قابلة للقياس: مؤشر رقمي مقابل مستهدف (KPI)، أو هدف بنتائج رئيسية يُقاس تقدّمها (OKR)، أو هدف متفق عليه ونسبة إنجازه (MBO).', how: 'تبويب «الأهداف». يُحسب الإنجاز تلقائيًا ويدخل في النتيجة بوزنه.', when: 'الوظائف ذات المخرجات القابلة للقياس مثل المبيعات والعمليات.' },
+  { key: 'feedback', kind: 'score', name: 'ملاحظات 360 درجة', en: '360-Degree Feedback', desc: 'ملاحظات من الزملاء والمرؤوسين والعملاء الداخليين على الكفاءات نفسها، بسرّية هوية المقيّمين.', how: 'يطلبها المدير أو المسؤول من تبويب «ملاحظات 360». تُعرض المتوسطات فقط ولا تظهر مجموعة قبل ردّين.', when: 'للمديرين والوظائف التي تعتمد على التعاون.' },
+  { key: 'self', kind: 'info', name: 'التقييم الذاتي', en: 'Self-Assessment', desc: 'يقيّم الموظف نفسه على المعايير نفسها لإظهار فجوة الإدراك بينه وبين مديره.', how: 'مهمة تصل الموظف تلقائيًا. تُعرض الفجوة في تبويب «ملاحظات 360» ولا تدخل في الدرجة.', when: 'قبل جلسة التقييم لتوجيه الحوار.' },
+  { key: 'checklist', kind: 'score', name: 'قائمة التحقق الموزونة', en: 'Weighted Checklist', desc: 'عبارات سلوك بنعم أو لا، لكل عبارة وزن، وتُحسب النسبة المتحققة.', how: 'تبويب «قائمة التحقق». اختيارية لكل دورة.', when: 'الوظائف الإجرائية التي تعتمد على الالتزام بخطوات محددة.' },
+  { key: 'narrative', kind: 'info', name: 'التقييم السردي', en: 'Narrative / Essay', desc: 'وصف كتابي لنقاط القوة ومجالات التحسين وأهداف الدورة القادمة.', how: 'تبويب «الخلاصة والسرد». مطلوب عند الاعتماد.', when: 'يرافق كل تقييم لإعطاء السياق.' },
+  { key: 'incidents', kind: 'info', name: 'الوقائع الحرجة', en: 'Critical Incidents', desc: 'تدوين وقائع محددة إيجابية أو سلبية في وقتها لتكون أساسًا موثّقًا للتقييم.', how: 'من ملف الموظف. تظهر وقائع الدورة داخل التقييم للاستئناس.', when: 'طوال السنة لتقليل أثر التحيّز للأحداث الأخيرة.' },
+  { key: 'checkin', kind: 'info', name: 'المتابعة المستمرة (<bdi>1:1</bdi>)', en: 'Continuous Feedback / Check-ins', desc: 'لقاءات دورية قصيرة تُسجَّل فيها الملاحظات والإجراءات المتفق عليها.', how: 'من ملف الموظف، ويراها الموظف أيضًا.', when: 'شهريًا أو ربع سنويًا بين التقييمات الرسمية.' },
+  { key: 'ninebox', kind: 'calib', name: 'مصفوفة الأداء والإمكانات (<bdi>9-Box</bdi>)', en: '9-Box Grid', desc: 'تصنّف الموظف بحسب أدائه وإمكاناته لتخطيط التطوير والتعاقب. سرّية عن الموظف.', how: 'يحدد المقيّم الإمكانات في تبويب «الإمكانات»، وتظهر المصفوفة في صفحة المعايرة.', when: 'تخطيط المواهب والتعاقب الوظيفي.' },
+  { key: 'paired', kind: 'calib', name: 'المقارنة الثنائية', en: 'Paired Comparison', desc: 'يقارن المدير كل موظفين معًا ويختار الأفضل، فينتج ترتيب للفريق.', how: 'صفحة «المعايرة والترتيب»، لفريق من ثلاثة فأكثر.', when: 'لكسر التعادل وتمييز الأداء داخل الفريق.' },
+  { key: 'forced', kind: 'calib', name: 'الترتيب والتوزيع الإلزامي', en: 'Ranking & Forced Distribution', desc: 'ترتيب الموظفين ومقارنة توزيع التقديرات بمنحنى مستهدف لكشف التساهل أو التشدد.', how: 'صفحة «المعايرة والترتيب» تعرض المنحنى والانحراف.', when: 'اجتماعات المعايرة قبل اعتماد النتائج النهائية.' }
+];
+var RELATIONS = { self: 'تقييم ذاتي', peer: 'زميل', subordinate: 'مرؤوس', client: 'عميل داخلي' };
+var NOTE_TYPES = { positive: 'واقعة إيجابية', negative: 'واقعة سلبية', checkin: 'لقاء متابعة' };
+var POTENTIAL = ['محدودة: يتمكّن من دوره الحالي', 'متوسطة: قادر على التوسّع في دوره', 'عالية: مؤهل لمستوى أعلى'];
+var NB = { 3: ['موهبة قيد الاختبار', 'موهبة صاعدة', 'نجم'], 2: ['يحتاج دعمًا', 'ركيزة أساسية', 'أداء عالٍ'], 1: ['فجوة أداء', 'متخصص ثابت', 'خبير متمكّن'] };
+var ANCHORS = {
+  quality: ['مخرجات بها أخطاء متكررة وتحتاج إعادة عمل', 'مخرجات تحتاج مراجعة مكثفة قبل الاعتماد', 'مخرجات سليمة تلبي المعايير المطلوبة', 'مخرجات دقيقة نادرًا ما تحتاج تعديلًا', 'مخرجات مرجعية تُستخدم نموذجًا للآخرين'],
+  output: ['يتأخر عن معظم المواعيد ويُنجز أقل من المطلوب', 'يتأخر أحيانًا ويُنجز أقل من المتوقع', 'يسلّم في الموعد ويحقق المطلوب', 'ينجز قبل الموعد ويتجاوز المطلوب', 'ينجز أضعاف المتوقع في وقته ويدعم الفريق'],
+  discipline: ['مخالفات متكررة للدوام والسياسات', 'مخالفات متفرقة تتطلب تنبيهًا', 'ملتزم بالدوام والسياسات', 'ملتزم تمامًا ويُذكّر الآخرين بالإجراءات', 'قدوة في الانضباط ويطوّر الإجراءات'],
+  team: ['يعمل بمعزل ويعطّل عمل الفريق', 'يتعاون عند الطلب فقط', 'يتعاون مع الفريق باستمرار', 'يبادر بمساعدة الزملاء ومشاركة المعرفة', 'يبني روح الفريق ويحل الخلافات بين الأعضاء'],
+  comm: ['تواصل غامض يحتاج متابعة متكررة', 'تواصل مقبول لكنه متأخر أو ناقص', 'تواصل واضح وفي الوقت المناسب', 'تواصل مؤثر يوضح المخاطر والخيارات', 'يُقنع الأطراف ويمثّل الفريق باحتراف'],
+  growth: ['لا يبادر ولا يسعى للتطور', 'يبادر نادرًا ويحتاج توجيهًا', 'يطبّق التحسينات المطلوبة ويتعلم', 'يقترح تحسينات ويطوّر مهاراته ذاتيًا', 'يقود مبادرات تحسين ويعلّم الآخرين']
+};
+var DEFAULT_CHECKLIST = [
+  { id: 'k1', text: 'يلتزم بمواعيد التسليم المتفق عليها', weight: 3 }, { id: 'k2', text: 'يتبع إجراءات العمل والسياسات المعتمدة', weight: 2 },
+  { id: 'k3', text: 'يحافظ على سرية المعلومات', weight: 2 }, { id: 'k4', text: 'يوثّق عمله بشكل يسهّل مراجعته', weight: 2 },
+  { id: 'k5', text: 'يلتزم بمواعيد الدوام والاجتماعات', weight: 2 }, { id: 'k6', text: 'يتواصل بأدب واحترافية مع الجميع', weight: 2 },
+  { id: 'k7', text: 'يطلب المساعدة أو التوضيح عند الحاجة', weight: 1 }
+];
+function defaultMethods() { return { rating: { on: true, w: 50 }, goals: { on: true, w: 30 }, feedback: { on: true, w: 20 }, checklist: { on: false, w: 0 }, self: true, ninebox: true }; }
+var SCORING = [['rating', 'مقياس التقدير والكفاءات'], ['goals', 'الأهداف (<bdi>MBO / OKR / KPI</bdi>)'], ['feedback', 'ملاحظات 360'], ['checklist', 'قائمة التحقق']];
+
+function migrate2() {
+  if (db.meta.org2) return;
+  (db.criteria || []).forEach(function (c) { if (!c.anchors && ANCHORS[c.id]) c.anchors = ANCHORS[c.id].slice(); });
+  db.checklist = db.checklist || DEFAULT_CHECKLIST.map(function (c) { return Object.assign({}, c); });
+  db.feedback = db.feedback || []; db.notes = db.notes || []; db.pairs = db.pairs || {};
+  db.cycles.forEach(function (c) { if (!c.methods) c.methods = c.status === 'closed' ? { rating: { on: true, w: 100 }, goals: { on: false, w: 0 }, feedback: { on: false, w: 0 }, checklist: { on: false, w: 0 }, self: false, ninebox: false } : defaultMethods(); });
+
+  db.evals.forEach(function (ev) { if (typeof ev.goals === 'string') { ev.goalsText = ev.goals; ev.goals = []; } if (!Array.isArray(ev.goals)) ev.goals = []; if (ev.goalsText === undefined) ev.goalsText = ''; });
+  var byEmail = {}; SEED_PEOPLE.forEach(function (p) { var u = findByEmail(p.email); if (u) byEmail[p.k] = { u: u, p: p }; });
+  var cyc = Eval.cycle('cyc_2026h2');
+  if (cyc && byEmail.hr) {
+    var rnd = lcg(11), people = Object.keys(byEmail).filter(function (k) { return k !== 'hr'; });
+    function fb(cycleId, emp, rater, rel, base, done) {
+      var sc = {}; db.criteria.forEach(function (c) { sc[c.id] = Math.max(1, Math.min(5, Math.round(base + (rnd() - 0.5) * 1.6))); });
+      db.feedback.push({ id: rid('fb'), cycleId: cycleId, employeeId: emp.id, raterId: rater.id, relation: rel, status: done ? 'done' : 'pending', scores: done ? sc : {}, comment: done ? (rel === 'self' ? 'أرى أنني حققت معظم أهدافي وأحتاج لتطوير إدارة الوقت.' : rel === 'subordinate' ? 'يدعم الفريق ويوضّح الأولويات.' : 'متعاون ويشارك المعرفة.') : '', createdAt: Date.now() - 12 * 864e5, doneAt: done ? Date.now() - 6 * 864e5 : null });
+    }
+    people.forEach(function (k) {
+      var e = byEmail[k], emp = e.u, base = e.p.base || 3.5;
+      var mates = people.filter(function (o) { return o !== k && byEmail[o].p.dept === e.p.dept && byEmail[o].p.role === 'employee'; }).slice(0, 2);
+      if (e.p.role === 'employee') mates.forEach(function (o) { fb(cyc.id, emp, byEmail[o].u, 'peer', base, !(k === 'e2' && o === 'e1') && !(k === 'e1' && o === 'e3' && false)); });
+      people.filter(function (o) { return byEmail[o].p.mgr === k; }).forEach(function (o) { fb(cyc.id, emp, byEmail[o].u, 'subordinate', base, !(k === 'm1' && o === 'e1')); });
+      fb(cyc.id, emp, emp, 'self', Math.min(5, base + 0.4), k !== 'e1' && k !== 'm1');
+    });
+    function goals(base, k) {
+      var f = base / 5;
+      return [
+        { id: rid('g'), kind: 'kpi', title: k.charAt(0) === 'e' && byEmail[k].p.dept === 'المبيعات' ? 'قيمة المبيعات الشهرية' : 'تسليم المهام ضمن الموعد', weight: 50, unit: byEmail[k].p.dept === 'المبيعات' ? 'ألف ريال' : '%', target: byEmail[k].p.dept === 'المبيعات' ? 400 : 95, actual: Math.round((byEmail[k].p.dept === 'المبيعات' ? 400 : 95) * (0.7 + f * 0.4)), dir: 'up', krs: [], p: 0 },
+        { id: rid('g'), kind: 'okr', title: 'رفع جودة المخرجات', weight: 30, unit: '', target: 0, actual: 0, dir: 'up', krs: [{ t: 'خفض الأخطاء المُعادة', p: Math.round(50 + f * 45) }, { t: 'إنجاز مراجعة الأقران', p: Math.round(45 + f * 50) }], p: 0 },
+        { id: rid('g'), kind: 'mbo', title: 'إتمام دورة تدريبية متخصصة', weight: 20, unit: '', target: 0, actual: 0, dir: 'up', krs: [], p: Math.round(60 + f * 40) }
+      ];
+    }
+    var pots = { e1: 2, e2: 3, e3: 1, e4: 3, e5: 1, e6: 2, e7: 2, e8: 2, m1: 3, m2: 3 };
+    db.evals.forEach(function (ev) {
+      if (ev.cycleId !== cyc.id) return;
+      var k = Object.keys(byEmail).filter(function (x) { return byEmail[x].u.id === ev.employeeId; })[0]; if (!k) return;
+      ev.methods = JSON.parse(JSON.stringify(cyc.methods)); ev.goals = goals(byEmail[k].p.base || 3.5, k); ev.checklist = {}; ev.potential = pots[k] || 2;
+      if (ev.status !== 'draft') { ev.parts = Eval.parts(ev); ev.pct = Eval.calc(ev); }
+    });
+    var N = [['e1', 'm1', 'positive', 'أنهى ترحيل الوحدة الرئيسية قبل الموعد بثلاثة أيام.'], ['e3', 'm1', 'negative', 'سلّم تقرير الاختبار ناقصًا مرتين خلال الشهر.'], ['e5', 'm2', 'negative', 'تأخر في الرد على عميل رئيسي أكثر من 48 ساعة.'], ['e4', 'm2', 'positive', 'أغلقت صفقة كبيرة بعد مفاوضات مطوّلة.'], ['e1', 'm1', 'checkin', 'ناقشنا أولويات الربع واتفقنا على دورة تدريبية في الأمن السيبراني.'], ['e2', 'm1', 'checkin', 'راجعنا مسار التطوير المهني ورشّحتها لقيادة مشروع صغير.']];
+    N.forEach(function (n, i) { if (byEmail[n[0]] && byEmail[n[1]]) db.notes.push({ id: rid('nt'), employeeId: byEmail[n[0]].u.id, authorId: byEmail[n[1]].u.id, type: n[2], date: new Date(Date.now() - (10 + i * 9) * 864e5).toISOString().slice(0, 10), text: n[3] }); });
+  }
+  db.meta.org2 = 1; saveDb();
+}
+function ensureOrg() { return ensureOrgV1().then(migrate2); }
+
+Object.assign(Eval, {
+  goalAch: function (g) {
+    if (g.kind === 'kpi') { var t = Number(g.target), a = Number(g.actual); if (!(t > 0) || g.actual === '' || g.actual == null || isNaN(a)) return null; return g.dir === 'down' ? (a > 0 ? Math.min(120, t / a * 100) : 120) : Math.min(120, a / t * 100); }
+    if (g.kind === 'okr') { var k = (g.krs || []).filter(function (x) { return x.p !== '' && x.p != null; }); return k.length ? k.reduce(function (s, x) { return s + Math.min(100, Math.max(0, Number(x.p) || 0)); }, 0) / k.length : null; }
+    var p = Number(g.p); return isNaN(p) ? null : Math.min(100, Math.max(0, p));
+  },
+  goalsPct: function (ev) {
+    var tw = 0, s = 0; (ev.goals || []).forEach(function (g) { var a = Eval.goalAch(g); if (a != null) { tw += g.weight; s += g.weight * Math.min(a, 100); } });
+    return tw ? Math.round(s / tw * 10) / 10 : null;
+  },
+  checklistPct: function (ev) {
+    var items = db.checklist || [], ans = ev.checklist || {};
+    if (!items.length || !items.every(function (i) { return ans[i.id] === true || ans[i.id] === false; })) return null;
+    var tw = items.reduce(function (s, i) { return s + i.weight; }, 0), yw = items.reduce(function (s, i) { return s + (ans[i.id] ? i.weight : 0); }, 0);
+    return Math.round(yw / tw * 1000) / 10;
+  },
+  fbGroups: function (cycleId, empId) {
+    var out = {};
+    (db.feedback || []).filter(function (f) { return f.cycleId === cycleId && f.employeeId === empId && f.status === 'done'; }).forEach(function (f) {
+      var g = out[f.relation] = out[f.relation] || { n: 0, sum: {}, comments: [] }; g.n++; if (f.comment) g.comments.push(f.comment);
+      Object.keys(f.scores).forEach(function (c) { g.sum[c] = (g.sum[c] || 0) + f.scores[c]; });
+    });
+    Object.keys(out).forEach(function (r) {
+      var g = out[r]; g.byCrit = {}; var s = 0;
+      (db.criteria || []).forEach(function (c) { var m = (g.sum[c.id] || 0) / g.n; g.byCrit[c.id] = Math.round(m * 10) / 10; s += m / 5 * c.weight; });
+      g.avg = Math.round(s * 10) / 10;
+    });
+    return out;
+  },
+  feedbackPct: function (cycleId, empId) {
+    var g = Eval.fbGroups(cycleId, empId), ks = Object.keys(g).filter(function (k) { return k !== 'self'; });
+    return ks.length ? Math.round(ks.reduce(function (s, k) { return s + g[k].avg; }, 0) / ks.length * 10) / 10 : null;
+  },
+  parts: function (ev) {
+    var m = ev.methods || { rating: { on: true, w: 100 } }, o = {};
+    if (m.rating && m.rating.on) o.rating = Eval.complete(ev) ? Eval.rating(ev) : null;
+    if (m.goals && m.goals.on) o.goals = Eval.goalsPct(ev);
+    if (m.feedback && m.feedback.on) o.feedback = Eval.feedbackPct(ev.cycleId, ev.employeeId);
+    if (m.checklist && m.checklist.on) o.checklist = Eval.checklistPct(ev);
+    return o;
+  },
+  calc: function (ev) {
+    var m = ev.methods || { rating: { on: true, w: 100 } }, p = Eval.parts(ev), tw = 0, s = 0;
+    Object.keys(p).forEach(function (k) { if (p[k] != null) { tw += m[k].w; s += m[k].w * p[k]; } });
+    return tw ? Math.round(s / tw * 10) / 10 : 0;
+  },
+  newDraft: function (cycleId, emp, me) {
+    var cyc = Eval.cycle(cycleId);
+    return { id: rid('ev'), cycleId: cycleId, employeeId: emp.id, evaluatorId: me.id, methods: JSON.parse(JSON.stringify(cyc.methods || { rating: { on: true, w: 100 } })), criteria: db.criteria.map(function (c) { return { id: c.id, name: c.name, weight: c.weight }; }), scores: {}, notes: {}, goals: [], checklist: {}, potential: null, strengths: '', improve: '', goalsText: '', status: 'draft', createdAt: Date.now(), updatedAt: Date.now(), submittedAt: null, ackAt: null, ackComment: '', pct: null, parts: null };
+  },
+  validateSubmit: function (ev) {
+    var m = ev.methods || { rating: { on: true } };
+    if (m.rating && m.rating.on && !Eval.complete(ev)) return 'قيّم جميع المعايير في تبويب «المقياس والكفاءات».';
+    if (m.goals && m.goals.on) {
+      if (!ev.goals || !ev.goals.length) return 'أضف هدفًا واحدًا على الأقل في تبويب «الأهداف».';
+      if (ev.goals.reduce(function (s, g) { return s + (Number(g.weight) || 0); }, 0) !== 100) return 'مجموع أوزان الأهداف يجب أن يساوي 100%.';
+      if (ev.goals.some(function (g) { return Eval.goalAch(g) == null || !String(g.title).trim(); })) return 'أكمل عنوان كل هدف وقيم إنجازه.';
+    }
+    if (m.checklist && m.checklist.on && Eval.checklistPct(ev) == null) return 'أجب عن جميع عبارات قائمة التحقق.';
+    if (m.ninebox && !ev.potential) return 'حدّد مستوى الإمكانات في تبويب «الإمكانات».';
+    if ((ev.strengths || '').length < 5 || (ev.improve || '').length < 5) return 'اكتب نقاط القوة ومجالات التحسين في تبويب «الخلاصة والسرد».';
+    return '';
+  },
+  submit: function (ev, me) { ev.status = 'submitted'; ev.parts = Eval.parts(ev); ev.pct = Eval.calc(ev); ev.submittedAt = Date.now(); Eval.upsert(ev); audit('eval_submit', me, { note: 'اعتماد تقييم: ' + (Eval.user(ev.employeeId) || {}).name + ' (' + ev.pct + '%)' }); saveDb(); },
+  tasksFor: function (uid) { return (db.feedback || []).filter(function (f) { return f.raterId === uid && f.status === 'pending' && (Eval.cycle(f.cycleId) || {}).status === 'open'; }); },
+  requestFeedback: function (cycleId, empId, list, me) {
+    var n = 0; list.forEach(function (x) {
+      if (db.feedback.some(function (f) { return f.cycleId === cycleId && f.employeeId === empId && f.raterId === x.raterId && f.relation === x.relation; })) return;
+      db.feedback.push({ id: rid('fb'), cycleId: cycleId, employeeId: empId, raterId: x.raterId, relation: x.relation, status: 'pending', scores: {}, comment: '', createdAt: Date.now(), doneAt: null }); n++;
+    });
+    if (n) { audit('feedback_request', me, { note: 'طلب ملاحظات 360 لـ ' + (Eval.user(empId) || {}).name + ' (' + n + ')' }); saveDb(); }
+    return n;
+  },
+  submitFeedback: function (id, scores, comment, me) {
+    var f = db.feedback.filter(function (x) { return x.id === id; })[0]; if (!f || f.raterId !== me.id) return false;
+    f.scores = scores; f.comment = comment; f.status = 'done'; f.doneAt = Date.now(); audit('feedback_done', me, { note: f.relation === 'self' ? 'إكمال التقييم الذاتي' : 'إكمال ملاحظات 360' }); saveDb(); return true;
+  },
+  notesOf: function (empId) { return (db.notes || []).filter(function (n) { return n.employeeId === empId; }).sort(function (a, b) { return a.date < b.date ? 1 : -1; }); },
+  addNote: function (n, me) { db.notes.push({ id: rid('nt'), employeeId: n.employeeId, authorId: me.id, type: n.type, date: n.date, text: n.text }); audit('note_add', me, { note: NOTE_TYPES[n.type] + ': ' + (Eval.user(n.employeeId) || {}).name }); saveDb(); },
+  pairKey: function (a, b) { return [a, b].sort().join('|'); },
+  setPair: function (cycleId, mgrId, a, b, winner) { var k = cycleId + '::' + mgrId; db.pairs[k] = db.pairs[k] || {}; if (winner) db.pairs[k][Eval.pairKey(a, b)] = winner; else delete db.pairs[k][Eval.pairKey(a, b)]; saveDb(); },
+  pairRanking: function (cycleId, mgrId, ids) {
+    var r = db.pairs[cycleId + '::' + mgrId] || {}, w = {}; ids.forEach(function (i) { w[i] = 0; });
+    Object.keys(r).forEach(function (k) { if (w[r[k]] != null) w[r[k]]++; });
+    return ids.slice().sort(function (a, b) { return w[b] - w[a]; }).map(function (i) { return { id: i, wins: w[i] }; });
+  },
+  nineBox: function (pct, pot) { var p = pct >= 85 ? 3 : pct >= 70 ? 2 : 1; return { p: p, q: pot, label: NB[pot][p - 1] }; },
+  saveCycleMethods: function (id, methods, me) { Eval.cycle(id).methods = methods; audit('cycle_methods', me, { note: 'تعديل طرق التقييم لدورة: ' + Eval.cycle(id).name }); saveDb(); }
+});

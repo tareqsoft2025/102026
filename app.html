@@ -149,6 +149,44 @@
     .rowbar { grid-template-columns: 88px minmax(0, 1fr) 54px; gap: 8px; } .two { grid-template-columns: 1fr; }
     .tools input, .tools select { flex: 1 1 140px; } .rate { gap: 5px; } .tot { grid-template-columns: 1fr; gap: 8px; }
   }
+  .dtabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); background: #fafbf9; overflow-x: auto; scrollbar-width: none; }
+  .dtab { border: 0; background: none; padding: 10px 14px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .dtab[aria-selected="true"] { color: var(--pine); border-bottom-color: var(--brass); }
+  .tp[hidden] { display: none; }
+  .anchor { margin: 8px 0 0; min-height: 1.4em; font-size: 13.5px; color: var(--pine-2); }
+  .goal { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; display: grid; gap: 10px; }
+  .gh { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .gh select { width: auto; } .gh input[type="text"] { flex: 1 1 180px; width: auto; }
+  .g4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .kr { display: grid; grid-template-columns: minmax(0, 1fr) 90px auto; gap: 8px; margin-bottom: 6px; }
+  .krs { margin: 0; padding-inline-start: 20px; } .krs li { margin: 3px 0; }
+  .ach { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; font-size: 13.5px; color: var(--muted); }
+  .ck { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .yn { display: flex; gap: 6px; } .yn label { position: relative; } .yn input { position: absolute; opacity: 0; inset: 0; }
+  .yn span { display: grid; place-items: center; min-width: 54px; height: 34px; border: 1px solid #c9d1cc; border-radius: 8px; font-weight: 600; background: #fff; cursor: pointer; }
+  .yn input:checked + span { background: var(--pine); color: #fff; border-color: var(--pine); } .yn input:focus-visible + span { outline: 3px solid #e1b34f; outline-offset: 2px; }
+  table.cmp { font-size: 14px; } .cmp th, .cmp td { padding: 8px 10px; }
+  .nb { display: grid; gap: 6px; max-width: 680px; } .nb-r { display: grid; grid-template-columns: 78px repeat(3, minmax(0, 1fr)); gap: 6px; align-items: stretch; }
+  .nb-ax { font-size: 12px; color: var(--muted); display: grid; place-items: center; text-align: center; }
+  .nb-c { background: #f1f4f2; border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 13px; text-align: center; min-height: 44px; display: grid; place-items: center; }
+  .nb-c.on { background: var(--brass-soft); border-color: #e1c987; font-weight: 700; }
+  .nb-c.big { align-content: start; gap: 2px; min-height: 80px; } .nb-c.big b { font-size: 12.5px; color: var(--pine); } .nb-c.big span { font-size: 13px; }
+  .pots { display: grid; gap: 8px; margin-bottom: 12px; } .pots label { position: relative; } .pots input { position: absolute; opacity: 0; inset: 0; }
+  .pots span { display: block; padding: 11px 14px; border: 1px solid #c9d1cc; border-radius: 8px; background: #fff; cursor: pointer; }
+  .pots input:checked + span { border-color: var(--pine); background: #eaf3f1; font-weight: 600; } .pots input:focus-visible + span { outline: 3px solid #e1b34f; outline-offset: 2px; }
+  .badge { display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--brass); color: #fff; font-size: 12px; line-height: 20px; text-align: center; }
+  .alert-banner { margin-bottom: 14px; padding: 12px 16px; border-radius: 10px; background: var(--brass-soft); border: 1px solid #e6d3a1; color: #5b4210; } .alert-banner a { color: var(--pine); font-weight: 700; }
+  .mset { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0; } .mset legend { padding-inline: 6px; font-weight: 700; font-size: 14px; }
+  .mrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 0; } .mw { display: flex; align-items: center; gap: 6px; } .mw input { width: 84px; }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; } .check input { width: 18px; height: 18px; margin: 3px 0 0; flex: none; accent-color: var(--pine-2); }
+  .mgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+  .mcard { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 6px; align-content: start; } .mcard p { margin: 0; } .mcard .en { color: var(--muted); font-size: 12.5px; direction: ltr; text-align: right; }
+  .mh { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; } .mcard .s { font-size: 13.5px; color: var(--muted); } .mcard .pill { justify-self: start; }
+  .pair-wrap { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 18px; } .pairs { display: grid; gap: 8px; }
+  .pr { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; align-items: center; } .vs { color: var(--muted); font-size: 12.5px; }
+  .pb-btn { border: 1px solid #c9d1cc; background: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; font-weight: 600; min-height: 40px; } .pb-btn:hover { border-color: var(--pine-2); } .pb-btn.win { background: var(--pine); color: #fff; border-color: var(--pine); }
+  .rk ol { margin: 6px 0 0; padding-inline-start: 22px; }
+  .note-add { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 8px; margin-top: 10px; align-items: center; } .note-add select, .note-add input { width: auto; min-width: 0; } .note-add input[type="text"] { width: 100%; }
+  @media (max-width: 860px) { .mgrid, .pair-wrap { grid-template-columns: minmax(0, 1fr); } .g4 { grid-template-columns: 1fr 1fr; } .note-add { grid-template-columns: 1fr 1fr; } .note-add input[type="text"], .note-add button { grid-column: 1 / -1; } .nb-r { grid-template-columns: 56px repeat(3, minmax(0, 1fr)); } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -167,9 +205,11 @@
 <dialog id="profDlg" class="wide" aria-labelledby="profTitle"><div class="dh"><h3 id="profTitle"></h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div><div class="db" id="profBody"></div></dialog>
 <dialog id="perDlg" aria-labelledby="perTitle"><div class="dh"><h3 id="perTitle"></h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div><form id="perForm" novalidate style="display:flex;flex-direction:column;min-height:0;flex:1"><div class="db frm" id="perBody"></div><div class="df"><button class="btn btn-quiet" type="button" data-close>إلغاء</button><button class="btn btn-primary" type="submit">حفظ</button></div></form></dialog>
 <dialog id="cycDlg" aria-labelledby="cycTitle"><div class="dh"><h3 id="cycTitle">دورة تقييم جديدة</h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div><form id="cycForm" novalidate style="display:flex;flex-direction:column;min-height:0;flex:1"><div class="db frm">
-  <div><label class="l" for="cName">اسم الدورة</label><input id="cName" type="text" placeholder="مثال: النصف الأول 2027"></div>
-  <div class="two"><div><label class="l" for="cStart">من</label><input id="cStart" type="date"></div><div><label class="l" for="cEnd">إلى</label><input id="cEnd" type="date"></div></div>
-  <p class="err" id="cErr"></p></div><div class="df"><button class="btn btn-quiet" type="button" data-close>إلغاء</button><button class="btn btn-primary" type="submit">إنشاء الدورة</button></div></form></dialog>
+  <div id="cMain" class="frm"><div><label class="l" for="cName">اسم الدورة</label><input id="cName" type="text" placeholder="مثال: النصف الأول 2027"></div>
+  <div class="two"><div><label class="l" for="cStart">من</label><input id="cStart" type="date"></div><div><label class="l" for="cEnd">إلى</label><input id="cEnd" type="date"></div></div></div>
+  <div id="cMethods" class="frm"></div><p class="err" id="cErr"></p></div><div class="df"><button class="btn btn-quiet" type="button" data-close>إلغاء</button><button class="btn btn-primary" id="cSubmit" type="submit">إنشاء الدورة</button></div></form></dialog>
+<dialog id="reqDlg" aria-labelledby="reqTitle"><div class="dh"><h3 id="reqTitle">طلب ملاحظات 360</h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div><form id="reqForm" novalidate style="display:flex;flex-direction:column;min-height:0;flex:1"><div class="db" id="reqBody"></div><div class="df"><button class="btn btn-quiet" type="button" data-close>إلغاء</button><button class="btn btn-primary" type="submit">إرسال الطلبات</button></div></form></dialog>
+<dialog id="fbDlg" aria-labelledby="fbTitle"><div class="dh"><h3 id="fbTitle"></h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div><form id="fbForm" novalidate style="display:flex;flex-direction:column;min-height:0;flex:1"><div class="db" id="fbBody"></div><div class="df"><button class="btn btn-quiet" type="button" data-close>إلغاء</button><button class="btn btn-primary" type="submit">إرسال</button></div></form></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTxt"></span></div>
 
 <script>
@@ -206,17 +246,17 @@
   $('#logout').onclick = function () { Auth.logout(); location.replace('index.html'); };
 
   var NAVS = {
-    admin: [['dashboard', 'المؤشرات'], ['evals', 'التقييمات'], ['people', 'الموظفون'], ['cycles', 'الدورات'], ['criteria', 'المعايير']],
-    manager: [['dashboard', 'مؤشرات الفريق'], ['evals', 'تقييمات الفريق'], ['people', 'الفريق'], ['me', 'تقييماتي']],
-    employee: [['me', 'تقييماتي']]
+    admin: [['dashboard', 'المؤشرات'], ['evals', 'التقييمات'], ['people', 'الموظفون'], ['calib', 'المعايرة والترتيب'], ['cycles', 'الدورات'], ['criteria', 'المعايير'], ['methods', 'طرق التقييم']],
+    manager: [['dashboard', 'مؤشرات الفريق'], ['evals', 'تقييمات الفريق'], ['people', 'الفريق'], ['calib', 'المعايرة والترتيب'], ['tasks', 'مهامي'], ['me', 'تقييماتي']],
+    employee: [['me', 'تقييماتي'], ['tasks', 'مهامي']]
   };
   function go() {
     var items = NAVS[me.role] || NAVS.employee, h = location.hash.replace('#', '');
     route = items.filter(function (i) { return i[0] === h; })[0] ? h : items[0][0];
     $('#nav').innerHTML = items.map(function (i) { return '<a href="#' + i[0] + '"' + (i[0] === route ? ' aria-current="page"' : '') + '>' + i[1] + '</a>'; }).join('');
-    render();
+    render(); updateBadge();
   }
-  function render() { ({ dashboard: vDash, evals: vEvals, people: vPeople, cycles: vCycles, criteria: vCriteria, me: vMe })[route](); }
+  function render() { ({ dashboard: vDash, evals: vEvals, people: vPeople, cycles: vCycles, criteria: vCriteria, me: vMe, tasks: vTasks, calib: vCalib, methods: vMethods })[route](); }
 
   /* ---------------- shared pieces ---------------- */
   function cycleSelect(id) {
@@ -317,7 +357,8 @@
     $('#profBody').innerHTML = '<div class="meta"><span>المسمى: <b>' + esc(u.title || '—') + '</b></span><span>القسم: <b>' + esc(u.dept || '—') + '</b></span><span>المدير المباشر: <b>' + esc(mgrName(u)) + '</b></span><span>البريد: <b dir="ltr">' + esc(u.email) + '</b></span></div>' +
       '<h4 style="margin:0 0 6px;color:var(--pine)">تطوّر النتيجة</h4>' + trend(id) +
       '<h4 style="margin:16px 0 6px;color:var(--pine)">سجل التقييمات</h4>' + (h.length ? '<div class="tw panel"><table><tbody>' + h.map(function (e) { var p = pctOf(e); return '<tr><td>' + esc(Eval.cycle(e.cycleId).name) + '</td><td class="num">' + p + '%</td><td>' + bandTag(p) + '</td><td>' + pill(e.status) + '</td><td style="text-align:end"><button class="btn btn-quiet btn-sm" data-act="eval" data-c="' + e.cycleId + '" data-e="' + id + '">عرض</button></td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="empty">لا توجد تقييمات.</div>');
-    $('#profDlg').showModal();
+    $('#profBody').insertAdjacentHTML('beforeend', profNotes(id));
+    if (!$('#profDlg').open) $('#profDlg').showModal();
   }
 
   /* ---------------- person form (admin) ---------------- */
@@ -350,38 +391,31 @@
     $('#view').innerHTML = '<div class="head"><div><h1>دورات التقييم</h1><p class="sub">أنشئ دورة جديدة أو أغلق دورة منتهية.</p></div><div class="tools"><button class="btn btn-primary" data-act="cycle-new" type="button">دورة جديدة</button></div></div>' +
       '<section class="panel">' + db.cycles.slice().reverse().map(function (c) {
         var done = Eval.evaluable(me).filter(function (u) { return isDone(Eval.find(c.id, u.id)); }).length;
-        return '<div class="cyc"><div><b>' + esc(c.name) + '</b> <span class="pill ' + (c.status === 'open' ? 'p-ack' : 'p-none') + '">' + (c.status === 'open' ? 'مفتوحة' : 'مغلقة') + '</span><div class="s" style="color:var(--muted);font-size:13.5px">' + fmtDay(c.start) + ' ← ' + fmtDay(c.end) + ' · اكتمل ' + done + ' من ' + total + '</div><div class="bar" style="max-width:320px"><i style="width:' + (total ? Math.round(done / total * 100) : 0) + '%"></i></div></div>' +
-          '<button class="btn btn-quiet btn-sm" data-act="cycle-toggle" data-c="' + c.id + '">' + (c.status === 'open' ? 'إغلاق الدورة' : 'إعادة فتح') + '</button></div>';
+        return '<div class="cyc"><div><b>' + esc(c.name) + '</b> <span class="pill ' + (c.status === 'open' ? 'p-ack' : 'p-none') + '">' + (c.status === 'open' ? 'مفتوحة' : 'مغلقة') + '</span><div class="s" style="color:var(--muted);font-size:13.5px">' + fmtDay(c.start) + ' ← ' + fmtDay(c.end) + ' · اكتمل ' + done + ' من ' + total + '</div><div class="s" style="color:var(--muted);font-size:13px">الطرق: ' + methodsLabel(c) + '</div><div class="bar" style="max-width:320px"><i style="width:' + (total ? Math.round(done / total * 100) : 0) + '%"></i></div></div>' +
+          '<div class="tools"><button class="btn btn-quiet btn-sm" data-act="cycle-methods" data-c="' + c.id + '">طرق التقييم</button><button class="btn btn-quiet btn-sm" data-act="cycle-toggle" data-c="' + c.id + '">' + (c.status === 'open' ? 'إغلاق الدورة' : 'إعادة فتح') + '</button></div></div>';
       }).join('') + '</section>';
   }
-  $('#cycForm').addEventListener('submit', function (e) {
-    e.preventDefault(); var n = $('#cName').value.trim(), s = $('#cStart').value, en = $('#cEnd').value;
-    if (n.length < 3 || !s || !en) { $('#cErr').textContent = 'أكمل اسم الدورة وتاريخي البداية والنهاية.'; return; }
-    if (en <= s) { $('#cErr').textContent = 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية.'; return; }
-    var c = Eval.addCycle({ name: n, start: s, end: en }, me); selCycle = c.id; $('#cycDlg').close(); toast('تم إنشاء الدورة.'); render();
-  });
-
   /* ---------------- criteria (admin) ---------------- */
   var critDraft = null;
   function vCriteria() {
-    if (!critDraft) critDraft = db.criteria.map(function (c) { return Object.assign({}, c); });
+    if (!critDraft) critDraft = db.criteria.map(function (c) { return JSON.parse(JSON.stringify(c)); });
     var total = critDraft.reduce(function (s, c) { return s + (Number(c.weight) || 0); }, 0);
     $('#view').innerHTML = '<div class="head"><div><h1>معايير التقييم</h1><p class="sub">مجموع الأوزان يجب أن يساوي 100%. التعديل يسري على التقييمات الجديدة فقط.</p></div><div class="tools"><button class="btn btn-quiet" data-act="crit-add" type="button">إضافة معيار</button><button class="btn btn-primary" data-act="crit-save" id="critSave" type="button"' + (total === 100 ? '' : ' disabled') + '>حفظ المعايير</button></div></div>' +
       '<section class="panel"><div class="pb">' + critDraft.map(function (c, i) {
         return '<div class="crit-edit"><div><label class="l" for="cn' + i + '">الاسم</label><input id="cn' + i + '" data-ci="' + i + '" data-f="name" type="text" value="' + esc(c.name) + '"></div><div><label class="l" for="cd' + i + '">الوصف</label><input id="cd' + i + '" data-ci="' + i + '" data-f="desc" type="text" value="' + esc(c.desc) + '"></div>' +
-          '<div><label class="l" for="cw' + i + '">الوزن %</label><input id="cw' + i + '" data-ci="' + i + '" data-f="weight" type="number" min="1" max="100" value="' + c.weight + '"></div><div style="padding-top:26px"><button class="btn btn-quiet btn-sm" data-act="crit-del" data-i="' + i + '" aria-label="حذف المعيار" ' + (critDraft.length < 2 ? 'disabled' : '') + '>×</button></div></div>';
+          '<div><label class="l" for="cw' + i + '">الوزن %</label><input id="cw' + i + '" data-ci="' + i + '" data-f="weight" type="number" min="1" max="100" value="' + c.weight + '"></div><div style="padding-top:26px"><button class="btn btn-quiet btn-sm" data-act="crit-del" data-i="' + i + '" aria-label="حذف المعيار" ' + (critDraft.length < 2 ? 'disabled' : '') + '>×</button></div>' + ancHtml(c, i) + '</div>';
       }).join('') + '<div class="total-line"><span>المجموع</span><span id="critTotal" style="color:' + (total === 100 ? 'var(--ok)' : 'var(--danger)') + '">' + total + '% ' + (total === 100 ? '' : '(يجب أن يكون 100%)') + '</span></div></div></section>';
   }
   document.addEventListener('input', function (e) {
     var t = e.target; if (t.dataset && t.dataset.ci !== undefined) {
-      var c = critDraft[+t.dataset.ci], f = t.dataset.f; c[f] = f === 'weight' ? Math.round(Number(t.value) || 0) : t.value;
+      var c = critDraft[+t.dataset.ci], f = t.dataset.f; if (f.indexOf('anc') === 0) { c.anchors = c.anchors || ['', '', '', '', '']; c.anchors[+f.slice(3)] = t.value; } else c[f] = f === 'weight' ? Math.round(Number(t.value) || 0) : t.value;
       var total = critDraft.reduce(function (s, x) { return s + (Number(x.weight) || 0); }, 0);
       $('#critTotal').textContent = total + '% ' + (total === 100 ? '' : '(يجب أن يكون 100%)'); $('#critTotal').style.color = total === 100 ? 'var(--ok)' : 'var(--danger)'; $('#critSave').disabled = total !== 100;
     }
   });
 
   /* ---------------- my evaluations ---------------- */
-  function vMe() {
+  function vMeBase() {
     var h = Eval.history(me.id, true).reverse(), last = h[0];
     var pend = h.filter(function (e) { return e.status === 'submitted'; }).length;
     $('#view').innerHTML = '<div class="head"><div><h1>تقييماتي</h1><p class="sub">' + esc(me.title || ROLES[me.role]) + (me.dept ? ' · ' + esc(me.dept) : '') + '</p></div></div>' +
@@ -390,8 +424,122 @@
       '<section class="panel"><h2>سجل التقييمات' + (pend ? ' · ' + pend + ' بانتظار الإقرار' : '') + '</h2>' + (h.length ? '<div class="tw"><table><tbody>' + h.map(function (e) { var p = pctOf(e); return '<tr><td>' + esc(Eval.cycle(e.cycleId).name) + '</td><td class="num">' + p + '%</td><td>' + pill(e.status) + '</td><td style="text-align:end"><button class="btn btn-quiet btn-sm" data-act="eval" data-c="' + e.cycleId + '" data-e="' + me.id + '">عرض</button></td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="empty">لا يوجد سجل بعد.</div>') + '</section></div>';
   }
 
-  /* ---------------- evaluation dialog ---------------- */
+  /* ---------------- evaluation dialog (multi-method) ---------------- */
   var curEv = null, armed = null;
+  var TABS = [['rating', 'المقياس والكفاءات'], ['goals', 'الأهداف'], ['fb', 'ملاحظات 360'], ['check', 'قائمة التحقق'], ['pot', 'الإمكانات'], ['sum', 'الخلاصة والسرد']];
+  function tabsFor(d, isSelf) {
+    var m = d.methods || { rating: { on: true } };
+    return TABS.filter(function (t) {
+      return t[0] === 'rating' ? m.rating && m.rating.on : t[0] === 'goals' ? m.goals && m.goals.on : t[0] === 'fb' ? (m.feedback && m.feedback.on) || m.self :
+        t[0] === 'check' ? m.checklist && m.checklist.on : t[0] === 'pot' ? m.ninebox && !isSelf : true;
+    });
+  }
+  function critDef(id) { return db.criteria.filter(function (c) { return c.id === id; })[0] || {}; }
+  function ancOf(cid, v) { var a = critDef(cid).anchors; return v && a ? a[v - 1] : ''; }
+
+  function pRating(d, canEdit) {
+    var h = canEdit ? '<div class="legend">' + SCALE.map(function (s, i) { return '<span>' + (i + 1) + ' = ' + s + '</span>'; }).join('') + '</div>' : '';
+    return h + d.criteria.map(function (c) {
+      var desc = critDef(c.id).desc || '', v = d.scores[c.id] || 0;
+      if (canEdit) return '<fieldset class="crit"><legend>' + esc(c.name) + '<span class="w">الوزن ' + c.weight + '%</span></legend>' + (desc ? '<p class="cdesc">' + esc(desc) + '</p>' : '') +
+        '<div class="rate" role="radiogroup" aria-label="' + esc(c.name) + '">' + [1, 2, 3, 4, 5].map(function (n) { return '<label><input type="radio" name="s_' + c.id + '" value="' + n + '"' + (v === n ? ' checked' : '') + '><span title="' + SCALE[n - 1] + '">' + n + '</span></label>'; }).join('') + '</div>' +
+        '<p class="anchor" id="anc_' + c.id + '">' + esc(ancOf(c.id, v)) + '</p>' +
+        '<input class="note" type="text" data-note="' + c.id + '" placeholder="ملاحظة على هذا المعيار (اختياري)" value="' + esc(d.notes[c.id] || '') + '"></fieldset>';
+      return '<div class="crit"><div class="sbar"><b>' + esc(c.name) + ' <span class="w">الوزن ' + c.weight + '%</span></b><span style="font-weight:700">' + v + ' / 5 · ' + (SCALE[v - 1] || '—') + '</span></div><div class="bar"><i style="width:' + v / 5 * 100 + '%;background:' + bandOf(v * 20).color + '"></i></div>' +
+        (ancOf(c.id, v) ? '<p class="anchor">' + esc(ancOf(c.id, v)) + '</p>' : '') + (d.notes[c.id] ? '<p class="cdesc" style="margin:6px 0 0">' + esc(d.notes[c.id]) + '</p>' : '') + '</div>';
+    }).join('');
+  }
+
+  var KIND = { kpi: 'مؤشر أداء (KPI)', okr: 'هدف ونتائج رئيسية (OKR)', mbo: 'هدف متفق عليه (MBO)' };
+  function achHtml(g) {
+    var a = Eval.goalAch(g);
+    return '<div class="ach"><div class="bar" style="margin:0"><i style="width:' + (a == null ? 0 : Math.min(a, 100)) + '%;background:' + (a == null ? '#9fb0ab' : bandOf(Math.min(a, 100)).color) + '"></i></div><span>' + (a == null ? 'أكمل القيم' : 'الإنجاز ' + Math.round(a) + '%' + (a > 100 ? ' (تجاوز الهدف)' : '')) + '</span></div>';
+  }
+  function pGoals(d, canEdit) {
+    var gw = d.goals.reduce(function (s, g) { return s + (Number(g.weight) || 0); }, 0);
+    var h = '<p class="sub" style="margin:0 0 10px">ثلاثة أنواع من الأهداف: <b>KPI</b> مؤشر رقمي مقابل مستهدف، و<b>OKR</b> هدف بنتائج رئيسية يُقاس تقدّم كل منها، و<b>MBO</b> هدف متفق عليه تُسجَّل نسبة إنجازه. مجموع الأوزان 100%.</p>';
+    if (!d.goals.length) h += '<div class="empty">لا توجد أهداف في هذا التقييم.' + (canEdit ? ' أضف هدفًا بالأزرار أدناه.' : '') + '</div>';
+    h += d.goals.map(function (g, i) {
+      if (!canEdit) return '<div class="goal"><div class="gh"><b>' + esc(g.title) + '</b><span class="pill p-none">' + KIND[g.kind] + '</span><span class="s">الوزن ' + g.weight + '%</span></div>' +
+        (g.kind === 'kpi' ? '<p class="cdesc">المستهدف ' + esc(g.target) + ' ' + esc(g.unit) + ' · المتحقق ' + esc(g.actual) + ' ' + esc(g.unit) + '</p>' : g.kind === 'okr' ? '<ul class="krs">' + (g.krs || []).map(function (k) { return '<li>' + esc(k.t) + ': ' + esc(k.p) + '%</li>'; }).join('') + '</ul>' : '') + achHtml(g) + '</div>';
+      var body = g.kind === 'kpi' ?
+        '<div class="g4"><div><label class="l" for="gt' + i + '">المستهدف</label><input id="gt' + i + '" type="number" data-g="' + i + '" data-f="target" value="' + esc(g.target) + '"></div><div><label class="l" for="ga' + i + '">المتحقق</label><input id="ga' + i + '" type="number" data-g="' + i + '" data-f="actual" value="' + esc(g.actual) + '"></div><div><label class="l" for="gu' + i + '">الوحدة</label><input id="gu' + i + '" type="text" data-g="' + i + '" data-f="unit" value="' + esc(g.unit) + '"></div><div><label class="l" for="gd' + i + '">الاتجاه</label><select id="gd' + i + '" data-g="' + i + '" data-f="dir"><option value="up"' + (g.dir !== 'down' ? ' selected' : '') + '>الأعلى أفضل</option><option value="down"' + (g.dir === 'down' ? ' selected' : '') + '>الأقل أفضل</option></select></div></div>' :
+        g.kind === 'okr' ? '<div class="krs-e">' + (g.krs || []).map(function (k, j) { return '<div class="kr"><input type="text" aria-label="نتيجة رئيسية" placeholder="نتيجة رئيسية" data-g="' + i + '" data-kr="' + j + '" data-f="t" value="' + esc(k.t) + '"><input type="number" aria-label="نسبة التقدم" min="0" max="100" placeholder="%" data-g="' + i + '" data-kr="' + j + '" data-f="p" value="' + esc(k.p) + '"><button type="button" class="btn btn-quiet btn-sm" data-act="kr-del" data-i="' + i + '" data-j="' + j + '" aria-label="حذف">×</button></div>'; }).join('') + ((g.krs || []).length < 5 ? '<button type="button" class="link" data-act="kr-add" data-i="' + i + '">+ نتيجة رئيسية</button>' : '') + '</div>' :
+        '<div style="max-width:200px"><label class="l" for="gp' + i + '">نسبة الإنجاز %</label><input id="gp' + i + '" type="number" min="0" max="100" data-g="' + i + '" data-f="p" value="' + esc(g.p) + '"></div>';
+      return '<div class="goal" data-gi="' + i + '"><div class="gh"><select aria-label="نوع الهدف" data-g="' + i + '" data-f="kind">' + Object.keys(KIND).map(function (k) { return '<option value="' + k + '"' + (g.kind === k ? ' selected' : '') + '>' + KIND[k] + '</option>'; }).join('') + '</select>' +
+        '<input type="text" aria-label="عنوان الهدف" placeholder="عنوان الهدف" data-g="' + i + '" data-f="title" value="' + esc(g.title) + '"><input type="number" style="width:84px" aria-label="الوزن" min="0" max="100" data-g="' + i + '" data-f="weight" value="' + esc(g.weight) + '"><span class="s">%</span><button type="button" class="btn btn-quiet btn-sm" data-act="goal-del" data-i="' + i + '" aria-label="حذف الهدف">×</button></div>' + body + '<div id="gach' + i + '">' + achHtml(g) + '</div></div>';
+    }).join('');
+    h += '<div class="total-line"><span>مجموع الأوزان</span><span id="gwTot" style="color:' + (gw === 100 ? 'var(--ok)' : 'var(--danger)') + '">' + gw + '%</span></div>';
+    if (canEdit) h += '<div class="tools" style="margin-top:12px"><button type="button" class="btn btn-quiet btn-sm" data-act="goal-add" data-k="kpi">+ KPI</button><button type="button" class="btn btn-quiet btn-sm" data-act="goal-add" data-k="okr">+ OKR</button><button type="button" class="btn btn-quiet btn-sm" data-act="goal-add" data-k="mbo">+ MBO</button></div>';
+    return h;
+  }
+
+  function pFb(d, canEdit) {
+    var m = d.methods || {}, g = Eval.fbGroups(d.cycleId, d.employeeId), all = db.feedback.filter(function (f) { return f.cycleId === d.cycleId && f.employeeId === d.employeeId; });
+    var rels = (m.feedback && m.feedback.on) ? ['peer', 'subordinate', 'client'] : [];
+    var cols = ['المقيّم الرئيسي'].concat(m.self ? ['ذاتي'] : []).concat(rels.map(function (r) { return RELATIONS[r]; }));
+    var h = '<table class="cmp"><thead><tr><th>المعيار</th>' + cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' + d.criteria.map(function (c) {
+      var mine = d.scores[c.id] || '—', sv = g.self ? g.self.byCrit[c.id] : '—';
+      return '<tr><td>' + esc(c.name) + '</td><td class="num">' + mine + '</td>' + (m.self ? '<td class="num">' + sv + '</td>' : '') + rels.map(function (r) { return '<td class="num">' + (g[r] && g[r].n >= 2 ? g[r].byCrit[c.id] : '—') + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</tbody></table>';
+    var st = [];
+    if (m.self) { var sf = all.filter(function (f) { return f.relation === 'self'; })[0]; st.push('التقييم الذاتي: ' + (sf ? (sf.status === 'done' ? 'مكتمل' : 'لم يكتمل') : 'لم يُطلب')); }
+    rels.forEach(function (r) { var a = all.filter(function (f) { return f.relation === r; }); if (a.length) st.push(RELATIONS[r] + ': ' + a.filter(function (f) { return f.status === 'done'; }).length + ' من ' + a.length + ' ردود'); });
+    h += '<p class="sub" style="margin:10px 0">' + (st.join(' · ') || 'لم تُطلب ملاحظات بعد.') + '</p>';
+    if (rels.length) h += '<p class="hint">لحماية سرّية المقيّمين لا تظهر نتائج مجموعة الزملاء أو المرؤوسين أو العملاء قبل وصول ردّين على الأقل.</p>';
+    if (m.self && g.self && d.criteria.every(function (c) { return d.scores[c.id]; })) {
+      var best = null; d.criteria.forEach(function (c) { var gap = g.self.byCrit[c.id] - d.scores[c.id]; if (!best || Math.abs(gap) > Math.abs(best.gap)) best = { c: c, gap: gap }; });
+      if (best && Math.abs(best.gap) >= 1) h += '<div class="done-note" style="background:var(--brass-soft);color:#5b4210">أكبر فجوة إدراك في «' + esc(best.c.name) + '»: تقييم المدير ' + d.scores[best.c.id] + ' مقابل ' + g.self.byCrit[best.c.id] + ' ذاتيًا. ناقشها في جلسة التقييم.</div>';
+    }
+    var cm = []; Object.keys(g).forEach(function (r) { if (r === 'self' || g[r].n >= 2) g[r].comments.forEach(function (t) { cm.push(RELATIONS[r] + ': ' + t); }); });
+    if (cm.length) h += '<h4 style="margin:14px 0 4px;color:var(--pine)">تعليقات</h4><ul class="krs">' + cm.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+    if (rels.length && d.employeeId !== me.id && (canEdit || (me.role === 'admin' && curEv.cyc.status === 'open'))) h += '<div style="margin-top:12px"><button type="button" class="btn btn-quiet" data-act="req360">طلب ملاحظات 360</button></div>';
+    return h;
+  }
+
+  function pCheck(d, canEdit) {
+    return '<p class="sub" style="margin:0 0 10px">أجب عن كل عبارة بنعم أو لا. لكل عبارة وزن، وتُحسب النسبة المتحققة.</p>' + (db.checklist || []).map(function (it) {
+      var v = d.checklist[it.id];
+      if (!canEdit) return '<div class="ck"><span>' + esc(it.text) + ' <span class="w">(وزن ' + it.weight + ')</span></span><b style="color:' + (v ? 'var(--ok)' : 'var(--danger)') + '">' + (v === true ? 'نعم' : v === false ? 'لا' : '—') + '</b></div>';
+      return '<div class="ck"><span>' + esc(it.text) + ' <span class="w">(وزن ' + it.weight + ')</span></span><span class="yn" role="radiogroup" aria-label="' + esc(it.text) + '"><label><input type="radio" name="k_' + it.id + '" value="y"' + (v === true ? ' checked' : '') + '><span>نعم</span></label><label><input type="radio" name="k_' + it.id + '" value="n"' + (v === false ? ' checked' : '') + '><span>لا</span></label></span></div>';
+    }).join('');
+  }
+
+  function nbGrid(hi) {
+    var rows = [3, 2, 1].map(function (q) { return '<div class="nb-r"><span class="nb-ax">' + ['', 'إمكانات محدودة', 'إمكانات متوسطة', 'إمكانات عالية'][q] + '</span>' + [1, 2, 3].map(function (p) { return '<div class="nb-c' + (hi && hi.p === p && hi.q === q ? ' on' : '') + '">' + NB[q][p - 1] + '</div>'; }).join('') + '</div>'; }).join('');
+    return '<div class="nb">' + rows + '<div class="nb-r"><span class="nb-ax"></span><span class="nb-ax">أداء منخفض</span><span class="nb-ax">أداء متوسط</span><span class="nb-ax">أداء مرتفع</span></div></div>';
+  }
+  function pPot(d, canEdit) {
+    var pct = Eval.calc(d), h = '<p class="sub" style="margin:0 0 10px">تقدير سرّي لا يراه الموظف. يُستخدم لتخطيط التطوير والتعاقب وليس لحساب الدرجة.</p>';
+    if (canEdit) h += '<div class="pots">' + POTENTIAL.map(function (t, i) { return '<label><input type="radio" name="pot" value="' + (i + 1) + '"' + (d.potential === i + 1 ? ' checked' : '') + '><span>' + t + '</span></label>'; }).join('') + '</div>';
+    else h += '<p><b>الإمكانات:</b> ' + (d.potential ? POTENTIAL[d.potential - 1] : '—') + '</p>';
+    return h + '<div id="nbPrev">' + nbGrid(d.potential ? Eval.nineBox(pct, d.potential) : null) + '</div>';
+  }
+
+  function breakdownHtml(d) {
+    var m = d.methods || { rating: { on: true, w: 100 } }, p = Eval.parts(d), tw = 0, rows = '';
+    Object.keys(p).forEach(function (k) { if (p[k] != null) tw += m[k].w; });
+    Object.keys(p).forEach(function (k) {
+      var nm = SCORING.filter(function (s) { return s[0] === k; })[0][1];
+      rows += '<tr><td>' + nm + '</td><td class="num">' + (p[k] == null ? 'غير مكتملة' : p[k] + '%') + '</td><td class="num">' + m[k].w + '%</td><td class="num">' + (p[k] == null || !tw ? '—' : Math.round(p[k] * m[k].w / tw * 10) / 10) + '</td></tr>';
+    });
+    return '<table class="cmp"><thead><tr><th>الطريقة</th><th>الدرجة</th><th>الوزن</th><th>المساهمة</th></tr></thead><tbody>' + rows + '</tbody></table>' + '<p class="hint" style="margin-top:6px">تُعاد معايرة الأوزان تلقائيًا على الطرق المكتملة فقط.</p>';
+  }
+  function pSum(d, canEdit, cyc, isSelf) {
+    var notes = Eval.notesOf(d.employeeId).filter(function (n) { return n.date >= cyc.start && n.date <= cyc.end && (!isSelf || n.type !== 'negative'); });
+    var h = '<h4 style="margin:0 0 6px;color:var(--pine)">تفصيل النتيجة</h4><div id="brk">' + breakdownHtml(d) + '</div>';
+    if (notes.length) h += '<h4 style="margin:16px 0 6px;color:var(--pine)">وقائع ومتابعات خلال الدورة</h4><ul class="krs">' + notes.map(function (n) { return '<li><b>' + NOTE_TYPES[n.type] + '</b> · ' + fmtDay(n.date) + ': ' + esc(n.text) + '</li>'; }).join('') + '</ul>';
+    if (canEdit) return h + '<div class="txt"><h4><label for="tS">نقاط القوة</label></h4><textarea id="tS" placeholder="ما الذي يتميّز به الموظف في هذه الدورة؟">' + esc(d.strengths) + '</textarea><h4><label for="tI">مجالات التحسين</label></h4><textarea id="tI" placeholder="ما الذي يحتاج إلى تطوير؟">' + esc(d.improve) + '</textarea><h4><label for="tG">أهداف الدورة القادمة</label></h4><textarea id="tG" placeholder="أهداف قابلة للقياس">' + esc(d.goalsText) + '</textarea></div><p class="err" id="evErr"></p>';
+    h += '<div class="txt"><h4>نقاط القوة</h4><p>' + esc(d.strengths || '—') + '</p><h4>مجالات التحسين</h4><p>' + esc(d.improve || '—') + '</p><h4>أهداف الدورة القادمة</h4><p>' + esc(d.goalsText || '—') + '</p></div>';
+    if (d.status === 'acknowledged') h += '<div class="done-note">أقرّ الموظف بالاطلاع على التقييم بتاريخ ' + fmtDt(d.ackAt) + (d.ackComment ? '. تعليقه: «' + esc(d.ackComment) + '»' : '.') + '</div>';
+    if (d.status === 'submitted' && isSelf) h += '<div class="ackbox"><label class="l" for="ackTxt">تعليقك على التقييم (اختياري)</label><textarea id="ackTxt" placeholder="يمكنك إضافة ملاحظة أو توضيح"></textarea><p class="sub" style="margin:8px 0 0">بالضغط على «أقرّ بالاطلاع» تُسجَّل موافقتك على استلام التقييم، ولا يعني ذلك الموافقة على محتواه.</p></div>';
+    return h;
+  }
+
+  function showTab(t) {
+    $$('#evBody .tp').forEach(function (p) { p.hidden = p.dataset.p !== t; });
+    $$('#evBody .dtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === t); });
+  }
   function openEval(cycleId, empId) {
     var emp = Eval.user(empId), cyc = Eval.cycle(cycleId), ev = Eval.find(cycleId, empId), isSelf = emp.id === me.id;
     if (isSelf && ev && ev.status === 'draft') ev = null;
@@ -399,45 +547,202 @@
     if (!ev && !canEdit) { toast('لا يوجد تقييم معتمد لهذه الدورة.'); return; }
     if (!isSelf && me.role !== 'admin' && !Eval.canEvaluate(me, emp)) { toast('لا تملك صلاحية عرض هذا التقييم.'); return; }
     var draft = ev ? JSON.parse(JSON.stringify(ev)) : Eval.newDraft(cycleId, emp, me);
+    if (!Array.isArray(draft.goals)) { draft.goalsText = typeof draft.goals === 'string' ? draft.goals : (draft.goalsText || ''); draft.goals = []; }
+    draft.checklist = draft.checklist || {};
     curEv = { ev: draft, canEdit: canEdit, emp: emp, cyc: cyc, isSelf: isSelf }; armed = null;
     $('#evTitle').textContent = (canEdit ? 'تقييم الأداء: ' : 'نتيجة التقييم: ') + emp.name;
-    var evaluator = Eval.user(draft.evaluatorId);
+    var evaluator = Eval.user(draft.evaluatorId), tabs = tabsFor(draft, isSelf);
     var h = '<div class="meta"><span>المسمى: <b>' + esc(emp.title || '—') + '</b></span><span>القسم: <b>' + esc(emp.dept || '—') + '</b></span><span>الدورة: <b>' + esc(cyc.name) + '</b></span><span>المقيِّم: <b>' + esc(evaluator ? evaluator.name : '—') + '</b></span><span>' + pill(draft.status) + '</span></div>';
-    if (canEdit) h += '<div class="legend">' + SCALE.map(function (s, i) { return '<span>' + (i + 1) + ' = ' + s + '</span>'; }).join('') + '</div>';
-    h += draft.criteria.map(function (c) {
-      var cur = db.criteria.filter(function (x) { return x.id === c.id; })[0], desc = cur ? cur.desc : '';
-      if (canEdit) return '<fieldset class="crit"><legend>' + esc(c.name) + '<span class="w">الوزن ' + c.weight + '%</span></legend>' + (desc ? '<p class="cdesc">' + esc(desc) + '</p>' : '') +
-        '<div class="rate" role="radiogroup" aria-label="' + esc(c.name) + '">' + [1, 2, 3, 4, 5].map(function (n) { return '<label><input type="radio" name="s_' + c.id + '" value="' + n + '"' + (draft.scores[c.id] === n ? ' checked' : '') + '><span title="' + SCALE[n - 1] + '">' + n + '</span></label>'; }).join('') + '</div>' +
-        '<input class="note" type="text" data-note="' + c.id + '" placeholder="ملاحظة على هذا المعيار (اختياري)" value="' + esc(draft.notes[c.id] || '') + '"></fieldset>';
-      var v = draft.scores[c.id] || 0;
-      return '<div class="crit"><div class="sbar"><b>' + esc(c.name) + ' <span class="w">الوزن ' + c.weight + '%</span></b><span style="font-weight:700">' + v + ' / 5 · ' + (SCALE[v - 1] || '—') + '</span></div><div class="bar"><i style="width:' + v / 5 * 100 + '%;background:' + bandOf(v * 20).color + '"></i></div>' + (draft.notes[c.id] ? '<p class="cdesc" style="margin:8px 0 0">' + esc(draft.notes[c.id]) + '</p>' : '') + '</div>';
-    }).join('');
+    h += '<div class="dtabs" role="tablist" style="margin:0 -20px 14px;padding-inline:14px">' + tabs.map(function (t) { return '<button type="button" class="dtab" role="tab" data-tab="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
+    var P = { rating: pRating, goals: pGoals, fb: pFb, check: pCheck, pot: pPot };
+    tabs.forEach(function (t) { h += '<section class="tp" data-p="' + t[0] + '">' + (t[0] === 'sum' ? pSum(draft, canEdit, cyc, isSelf) : P[t[0]](draft, canEdit)) + '</section>'; });
     h += '<div class="tot"><div><b id="totPct">—</b><small id="totBand" class="s" style="color:var(--muted)"></small></div><div><div class="bar" style="margin:0"><i id="totBar" style="width:0"></i></div></div></div>';
-    if (canEdit) h += '<div class="txt"><h4><label for="tS">نقاط القوة</label></h4><textarea id="tS" placeholder="ما الذي يتميّز به الموظف في هذه الدورة؟">' + esc(draft.strengths) + '</textarea><h4><label for="tI">مجالات التحسين</label></h4><textarea id="tI" placeholder="ما الذي يحتاج إلى تطوير؟">' + esc(draft.improve) + '</textarea><h4><label for="tG">أهداف الدورة القادمة</label></h4><textarea id="tG" placeholder="أهداف قابلة للقياس">' + esc(draft.goals) + '</textarea></div><p class="err" id="evErr"></p>';
-    else {
-      h += '<div class="txt"><h4>نقاط القوة</h4><p>' + esc(draft.strengths || '—') + '</p><h4>مجالات التحسين</h4><p>' + esc(draft.improve || '—') + '</p><h4>أهداف الدورة القادمة</h4><p>' + esc(draft.goals || '—') + '</p></div>';
-      if (draft.status === 'acknowledged') h += '<div class="done-note">أقرّ الموظف بالاطلاع على التقييم بتاريخ ' + fmtDt(draft.ackAt) + (draft.ackComment ? '. تعليقه: «' + esc(draft.ackComment) + '»' : '.') + '</div>';
-      if (draft.status === 'submitted' && isSelf) h += '<div class="ackbox"><label class="l" for="ackTxt">تعليقك على التقييم (اختياري)</label><textarea id="ackTxt" placeholder="يمكنك إضافة ملاحظة أو توضيح"></textarea><p class="sub" style="margin:8px 0 0">بالضغط على «أقرّ بالاطلاع» تُسجَّل موافقتك على استلام التقييم، ولا يعني ذلك الموافقة على محتواه.</p></div>';
-    }
     $('#evBody').innerHTML = h;
     var f = '<button class="btn btn-quiet" type="button" data-close>إغلاق</button>';
     if (canEdit) f += '<button class="btn btn-quiet" type="button" data-act="ev-save">حفظ كمسودة</button><button class="btn btn-primary" type="button" data-act="ev-submit" id="evSubmit">اعتماد التقييم وإرساله</button>';
     if (!canEdit && draft.status === 'submitted' && isSelf) f += '<button class="btn btn-primary" type="button" data-act="ev-ack">أقرّ بالاطلاع</button>';
     if (!canEdit && me.role === 'admin' && cyc.status === 'open' && draft.status !== 'draft') f += '<button class="btn btn-quiet" type="button" data-act="ev-reopen" id="evReopen">إعادة فتح للتعديل</button>';
-    $('#evFoot').innerHTML = f; recalc(); $('#evDlg').showModal();
+    $('#evFoot').innerHTML = f; showTab(tabs[0][0]); recalc(); $('#evDlg').showModal();
   }
   function collect() {
     var d = curEv.ev; d.criteria.forEach(function (c) { var r = $('input[name="s_' + c.id + '"]:checked'); if (r) d.scores[c.id] = +r.value; else delete d.scores[c.id]; var n = $('[data-note="' + c.id + '"]'); if (n) d.notes[c.id] = n.value.trim(); });
-    if ($('#tS')) { d.strengths = $('#tS').value.trim(); d.improve = $('#tI').value.trim(); d.goals = $('#tG').value.trim(); }
+    (db.checklist || []).forEach(function (it) { var r = $('input[name="k_' + it.id + '"]:checked'); if (r) d.checklist[it.id] = r.value === 'y'; });
+    var pr = $('input[name="pot"]:checked'); if (pr) d.potential = +pr.value;
+    if ($('#tS')) { d.strengths = $('#tS').value.trim(); d.improve = $('#tI').value.trim(); d.goalsText = $('#tG').value.trim(); }
     return d;
   }
   function recalc() {
-    var d = curEv.canEdit ? collect() : curEv.ev, p = Eval.calc(d), ok = Eval.complete(d);
-    $('#totPct').textContent = d.criteria.some(function (c) { return d.scores[c.id]; }) ? p + '%' : '—';
-    $('#totBand').textContent = ok ? bandOf(p).label : 'أكمل تقييم جميع المعايير';
-    $('#totBar').style.width = p + '%'; $('#totBar').style.background = ok ? bandOf(p).color : '#9fb0ab';
+    if (!curEv) return;
+    var d = curEv.canEdit ? collect() : curEv.ev, pc = Eval.parts(d), any = Object.keys(pc).some(function (k) { return pc[k] != null; }), full = Object.keys(pc).every(function (k) { return pc[k] != null; }), p = Eval.calc(d);
+    $('#totPct').textContent = any ? p + '%' : '—';
+    $('#totBand').textContent = any ? bandOf(p).label + (full ? '' : ' · نتيجة جزئية') : 'أكمل بيانات التقييم';
+    $('#totBar').style.width = p + '%'; $('#totBar').style.background = any ? bandOf(p).color : '#9fb0ab';
+    if ($('#brk')) $('#brk').innerHTML = breakdownHtml(d);
+    if ($('#nbPrev')) $('#nbPrev').innerHTML = nbGrid(d.potential ? Eval.nineBox(p, d.potential) : null);
   }
-  $('#evBody').addEventListener('change', function (e) { if (e.target.type === 'radio') { armed = null; $('#evSubmit') && ($('#evSubmit').textContent = 'اعتماد التقييم وإرساله'); recalc(); } });
+  function renderGoals() { var el = $('#evBody [data-p="goals"]'); if (el) { el.innerHTML = pGoals(curEv.ev, curEv.canEdit); recalc(); } }
+  $('#evBody').addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) showTab(b.dataset.tab); });
+  $('#evBody').addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.tagName === 'SELECT' && t.dataset.g !== undefined) {
+      var g = curEv.ev.goals[+t.dataset.g];
+      if (t.dataset.f === 'kind') { g.kind = t.value; if (g.kind === 'okr' && (!g.krs || !g.krs.length)) g.krs = [{ t: '', p: '' }, { t: '', p: '' }]; renderGoals(); } else { g[t.dataset.f] = t.value; refreshGoal(+t.dataset.g); recalc(); }
+      return;
+    }
+    if (t.type === 'radio') {
+      armed = null; if ($('#evSubmit')) $('#evSubmit').textContent = 'اعتماد التقييم وإرساله';
+      if (t.name.indexOf('s_') === 0) { var a = $('#anc_' + t.name.slice(2)); if (a) a.textContent = ancOf(t.name.slice(2), +t.value); }
+      recalc();
+    }
+  });
+  function refreshGoal(i) { var g = curEv.ev.goals[i], el = $('#gach' + i); if (el) el.innerHTML = achHtml(g); var gw = curEv.ev.goals.reduce(function (s, x) { return s + (Number(x.weight) || 0); }, 0); if ($('#gwTot')) { $('#gwTot').textContent = gw + '%'; $('#gwTot').style.color = gw === 100 ? 'var(--ok)' : 'var(--danger)'; } }
+  $('#evBody').addEventListener('input', function (e) {
+    var t = e.target; if (t.dataset.g === undefined || t.tagName === 'SELECT') return;
+    var g = curEv.ev.goals[+t.dataset.g], f = t.dataset.f, num = t.value === '' ? '' : Number(t.value);
+    if (t.dataset.kr !== undefined) g.krs[+t.dataset.kr][f] = f === 'p' ? num : t.value; else g[f] = (f === 'title' || f === 'unit') ? t.value : num;
+    refreshGoal(+t.dataset.g); recalc();
+  });
+  $('#evBody').addEventListener('input', function (e) { if (e.target.id === 'tS' || e.target.id === 'tI') armed = null; });
+
+  /* ---------------- 360 request / rater form ---------------- */
+  function openReq() {
+    var d = curEv.ev, emp = curEv.emp, staff = Eval.staff().filter(function (u) { return u.id !== emp.id && u.role !== 'admin'; });
+    var exist = db.feedback.filter(function (f) { return f.cycleId === d.cycleId && f.employeeId === emp.id; });
+    var has = function (id, rel) { return exist.some(function (f) { return f.raterId === id && f.relation === rel; }); };
+    var subs = staff.filter(function (u) { return u.managerId === emp.id; }), peers = staff.filter(function (u) { return u.managerId === emp.managerId && u.id !== emp.id && u.managerId; }), others = staff.filter(function (u) { return subs.indexOf(u) < 0 && peers.indexOf(u) < 0; });
+    var grp = function (title, list, rel, pre) { return list.length ? '<h4 style="margin:12px 0 4px;color:var(--pine)">' + title + '</h4>' + list.map(function (u) { var done = has(u.id, rel); return '<label class="check" style="margin:2px 0"><input type="checkbox" name="rq" value="' + rel + ':' + u.id + '"' + (done ? ' checked disabled' : pre ? ' checked' : '') + '><span>' + esc(u.name) + ' <span class="s" style="color:var(--muted)">· ' + esc(u.title || '') + (done ? ' · تم الطلب' : '') + '</span></span></label>'; }).join('') : ''; };
+    $('#reqBody').innerHTML = '<p class="sub" style="margin:0">اختر من تريد أن يقدّم ملاحظات عن ' + esc(emp.name) + '. تظل هويات المقيّمين سرّية.</p>' + grp('زملاء', peers, 'peer', true) + grp('مرؤوسون', subs, 'subordinate', true) + grp('عملاء داخليون من أقسام أخرى', others, 'client', false) + '<p class="err" id="reqErr"></p>';
+    $('#reqDlg').showModal();
+  }
+  $('#reqForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var list = $$('#reqBody input[name="rq"]:checked:not(:disabled)').map(function (i) { var p = i.value.split(':'); return { relation: p[0], raterId: p[1] }; });
+    var d = curEv.ev, emp = curEv.emp;
+    if (d.methods && d.methods.self && !db.feedback.some(function (f) { return f.cycleId === d.cycleId && f.employeeId === emp.id && f.relation === 'self'; })) list.push({ relation: 'self', raterId: emp.id });
+    if (!list.length) { $('#reqErr').textContent = 'اختر مقيّمًا واحدًا على الأقل.'; return; }
+    var n = Eval.requestFeedback(d.cycleId, emp.id, list, me); $('#reqDlg').close(); toast('تم إرسال ' + n + ' طلب.');
+    $('#evBody [data-p="fb"]').innerHTML = pFb(curEv.ev, curEv.canEdit);
+  });
+
+  var curFb = null;
+  function openRater(id) {
+    var f = db.feedback.filter(function (x) { return x.id === id; })[0]; if (!f || f.raterId !== me.id) return; curFb = f;
+    var emp = Eval.user(f.employeeId), self = f.relation === 'self';
+    $('#fbTitle').textContent = self ? 'تقييمي الذاتي' : 'ملاحظات عن ' + emp.name;
+    $('#fbBody').innerHTML = '<p class="sub" style="margin:0 0 6px">' + esc(Eval.cycle(f.cycleId).name) + (self ? '' : ' · علاقتك به: ' + RELATIONS[f.relation] + '. ملاحظاتك سرّية ولا تظهر باسمك.') + '</p><div class="legend">' + SCALE.map(function (s, i) { return '<span>' + (i + 1) + ' = ' + s + '</span>'; }).join('') + '</div>' +
+      db.criteria.map(function (c) { return '<fieldset class="crit"><legend>' + esc(c.name) + '</legend><p class="cdesc">' + esc(c.desc || '') + '</p><div class="rate" role="radiogroup" aria-label="' + esc(c.name) + '">' + [1, 2, 3, 4, 5].map(function (n) { return '<label><input type="radio" name="f_' + c.id + '" value="' + n + '"><span title="' + SCALE[n - 1] + '">' + n + '</span></label>'; }).join('') + '</div></fieldset>'; }).join('') +
+      '<label class="l" for="fbTxt">تعليق عام (اختياري)</label><textarea id="fbTxt" placeholder="ما الذي يميّز ' + (self ? 'عملك' : 'هذا الزميل') + ' وما الذي يمكن تحسينه؟"></textarea><p class="err" id="fbErr"></p>';
+    $('#fbDlg').showModal();
+  }
+  $('#fbForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var sc = {}, ok = true; db.criteria.forEach(function (c) { var r = $('input[name="f_' + c.id + '"]:checked'); if (r) sc[c.id] = +r.value; else ok = false; });
+    if (!ok) { $('#fbErr').textContent = 'قيّم جميع المعايير قبل الإرسال.'; return; }
+    Eval.submitFeedback(curFb.id, sc, $('#fbTxt').value.trim(), me); $('#fbDlg').close(); toast('شكرًا، تم إرسال ملاحظاتك.'); render(); updateBadge();
+  });
+
+  /* ---------------- tasks (self-assessment / 360 requests) ---------------- */
+  function updateBadge() { var n = Eval.tasksFor(me.id).length, a = $('#nav a[href="#tasks"]'); if (a) a.innerHTML = 'مهامي' + (n ? ' <span class="badge">' + n + '</span>' : ''); }
+  function vTasks() {
+    var pend = Eval.tasksFor(me.id), done = db.feedback.filter(function (f) { return f.raterId === me.id && f.status === 'done'; }).length;
+    $('#view').innerHTML = '<div class="head"><div><h1>مهامي</h1><p class="sub">التقييم الذاتي وملاحظات الزملاء المطلوبة منك. ملاحظاتك عن الآخرين سرّية.</p></div></div>' +
+      '<section class="panel">' + (pend.length ? '<div class="tw"><table><tbody>' + pend.map(function (f) {
+        var emp = Eval.user(f.employeeId);
+        return '<tr><td><span class="n">' + (f.relation === 'self' ? 'تقييمي الذاتي' : 'ملاحظات عن ' + esc(emp.name)) + '</span><span class="s">' + esc(Eval.cycle(f.cycleId).name) + (f.relation === 'self' ? '' : ' · علاقتك به: ' + RELATIONS[f.relation]) + '</span></td><td><span class="pill p-draft">بانتظارك</span></td><td style="text-align:end"><button class="btn btn-primary btn-sm" data-act="rater" data-id="' + f.id + '">ابدأ</button></td></tr>';
+      }).join('') + '</tbody></table></div>' : '<div class="empty">لا توجد مهام معلّقة. أكملت ' + done + ' مهمة.</div>') + '</section>';
+  }
+
+  /* ---------------- calibration: ranking, forced distribution, 9-box, paired comparison ---------------- */
+  var pairMgr = null;
+  function vCalib() {
+    var rows = rowsFor(selCycle).filter(function (r) { return isDone(r.ev); }).sort(function (a, b) { return pctOf(b.ev) - pctOf(a.ev); }), N = rows.length;
+    var tgt = [0.10, 0.20, 0.40, 0.20, 0.10];
+    var dist = BANDS.map(function (b, i) { var n = rows.filter(function (r) { return bandOf(pctOf(r.ev)) === b; }).length, al = Math.round(N * tgt[i]); return { b: b, n: n, al: al, t: tgt[i] }; });
+    var cells = { 1: { 1: [], 2: [], 3: [] }, 2: { 1: [], 2: [], 3: [] }, 3: { 1: [], 2: [], 3: [] } };
+    rows.forEach(function (r) { if (r.ev.potential) { var nb = Eval.nineBox(pctOf(r.ev), r.ev.potential); cells[nb.q][nb.p].push(r.e.name); } });
+    var nbRows = [3, 2, 1].map(function (q) { return '<div class="nb-r"><span class="nb-ax">' + ['', 'محدودة', 'متوسطة', 'عالية'][q] + '</span>' + [1, 2, 3].map(function (p) { return '<div class="nb-c big' + (cells[q][p].length ? ' on' : '') + '"><b>' + NB[q][p - 1] + '</b>' + cells[q][p].map(function (n) { return '<span>' + esc(n) + '</span>'; }).join('') + '</div>'; }).join('') + '</div>'; }).join('');
+    var mgrs = me.role === 'admin' ? Eval.staff().filter(function (u) { return Eval.staff().some(function (x) { return x.managerId === u.id && x.role !== 'admin'; }); }) : [me];
+    if (!pairMgr || !mgrs.some(function (m) { return m.id === pairMgr; })) pairMgr = mgrs.length ? mgrs[0].id : null;
+    $('#view').innerHTML = '<div class="head"><div><h1>المعايرة والترتيب</h1><p class="sub">' + esc(Eval.cycle(selCycle).name) + ' · ' + N + ' تقييم معتمد</p></div><div class="tools">' + cycleSelect('selCycle') + '</div></div>' +
+      '<div class="grid2"><section class="panel"><h2>التوزيع الفعلي مقابل المنحنى المرجعي</h2><div class="pb">' + (N ? '<div class="rows">' + dist.map(function (x) { var dv = x.n - x.al; return '<div class="rowbar"><span>' + x.b.label + '</span><div class="t"><i style="width:' + Math.round(x.n / N * 100) + '%;background:' + x.b.color + '"></i></div><span class="v">' + x.n + ' / ' + x.al + '</span></div>' + (dv > 0 ? '<div class="s" style="color:var(--danger);font-size:12.5px;margin-top:-6px">يزيد ' + dv + ' عن المنحنى المرجعي (' + Math.round(x.t * 100) + '%)</div>' : ''); }).join('') + '</div><p class="hint" style="margin-top:10px">المنحنى المرجعي 10% / 20% / 40% / 20% / 10%. يُستخدم لكشف التساهل أو التشدد، وليس قيدًا إلزاميًا على النتائج.</p>' : '<div class="empty">لا توجد تقييمات معتمدة.</div>') + '</div></section>' +
+      '<section class="panel"><h2>ترتيب الموظفين</h2>' + (N ? '<div class="tw"><table><tbody>' + rows.map(function (r, i) { var p = pctOf(r.ev); return '<tr><td class="num">' + (i + 1) + '</td><td><span class="n">' + esc(r.e.name) + '</span><span class="s">' + esc(r.e.dept || '') + '</span></td><td class="num">' + p + '%</td><td>' + bandTag(p) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="empty">لا توجد نتائج.</div>') + '</section></div>' +
+      '<section class="panel" style="margin-top:18px"><h2>مصفوفة الأداء والإمكانات (<bdi>9-Box</bdi>)</h2><div class="pb"><div class="nb">' + nbRows + '<div class="nb-r"><span class="nb-ax"></span><span class="nb-ax">أداء منخفض</span><span class="nb-ax">أداء متوسط</span><span class="nb-ax">أداء مرتفع</span></div></div></div></section>' +
+      '<section class="panel" style="margin-top:18px"><h2>المقارنة الثنائية للفريق</h2><div class="pb">' + (mgrs.length ? (me.role === 'admin' ? '<div class="tools" style="margin-bottom:12px"><label class="l" for="pairSel" style="margin:0">الفريق</label><select id="pairSel">' + mgrs.map(function (m) { return '<option value="' + m.id + '"' + (m.id === pairMgr ? ' selected' : '') + '>' + esc(m.name) + '</option>'; }).join('') + '</select></div>' : '') + '<div id="pairBox"></div>' : '<div class="empty">لا يوجد فريق للمقارنة.</div>') + '</div></section>';
+    $('#selCycle').onchange = function () { selCycle = this.value; vCalib(); };
+    if ($('#pairSel')) $('#pairSel').onchange = function () { pairMgr = this.value; fillPairs(); };
+    fillPairs();
+  }
+  function fillPairs() {
+    var box = $('#pairBox'); if (!box || !pairMgr) return;
+    var ids = Eval.staff().filter(function (u) { return u.managerId === pairMgr && u.role !== 'admin'; }).map(function (u) { return u.id; });
+    if (ids.length < 3) { box.innerHTML = '<div class="empty">المقارنة الثنائية تحتاج ثلاثة موظفين على الأقل في الفريق.</div>'; return; }
+    var res = db.pairs[selCycle + '::' + pairMgr] || {}, pairs = [];
+    for (var i = 0; i < ids.length; i++) for (var j = i + 1; j < ids.length; j++) pairs.push([ids[i], ids[j]]);
+    var rank = Eval.pairRanking(selCycle, pairMgr, ids), done = Object.keys(res).length;
+    box.innerHTML = '<p class="sub" style="margin:0 0 10px">اختر الأفضل أداءً في كل زوج (' + done + ' من ' + pairs.length + '). اضغط مرة أخرى على الاختيار لإلغائه.</p><div class="pair-wrap"><div class="pairs">' + pairs.map(function (p) {
+      var w = res[Eval.pairKey(p[0], p[1])]; return '<div class="pr">' + p.map(function (id) { return '<button type="button" class="pb-btn' + (w === id ? ' win' : '') + '" data-act="pair" data-a="' + p[0] + '" data-b="' + p[1] + '" data-w="' + id + '">' + esc(Eval.user(id).name) + '</button>'; }).join('<span class="vs">مقابل</span>') + '</div>';
+    }).join('') + '</div><div class="rk"><b>الترتيب الناتج</b><ol>' + rank.map(function (r) { return '<li>' + esc(Eval.user(r.id).name) + ' <span class="s" style="color:var(--muted)">(' + r.wins + ' فوز)</span></li>'; }).join('') + '</ol></div></div>';
+  }
+
+  /* ---------------- methods guide (admin) ---------------- */
+  var KIND_L = { score: ['تدخل في الدرجة', 'p-ack'], info: ['تحليلية', 'p-sub'], calib: ['معايرة وتخطيط', 'p-draft'] };
+  function methodsLabel(c) { var m = c.methods; return m ? SCORING.filter(function (s) { return m[s[0]] && m[s[0]].on; }).map(function (s) { return s[1] + ' ' + m[s[0]].w + '%'; }).join(' · ') || '—' : 'مقياس التقدير 100%'; }
+  function vMethods() {
+    var cyc = Eval.openCycle(), m = cyc.methods || {};
+    var on = function (k) { return k === 'bars' || k === 'competency' || k === 'narrative' || k === 'incidents' || k === 'checkin' || k === 'paired' || k === 'forced' ? true : k === 'self' || k === 'ninebox' ? !!m[k] : !!(m[k] && m[k].on); };
+    $('#view').innerHTML = '<div class="head"><div><h1>طرق التقييم</h1><p class="sub">دليل الطرق المتاحة في النظام وحالتها في الدورة الحالية: ' + esc(cyc.name) + '.</p></div><div class="tools"><button class="btn btn-quiet" data-act="cycle-methods" data-c="' + cyc.id + '" type="button">ضبط طرق الدورة</button></div></div>' +
+      '<section class="panel"><div class="pb"><b>كيف تُحسب النتيجة النهائية؟</b><p class="sub" style="margin:4px 0 0">النتيجة متوسط مرجّح للطرق المفعّلة في الدورة: ' + esc(methodsLabel(cyc)) + '. عند غياب درجة إحدى الطرق (مثل عدم اكتمال ردود 360) تُعاد معايرة الأوزان على الطرق المكتملة وتُوسم النتيجة «جزئية». تُثبَّت طرق الدورة داخل كل تقييم عند إنشائه فلا تتغير نتائجه لاحقًا.</p></div></section>' +
+      '<div class="mgrid">' + METHODS.map(function (x) {
+        var k = KIND_L[x.kind];
+        return '<article class="mcard"><div class="mh"><b>' + x.name + '</b><span class="pill ' + k[1] + '">' + k[0] + '</span></div><p class="en">' + x.en + '</p><p>' + x.desc + '</p><p class="s"><b>في النظام:</b> ' + x.how + '</p><p class="s"><b>متى تستخدمها:</b> ' + x.when + '</p><span class="pill ' + (on(x.key) ? 'p-ack' : 'p-none') + '">' + (on(x.key) ? 'مفعّلة' : 'غير مفعّلة في الدورة الحالية') + '</span></article>';
+      }).join('') + '</div>';
+  }
+
+  /* ---------------- extras on existing views ---------------- */
+  function vMe() {
+    vMeBase();
+    var pend = Eval.tasksFor(me.id).length;
+    if (pend) $('#view').insertAdjacentHTML('afterbegin', '<div class="alert-banner">لديك ' + pend + ' مهمة بانتظارك (تقييم ذاتي أو ملاحظات عن زملاء). <a href="#tasks">افتح مهامي</a></div>');
+    var notes = Eval.notesOf(me.id).filter(function (n) { return n.type !== 'negative'; });
+    if (notes.length) $('#view').insertAdjacentHTML('beforeend', '<section class="panel" style="margin-top:18px"><h2>لقاءات المتابعة والملاحظات الإيجابية</h2><div class="pb"><ul class="krs">' + notes.map(function (n) { return '<li><b>' + NOTE_TYPES[n.type] + '</b> · ' + fmtDay(n.date) + ' · ' + esc((Eval.user(n.authorId) || {}).name || '') + ': ' + esc(n.text) + '</li>'; }).join('') + '</ul></div></section>');
+  }
+  function profNotes(id) {
+    var emp = Eval.user(id), list = Eval.notesOf(id), can = me.role === 'admin' || Eval.canEvaluate(me, emp);
+    return '<h4 style="margin:16px 0 6px;color:var(--pine)">الوقائع الحرجة والمتابعة المستمرة</h4>' + (list.length ? '<ul class="krs">' + list.map(function (n) { return '<li><b style="color:' + (n.type === 'negative' ? 'var(--danger)' : n.type === 'positive' ? 'var(--ok)' : 'var(--pine)') + '">' + NOTE_TYPES[n.type] + '</b> · ' + fmtDay(n.date) + ' · ' + esc((Eval.user(n.authorId) || {}).name || '') + ': ' + esc(n.text) + '</li>'; }).join('') + '</ul>' : '<div class="empty" style="padding:12px">لا توجد سجلات.</div>') +
+      (can ? '<div class="note-add"><select id="ntType" aria-label="النوع">' + Object.keys(NOTE_TYPES).map(function (k) { return '<option value="' + k + '">' + NOTE_TYPES[k] + '</option>'; }).join('') + '</select><input id="ntDate" type="date" aria-label="التاريخ" value="' + new Date().toISOString().slice(0, 10) + '"><input id="ntText" type="text" placeholder="اكتب الواقعة أو ملخص اللقاء" aria-label="النص"><button type="button" class="btn btn-primary btn-sm" data-act="note-add" data-e="' + id + '">إضافة</button></div><p class="err" id="ntErr"></p>' : '');
+  }
+
+  /* ---------------- cycle methods form ---------------- */
+  var editCyc = null;
+  function methodsFormHtml(m) {
+    return '<fieldset class="mset"><legend>طرق التقييم المحتسبة في النتيجة</legend>' + SCORING.map(function (k) { return '<div class="mrow"><label class="check" style="margin:0"><input type="checkbox" id="mOn_' + k[0] + '"' + (m[k[0]] && m[k[0]].on ? ' checked' : '') + '><span>' + k[1] + '</span></label><span class="mw"><input type="number" id="mW_' + k[0] + '" min="0" max="100" value="' + (m[k[0]] ? m[k[0]].w : 0) + '" aria-label="وزن ' + k[1] + '"> %</span></div>'; }).join('') +
+      '<div class="total-line" style="padding-top:8px"><span>مجموع الأوزان</span><span id="mTot"></span></div></fieldset>' +
+      '<label class="check"><input type="checkbox" id="mSelf"' + (m.self ? ' checked' : '') + '><span>التقييم الذاتي (تحليلي، لا يدخل في الدرجة)</span></label>' +
+      '<label class="check"><input type="checkbox" id="mNine"' + (m.ninebox ? ' checked' : '') + '><span>مصفوفة الأداء والإمكانات 9-Box (سرّية عن الموظف)</span></label>';
+  }
+  function readMethods() { var m = {}; SCORING.forEach(function (k) { var on = $('#mOn_' + k[0]).checked; m[k[0]] = { on: on, w: on ? Math.round(Number($('#mW_' + k[0]).value) || 0) : 0 }; }); m.self = $('#mSelf').checked; m.ninebox = $('#mNine').checked; return m; }
+  function mTotal() { var m = readMethods(), t = SCORING.reduce(function (s, k) { return s + m[k[0]].w; }, 0); $('#mTot').textContent = t + '%'; $('#mTot').style.color = t === 100 ? 'var(--ok)' : 'var(--danger)'; return t; }
+  $('#cMethods').addEventListener('input', mTotal); $('#cMethods').addEventListener('change', mTotal);
+  $('#cycForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var n = $('#cName').value.trim(), s = $('#cStart').value, en = $('#cEnd').value, m = readMethods();
+    if (!editCyc) {
+      if (n.length < 3 || !s || !en) { $('#cErr').textContent = 'أكمل اسم الدورة وتاريخي البداية والنهاية.'; return; }
+      if (en <= s) { $('#cErr').textContent = 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية.'; return; }
+    }
+    if (!SCORING.some(function (k) { return m[k[0]].on; })) { $('#cErr').textContent = 'فعّل طريقة واحدة على الأقل تدخل في النتيجة.'; return; }
+    if (mTotal() !== 100) { $('#cErr').textContent = 'مجموع أوزان الطرق يجب أن يساوي 100%.'; return; }
+    if (editCyc) { Eval.saveCycleMethods(editCyc, m, me); $('#cycDlg').close(); toast('تم حفظ طرق التقييم. تسري على التقييمات الجديدة.'); render(); return; }
+    var c = Eval.addCycle({ name: n, start: s, end: en }, me); c.methods = m; saveDb(); selCycle = c.id; $('#cycDlg').close(); toast('تم إنشاء الدورة.'); render();
+  });
+  function openCycDlg(cid) {
+    editCyc = cid || null; var c = cid ? Eval.cycle(cid) : null;
+    $('#cMain').hidden = !!cid; $('#cycTitle').textContent = cid ? 'طرق التقييم: ' + c.name : 'دورة تقييم جديدة'; $('#cSubmit').textContent = cid ? 'حفظ الطرق' : 'إنشاء الدورة';
+    $('#cName').value = ''; $('#cStart').value = ''; $('#cEnd').value = ''; $('#cErr').textContent = '';
+    $('#cMethods').innerHTML = methodsFormHtml(c && c.methods ? c.methods : defaultMethods()); mTotal(); $('#cycDlg').showModal();
+  }
+
+  function ancHtml(c, i) {
+    var a = c.anchors || ['', '', '', '', ''];
+    return '<details style="grid-column:1/-1"><summary class="link">أوصاف السلوك لكل درجة (BARS)</summary><div class="frm" style="margin-top:8px">' + [0, 1, 2, 3, 4].map(function (k) { return '<div><label class="l" for="an' + i + '_' + k + '">درجة ' + (k + 1) + ' · ' + SCALE[k] + '</label><input id="an' + i + '_' + k + '" type="text" data-ci="' + i + '" data-f="anc' + k + '" value="' + esc(a[k] || '') + '"></div>'; }).join('') + '</div></details>';
+  }
 
   /* ---------------- export ---------------- */
   function exportCsv() {
@@ -456,21 +761,29 @@
     'profile': function (t) { openProfile(t.dataset.e); },
     'person-new': function () { openPerson(null); },
     'person-edit': function (t) { openPerson(t.dataset.e); },
-    'cycle-new': function () { $('#cName').value = ''; $('#cStart').value = ''; $('#cEnd').value = ''; $('#cErr').textContent = ''; $('#cycDlg').showModal(); },
+    'cycle-new': function () { openCycDlg(null); },
+    'cycle-methods': function (t) { openCycDlg(t.dataset.c); },
     'cycle-toggle': function (t) { var c = Eval.cycle(t.dataset.c); Eval.setCycleStatus(c.id, c.status === 'open' ? 'closed' : 'open', me); toast(c.status === 'open' ? 'تم فتح الدورة.' : 'تم إغلاق الدورة.'); vCycles(); },
     'export': exportCsv,
+    'rater': function (t) { openRater(t.dataset.id); },
+    'req360': function () { openReq(); },
+    'goal-add': function (t) { var k = t.dataset.k; curEv.ev.goals.push({ id: 'g' + Date.now().toString(36), kind: k, title: '', weight: 0, unit: '', target: '', actual: '', dir: 'up', krs: k === 'okr' ? [{ t: '', p: '' }, { t: '', p: '' }] : [], p: '' }); renderGoals(); },
+    'goal-del': function (t) { curEv.ev.goals.splice(+t.dataset.i, 1); renderGoals(); },
+    'kr-add': function (t) { curEv.ev.goals[+t.dataset.i].krs.push({ t: '', p: '' }); renderGoals(); },
+    'kr-del': function (t) { curEv.ev.goals[+t.dataset.i].krs.splice(+t.dataset.j, 1); renderGoals(); },
+    'pair': function (t) { var cur = (db.pairs[selCycle + '::' + pairMgr] || {})[Eval.pairKey(t.dataset.a, t.dataset.b)]; Eval.setPair(selCycle, pairMgr, t.dataset.a, t.dataset.b, cur === t.dataset.w ? null : t.dataset.w); fillPairs(); },
+    'note-add': function (t) { var tx = $('#ntText').value.trim(); if (tx.length < 3) { $('#ntErr').textContent = 'اكتب نص الواقعة أو ملخص اللقاء.'; return; } Eval.addNote({ employeeId: t.dataset.e, type: $('#ntType').value, date: $('#ntDate').value, text: tx }, me); openProfile(t.dataset.e); toast('تمت الإضافة.'); },
     'crit-add': function () { critDraft.push({ id: 'c' + Date.now().toString(36), name: 'معيار جديد', desc: '', weight: 1 }); vCriteria(); },
     'crit-del': function (t) { critDraft.splice(+t.dataset.i, 1); vCriteria(); },
     'crit-save': function () {
       var bad = critDraft.some(function (c) { return !c.name.trim() || c.weight < 1; });
       if (bad) { toast('لكل معيار اسم ووزن لا يقل عن 1%.'); return; }
-      if (Eval.setCriteria(critDraft.map(function (c) { return { id: c.id, name: c.name.trim(), desc: c.desc.trim(), weight: c.weight }; }), me)) { toast('تم حفظ المعايير.'); critDraft = null; vCriteria(); }
+      if (Eval.setCriteria(critDraft.map(function (c) { return { id: c.id, name: c.name.trim(), desc: c.desc.trim(), weight: c.weight, anchors: c.anchors }; }), me)) { toast('تم حفظ المعايير.'); critDraft = null; vCriteria(); }
     },
     'ev-save': function () { var d = collect(); Eval.saveDraft(d, me); curEv.ev = d; toast('تم حفظ المسودة.'); $('#evDlg').close(); render(); },
     'ev-submit': function (t) {
-      var d = collect(), err = $('#evErr');
-      if (!Eval.complete(d)) { err.textContent = 'قيّم جميع المعايير قبل الاعتماد.'; return; }
-      if (d.strengths.length < 5 || d.improve.length < 5) { err.textContent = 'اكتب نقاط القوة ومجالات التحسين قبل الاعتماد.'; return; }
+      var d = collect(), msg = Eval.validateSubmit(d), err = $('#evErr');
+      if (msg) { showTab('sum'); err.textContent = msg; armed = null; t.textContent = 'اعتماد التقييم وإرساله'; return; }
       err.textContent = '';
       if (armed !== 'submit') { armed = 'submit'; t.textContent = 'اضغط مرة أخرى للاعتماد النهائي'; return; }
       Eval.submit(d, me); $('#evDlg').close(); toast('تم اعتماد التقييم وإرساله إلى الموظف.'); render();

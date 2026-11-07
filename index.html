@@ -130,7 +130,10 @@
 
   .demo-note { margin: 18px 0 0; padding: 12px 14px; border-radius: 8px; background: #f3f5f2; border: 1px dashed #b6c1bc; font-size: 13.5px; color: var(--muted); }
   .demo-note code { font-family: var(--font-mono); direction: ltr; unicode-bidi: embed; font-size: 12.5px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
-  .demo-note button { margin-top: 6px; }
+  .quick { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+  .quick .btn { height: auto; flex-direction: column; gap: 0; padding: 8px 6px; font-size: 14px; line-height: 1.35; }
+  .quick small { font-weight: 400; font-size: 12px; color: var(--muted); }
+  @media (max-width: 420px) { .quick { grid-template-columns: minmax(0, 1fr); } }
 
   /* ---------- account view ---------- */
   .who { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
@@ -258,7 +261,12 @@
             <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.4-4.7 7.1l7.3 5.7c4.3-4 6.8-9.9 6.8-17.2z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2 1.4-4.7 2.3-8.6 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
             المتابعة بحساب Google</button><div id="gisBtnL" class="gis" hidden></div></div>
         </form>
-        <p class="demo-note" id="demoNote">حسابات تجريبية (كلمة المرور <code>Demo@12345</code>):<br><button type="button" class="link" data-demo="demo@portal.demo">مسؤولة الموارد البشرية</button> · <button type="button" class="link" data-demo="manager@portal.demo">مدير مباشر</button> · <button type="button" class="link" data-demo="employee@portal.demo">موظف</button></p>
+        <div class="demo-note" id="demoNote"><b>دخول سريع للتجربة</b> حسب الصلاحية (كلمة المرور <code>Demo@12345</code>)
+          <div class="quick">
+            <button type="button" class="btn btn-quiet" data-demo="demo@portal.demo"><span>مسؤولة الموارد البشرية</span><small>كل الصلاحيات</small></button>
+            <button type="button" class="btn btn-quiet" data-demo="manager@portal.demo"><span>مدير مباشر</span><small>تقييم فريقه</small></button>
+            <button type="button" class="btn btn-quiet" data-demo="employee@portal.demo"><span>موظف</span><small>نتائجه ومهامه</small></button>
+          </div></div>
       </div>
 
       <div class="pane" id="paneReg" role="tabpanel" aria-labelledby="tabReg" hidden>
@@ -361,7 +369,7 @@
 
   /* Settings come from config.js. With supabaseUrl + supabaseAnonKey set, the page uses a real
      Supabase backend (accounts, Google, database). Otherwise it runs the browser-only simulation. */
-  var PORTAL_CONFIG = Object.assign({ googleClientId: '', supabaseUrl: '', supabaseAnonKey: '' }, window.PORTAL_CONFIG || {});
+  var PORTAL_CONFIG = Object.assign({ googleClientId: '', supabaseUrl: '', supabaseAnonKey: '', showDemoLogin: true }, window.PORTAL_CONFIG || {});
   var REMOTE = !!(PORTAL_CONFIG.supabaseUrl && PORTAL_CONFIG.supabaseAnonKey);
   var SB = null;
 
@@ -490,7 +498,7 @@
 
   /* ---------------- login form ---------------- */
   var lEmail = $('#lEmail'), lPass = $('#lPass');
-  $$('[data-demo]').forEach(function (b) { b.onclick = function () { lEmail.value = b.getAttribute('data-demo'); lPass.value = 'Demo@12345'; setErr(lEmail, $('#lEmailErr')); setErr(lPass, $('#lPassErr')); showAlert($('#loginAlert'), ''); lPass.focus(); }; });
+  $$('[data-demo]').forEach(function (b) { b.onclick = function () { lEmail.value = b.getAttribute('data-demo'); lPass.value = 'Demo@12345'; setErr(lEmail, $('#lEmailErr')); setErr(lPass, $('#lPassErr')); showAlert($('#loginAlert'), ''); $('#loginForm').requestSubmit(); }; });
   $('#loginForm').addEventListener('submit', function (e) {
     e.preventDefault(); showAlert($('#loginAlert'), '');
     var a = setErr(lEmail, $('#lEmailErr'), !lEmail.value.trim() ? 'أدخل بريدك الإلكتروني.' : !EMAIL_RE.test(lEmail.value.trim()) ? 'صيغة البريد غير صحيحة.' : '');
@@ -653,6 +661,7 @@
 
   /* ---------------- boot ---------------- */
   function bootSim() {
+    if (PORTAL_CONFIG.showDemoLogin === false) $('#demoNote').hidden = true;
     loadDb();
     Auth.seed().then(function () {
       initGoogle();
