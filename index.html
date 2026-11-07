@@ -3,273 +3,297 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>html{color-scheme:light}body{margin:0}</style>
+<meta name="theme-color" content="#213a33">
 <title>بوابة الدخول</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Playpen+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Layout: split screen. Form column on the reading side (right in RTL), deep-ink brand panel with a layered grid on the other. */
+  /* Concept: a classroom blackboard in a wooden frame. A notebook page is taped on it,
+     bound on the right as Arabic notebooks are. Everything is slightly crooked on purpose. */
   :root {
-    --bg: #f4f6f8;
-    --surface: #ffffff;
-    --fg: #101a2b;
-    --muted: #5b6678;
-    --line: #dde2ea;
-    --field: #f7f9fb;
-    --accent: #0f5fd7;
-    --accent-fg: #ffffff;
-    --accent-soft: #e3edfc;
-    --danger: #c0302b;
-    --ok: #17794a;
-    --panel: #0c1a33;
-    --panel-fg: #e8eefb;
-    --panel-muted: #9fb0d0;
-    --panel-line: rgba(160, 185, 235, .16);
-    --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-    --font-display: "Readex Pro", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-    --shadow: 0 1px 2px rgba(16, 26, 43, .06), 0 12px 32px rgba(16, 26, 43, .08);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0a1220; --surface: #111c30; --fg: #eaf0fb; --muted: #94a3bd; --line: #25324b;
-      --field: #0d1626; --accent: #5b9bff; --accent-fg: #06142e; --accent-soft: #172b4d;
-      --danger: #ff7a72; --ok: #4cd08f; --panel: #07101f; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0a1220; --surface: #111c30; --fg: #eaf0fb; --muted: #94a3bd; --line: #25324b;
-    --field: #0d1626; --accent: #5b9bff; --accent-fg: #06142e; --accent-soft: #172b4d;
-    --danger: #ff7a72; --ok: #4cd08f; --panel: #07101f; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
-    color-scheme: dark;
+    --board: #213a33;
+    --board-deep: #172a25;
+    --chalk: #eef1e6;
+    --paper: #f1f3f2;
+    --ink: #1d2f6f;
+    --ink-soft: #4a557a;
+    --pen-red: #c8352f;
+    --mustard: #f2c14e;
+    --note: #ffe36e;
+    --note-bad: #ffc2bd;
+    --wood: #6a4a31;
+    --font-hand: "Playpen Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --font-calli: "Aref Ruqaa", "Playpen Sans Arabic", "Segoe UI", Tahoma, serif;
+    --wobble: 255px 14px 225px 14px / 14px 225px 14px 255px;
+    --line-ok: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 C20 1 40 7 62 4 S105 2 132 5 S182 6 200 3' fill='none' stroke='%231d2f6f' stroke-width='2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    --line-bad: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 C20 1 40 7 62 4 S105 2 132 5 S182 6 200 3' fill='none' stroke='%23c8352f' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .12 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   * { box-sizing: border-box; }
-  html, body { height: 100%; }
+  html { color-scheme: dark; background: var(--board); }
   body {
-    background: var(--bg); color: var(--fg);
-    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    margin: 0; min-height: 100vh; min-height: 100dvh;
+    display: grid; place-items: center;
+    padding-block: max(44px, env(safe-area-inset-top, 0px)) max(44px, env(safe-area-inset-bottom, 0px));
+    padding-left: max(28px, env(safe-area-inset-left, 0px));
+    padding-right: max(28px, env(safe-area-inset-right, 0px));
+    font-family: var(--font-hand); font-size: 17px; line-height: 1.65; color: var(--ink);
+    background-color: var(--board);
+    background-image:
+      var(--grain-light),
+      radial-gradient(ellipse 60% 40% at 18% 22%, rgba(255,255,255,.07), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 82% 78%, rgba(255,255,255,.055), transparent 70%),
+      radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,.38) 100%);
   }
-  .shell {
-    min-height: 100%;
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  /* Wooden frame */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none;
+    border: 14px solid var(--wood);
+    border-image: repeating-linear-gradient(94deg, #6d4c33 0 13px, #62422a 13px 21px, #765539 21px 40px, #5b3d27 40px 47px) 14;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.35), inset 0 8px 28px rgba(0,0,0,.55);
   }
 
-  /* Form side */
-  .form-side {
-    display: flex; flex-direction: column; justify-content: center;
-    padding-block: 32px;
-    padding-left: max(24px, env(safe-area-inset-left, 0px));
-    padding-right: max(24px, env(safe-area-inset-right, 0px));
+  /* ---------- chalk drawings on the board ---------- */
+  .doodles { position: fixed; inset: 0; pointer-events: none; z-index: 0; display: none; color: var(--chalk); }
+  .doodles svg { position: absolute; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: url(#chalk); opacity: .82; }
+  .d-sun  { left: 6vw;  top: 11vh; width: 118px; }
+  .d-cup  { left: 8vw;  bottom: 12vh; width: 104px; transform: rotate(-5deg); }
+  .d-star { right: 9vw; bottom: 13vh; width: 70px; transform: rotate(12deg); }
+  .d-star2{ right: 15vw; bottom: 22vh; width: 38px; transform: rotate(-10deg); }
+  .d-arrow{ right: 10vw; top: 30vh; width: 130px; transform: scaleX(-1) rotate(4deg); }
+  .chalk-text {
+    position: absolute; right: 7vw; top: 21vh; font-size: 24px; font-weight: 500; transform: rotate(-5deg);
+    filter: url(#chalk); opacity: .85; color: var(--chalk); max-width: 220px; line-height: 1.5;
   }
-  .card { width: 100%; max-width: 420px; margin-inline: auto; }
-  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
-  .logo { width: 40px; height: 40px; flex: none; }
-  .brand-name { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: 0; }
+  .chalk-foot { position: fixed; bottom: 26px; inset-inline: 0; text-align: center; font-size: 14px; color: rgba(238,241,230,.6); filter: url(#chalk); pointer-events: none; z-index: 1; }
 
-  h1 { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.25; margin: 0 0 8px; text-wrap: balance; }
-  .sub { color: var(--muted); margin: 0 0 28px; }
+  /* ---------- the taped notebook page ---------- */
+  .wrap {
+    position: relative; z-index: 2; width: min(100%, 470px);
+    transform: rotate(-1.1deg);
+    filter: drop-shadow(0 22px 20px rgba(0,0,0,.42)) drop-shadow(0 2px 2px rgba(0,0,0,.4));
+    animation: settle .7s cubic-bezier(.2,.9,.3,1.1) both;
+  }
+  @keyframes settle { from { transform: translateY(-18px) rotate(-3.2deg); opacity: .0; } to { transform: rotate(-1.1deg); opacity: 1; } }
 
-  form { display: grid; gap: 18px; }
-  .field { display: grid; gap: 7px; min-width: 0; }
+  .tape {
+    position: absolute; top: -15px; width: 104px; height: 32px; z-index: 5;
+    background: linear-gradient(180deg, rgba(242,193,78,.82), rgba(232,178,60,.74));
+    box-shadow: 0 1px 2px rgba(0,0,0,.25);
+    clip-path: polygon(0 0,100% 0,97% 20%,100% 40%,97% 60%,100% 80%,97% 100%,0 100%,3% 80%,0 60%,3% 40%,0 20%);
+  }
+  .tape.a { inset-inline-start: 14%; transform: rotate(-7deg); }
+  .tape.b { inset-inline-end: 12%; transform: rotate(5deg); width: 90px; }
+
+  .sheet {
+    position: relative; padding: 50px 34px 62px; padding-inline-start: 84px;
+    background-color: var(--paper);
+    background-image: var(--grain-dark), linear-gradient(172deg, rgba(255,255,255,.7), rgba(0,0,0,.035));
+    clip-path: polygon(0 0,100% 0,100% calc(100% - 9px),96% calc(100% - 3px),92% calc(100% - 10px),87% calc(100% - 2px),82% calc(100% - 8px),76% calc(100% - 1px),70% calc(100% - 9px),64% calc(100% - 4px),58% calc(100% - 10px),52% calc(100% - 2px),46% calc(100% - 8px),40% calc(100% - 1px),33% calc(100% - 9px),27% calc(100% - 3px),21% calc(100% - 10px),14% calc(100% - 2px),8% calc(100% - 8px),3% calc(100% - 3px),0 calc(100% - 9px));
+  }
+  /* double red margin line, binding holes (Arabic notebooks bind on the right) */
+  .sheet::before {
+    content: ""; position: absolute; inset-block: 0; inset-inline-start: 62px; width: 6px;
+    border-inline: 1.5px solid rgba(200,53,47,.5);
+  }
+  .holes i {
+    position: absolute; inset-inline-start: 18px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--board-deep); box-shadow: inset 0 3px 4px rgba(0,0,0,.65), 0 1px 0 rgba(255,255,255,.6);
+  }
+  .holes i:nth-child(1) { top: 16%; } .holes i:nth-child(2) { top: 49%; } .holes i:nth-child(3) { top: 82%; }
+
+  .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; font-size: 14px; color: var(--ink-soft); }
+  .brand { display: flex; align-items: center; gap: 9px; font-family: var(--font-calli); font-size: 22px; font-weight: 700; color: var(--ink); }
+  .brand svg { width: 34px; height: 34px; }
+  #today { white-space: nowrap; }
+
+  h1 { font-family: var(--font-calli); font-weight: 700; font-size: 50px; line-height: 1.3; margin: 6px 0 0; color: var(--ink); transform: rotate(.7deg); text-wrap: balance; }
+  .uline { display: block; width: 200px; max-width: 70%; height: 14px; margin: -2px 0 8px; transform: rotate(.5deg); }
+  .sub { margin: 0 0 24px; color: var(--ink-soft); font-size: 16px; }
+
+  form { display: grid; gap: 24px; }
+  .field { display: grid; gap: 2px; min-width: 0; }
   .label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  label { font-weight: 500; font-size: 14px; }
-  .link { color: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; border-radius: 4px; }
-  .link:hover { text-decoration: underline; text-underline-offset: 3px; }
+  label, .small { font-weight: 600; font-size: 15px; color: var(--ink); }
+  .scribble {
+    background: none; border: 0; padding: 0 0 5px; font: inherit; font-size: 14px; font-weight: 500; color: var(--ink);
+    cursor: pointer; text-decoration: none; background-image: var(--line-ok); background-repeat: no-repeat; background-size: 100% 6px; background-position: bottom;
+  }
+  .scribble:hover { color: var(--pen-red); background-image: var(--line-bad); }
 
   .control { position: relative; }
   input[type="email"], input[type="password"], input[type="text"] {
-    width: 100%; height: 48px; font: inherit; font-size: 16px; color: var(--fg);
-    background: var(--field); border: 1px solid var(--line); border-radius: 10px;
-    padding-inline: 14px; transition: border-color .15s, box-shadow .15s, background .15s;
+    width: 100%; font: inherit; font-size: 18px; font-weight: 500; color: var(--ink);
+    background-color: transparent; border: 0; border-radius: 4px 12px 3px 10px; padding: 8px 6px 11px;
+    background-image: var(--line-ok); background-repeat: no-repeat; background-size: 100% 8px; background-position: bottom;
+    transition: background-color .2s;
+    caret-color: var(--pen-red);
   }
-  input::placeholder { color: var(--muted); opacity: .7; }
-  input:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
-  input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); background: var(--surface); }
-  input[aria-invalid="true"] { border-color: var(--danger); }
-  input[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px color-mix(in srgb, var(--danger) 18%, transparent); }
-  .has-toggle input { padding-inline-end: 48px; }
-  .toggle {
-    position: absolute; inset-block: 0; inset-inline-end: 4px; width: 40px;
-    display: grid; place-items: center; background: none; border: 0; color: var(--muted);
-    cursor: pointer; border-radius: 8px;
-  }
-  .toggle:hover { color: var(--fg); }
-  .toggle svg { width: 20px; height: 20px; }
-  .error { color: var(--danger); font-size: 13px; min-height: 0; margin: 0; }
+  input::placeholder { color: #8a93b0; font-weight: 300; }
+  input:focus { outline: none; background-color: rgba(255,227,110,.38); }
+  input[aria-invalid="true"] { background-image: var(--line-bad); }
+  .has-toggle input { padding-inline-end: 64px; }
+  .toggle { position: absolute; inset-inline-end: 4px; bottom: 9px; }
+  .error { margin: 4px 0 0; color: var(--pen-red); font-size: 14px; font-weight: 500; transform: rotate(-.6deg); }
   .error:empty { display: none; }
 
-  .check { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; user-select: none; }
+  .check { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; user-select: none; }
   .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-  .box {
-    width: 20px; height: 20px; flex: none; border-radius: 6px; border: 1.5px solid var(--line);
-    background: var(--field); display: grid; place-items: center; transition: .15s;
-  }
-  .box svg { width: 12px; height: 12px; stroke: var(--accent-fg); opacity: 0; }
-  .check input:checked + .box { background: var(--accent); border-color: var(--accent); }
-  .check input:checked + .box svg { opacity: 1; }
-  .check input:focus-visible + .box { box-shadow: 0 0 0 4px var(--accent-soft); }
+  .box { position: relative; width: 24px; height: 24px; flex: none; border: 2px solid var(--ink); border-radius: 6px 3px 7px 4px / 4px 7px 3px 6px; background: rgba(255,255,255,.55); transform: rotate(-3deg); }
+  .box svg { position: absolute; inset: -7px -3px auto auto; width: 32px; height: 30px; fill: none; stroke: var(--pen-red); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset .28s ease-out; }
+  .check input:checked + .box svg { stroke-dashoffset: 0; }
+  .check input:focus-visible + .box { outline: 3px dashed var(--pen-red); outline-offset: 3px; }
 
   .btn {
-    height: 50px; border-radius: 10px; border: 1px solid transparent; font: inherit; font-weight: 600;
-    cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    transition: transform .08s, background .15s, border-color .15s;
+    position: relative; font-family: var(--font-calli); font-weight: 700; font-size: 26px; line-height: 1; color: #16193a;
+    padding: 15px 22px 17px; border: 3px solid #16193a; border-radius: var(--wobble); cursor: pointer;
+    background: var(--mustard); box-shadow: 4px 5px 0 #16193a; transform: rotate(-.7deg);
+    transition: transform .12s, box-shadow .12s, background .15s;
   }
-  .btn:active { transform: translateY(1px); }
-  .btn-primary { background: var(--accent); color: var(--accent-fg); }
-  .btn-primary:hover { background: color-mix(in srgb, var(--accent) 88%, #000); }
-  .btn-primary[disabled] { opacity: .75; cursor: progress; }
-  .btn-ghost { background: var(--surface); color: var(--fg); border-color: var(--line); font-weight: 500; }
-  .btn-ghost:hover { border-color: var(--accent); }
-  .btn svg { width: 20px; height: 20px; }
-  .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--accent-fg) 35%, transparent); border-top-color: var(--accent-fg); animation: spin .7s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn:hover { transform: translate(-1px,-2px) rotate(-.7deg); box-shadow: 6px 8px 0 #16193a; background: #f6cc66; }
+  .btn:active { transform: translate(3px,4px) rotate(-.7deg); box-shadow: 1px 1px 0 #16193a; }
+  .btn[disabled] { cursor: progress; opacity: .85; }
+  .btn-dashed { background: transparent; box-shadow: none; border-style: dashed; border-width: 2.5px; border-color: var(--ink); color: var(--ink); font-family: var(--font-hand); font-weight: 600; font-size: 16px; padding: 12px 18px 13px; border-radius: 12px 4px 14px 5px / 5px 14px 4px 12px; transform: rotate(.5deg); }
+  .btn-dashed:hover { background: rgba(29,47,111,.07); transform: rotate(.5deg); box-shadow: none; }
+  .btn-dashed:active { transform: translateY(1px) rotate(.5deg); box-shadow: none; }
+  .dots::after { content: ""; display: inline-block; width: 1.4em; text-align: start; animation: dots 1.2s steps(4) infinite; }
+  @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 
-  .divider { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 13px; margin-block: 4px; }
-  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .or { display: flex; align-items: center; gap: 14px; color: var(--ink-soft); font-size: 14px; margin-block: -4px; }
+  .or::before, .or::after { content: ""; flex: 1; height: 8px; background: var(--line-ok) center / 100% 6px no-repeat; opacity: .55; }
 
-  .status { border-radius: 10px; padding: 11px 14px; font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
-  .status[hidden] { display: none !important; }
-  .status.ok { background: color-mix(in srgb, var(--ok) 12%, var(--surface)); color: var(--ok); border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent); }
-  .status.bad { background: color-mix(in srgb, var(--danger) 10%, var(--surface)); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent); }
-
-  .foot { margin-top: 28px; color: var(--muted); font-size: 14px; text-align: center; }
-  .secure { margin-top: 36px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12.5px; }
-  .secure svg { width: 15px; height: 15px; }
-
-  /* Brand panel */
-  .panel {
-    position: relative; overflow: hidden; background: var(--panel); color: var(--panel-fg);
-    display: flex; flex-direction: column; justify-content: space-between;
-    padding: 48px; isolation: isolate;
+  /* sticky-note messages */
+  .note {
+    position: relative; margin: 0; padding: 13px 16px 15px; font-size: 15px; font-weight: 500; line-height: 1.6;
+    background: linear-gradient(225deg, transparent 20px, var(--note) 0); color: #3a2f00; transform: rotate(1.3deg);
+    box-shadow: 0 5px 8px -4px rgba(0,0,0,.35); animation: pop .35s cubic-bezier(.2,1.4,.4,1) both;
   }
-  .panel::before {
-    content: ""; position: absolute; inset: 0; z-index: -2;
-    background-image:
-      linear-gradient(var(--panel-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--panel-line) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse at 30% 70%, #000 10%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse at 30% 70%, #000 10%, transparent 75%);
-  }
-  .panel::after {
-    content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; border-radius: 50%;
-    inset-block-start: -260px; inset-inline-start: -200px;
-    background: radial-gradient(circle, rgba(46, 120, 255, .45), transparent 65%);
-  }
-  .panel h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.35; margin: 0; max-width: 18em; text-wrap: balance; }
-  .panel p { color: var(--panel-muted); max-width: 30em; margin: 14px 0 0; }
-  .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .metric { border: 1px solid var(--panel-line); border-radius: 14px; padding: 16px; background: rgba(255, 255, 255, .03); backdrop-filter: blur(6px); }
-  .metric b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .metric span { color: var(--panel-muted); font-size: 13px; }
-  .live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--panel-muted); border: 1px solid var(--panel-line); border-radius: 999px; padding: 5px 12px; width: fit-content; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc97; box-shadow: 0 0 0 4px rgba(61, 220, 151, .18); }
+  .note::after { content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 20px; height: 20px; background: linear-gradient(225deg, rgba(0,0,0,.18) 0 50%, #e9c943 50%); box-shadow: 1px 1px 2px rgba(0,0,0,.2); }
+  .note.bad { background: linear-gradient(225deg, transparent 20px, var(--note-bad) 0); color: #5a1410; transform: rotate(-1.1deg); }
+  .note.bad::after { background: linear-gradient(225deg, rgba(0,0,0,.18) 0 50%, #e49a94 50%); }
+  .note[hidden] { display: none !important; }
+  @keyframes pop { from { transform: scale(.82) rotate(6deg); opacity: 0; } }
 
-  .theme-btn {
-    position: fixed; inset-block-start: max(14px, env(safe-area-inset-top, 0px)); inset-inline-start: max(14px, env(safe-area-inset-left, 0px));
-    z-index: 20; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
-    background: var(--surface); color: var(--fg); display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow);
-  }
-  .theme-btn svg { width: 18px; height: 18px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; font-size: 15px; color: var(--ink-soft); }
+  .stamp { flex: none; width: 92px; height: 92px; margin-block: -14px -10px; transform: rotate(-14deg); mix-blend-mode: multiply; opacity: .88; filter: url(#chalk); }
 
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  :focus-visible { outline: 3px dashed var(--pen-red); outline-offset: 3px; }
   input:focus-visible { outline: none; }
+  .btn:focus-visible { outline-offset: 6px; }
 
-  @media (max-width: 900px) {
-    .shell { grid-template-columns: minmax(0, 1fr); }
-    .panel { display: none; }
-    .form-side { padding-block: 72px 40px; }
-    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 28px 22px; box-shadow: var(--shadow); }
+  @media (min-width: 1100px) { .doodles { display: block; } }
+  @media (max-height: 980px) { .chalk-foot { display: none; } }
+  @media (max-width: 520px) {
+    body { padding-inline: 18px; padding-block: 34px; }
+    body::after { border-width: 8px; border-image-slice: 8; }
+    .sheet { padding: 44px 20px 58px; padding-inline-start: 62px; }
+    .sheet::before { inset-inline-start: 46px; }
+    .holes i { inset-inline-start: 11px; width: 18px; height: 18px; }
+    h1 { font-size: 40px; }
+    .wrap { transform: rotate(-.6deg); }
+    @keyframes settle { from { transform: translateY(-14px) rotate(-2deg); opacity: 0; } to { transform: rotate(-.6deg); opacity: 1; } }
+    .chalk-foot { display: none; }
+    .meta { flex-wrap: wrap; }
   }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation-duration: .001s !important; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
 
-<button class="theme-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الليلي">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-</button>
+<!-- SVG filters: rough chalk edges and a little wobble in the lines -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="chalk" x="-8%" y="-8%" width="116%" height="116%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="3.4" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9" result="grain"/>
+    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -0.55" result="mask"/>
+    <feComposite in="d" in2="mask" operator="in"/>
+  </filter>
+</svg>
 
-<main class="shell" dir="rtl" lang="ar">
-  <section class="form-side">
-    <div class="card">
+<!-- chalk doodles (desktop only) -->
+<div class="doodles" aria-hidden="true">
+  <svg class="d-sun" viewBox="0 0 120 120"><path d="M38 60C38 46 50 36 62 38C76 40 84 52 82 64C80 76 68 84 56 82C44 80 38 70 38 60"/><path d="M60 22V8M92 29L101 19M102 60H117M92 93L101 102M60 98V113M28 92L19 101M18 60H3M28 28L19 19"/></svg>
+  <svg class="d-cup" viewBox="0 0 120 130"><path d="M18 60C18 100 28 112 50 112C72 112 82 100 82 60Z"/><path d="M82 70C104 66 106 94 80 94"/><path d="M8 118C40 124 70 124 96 118"/><path d="M38 46C30 34 46 28 38 14M58 46C50 34 66 28 58 14"/></svg>
+  <svg class="d-star" viewBox="0 0 60 58"><path d="M30 5L37 23L55 24L41 36L46 54L30 43L14 54L19 36L5 24L24 23Z"/></svg>
+  <svg class="d-star2" viewBox="0 0 60 58"><path d="M30 5L37 23L55 24L41 36L46 54L30 43L14 54L19 36L5 24L24 23Z"/></svg>
+  <svg class="d-arrow" viewBox="0 0 160 120"><path d="M10 20C60 8 112 40 140 98"/><path d="M140 98L121 90M140 98L148 77"/></svg>
+  <div class="chalk-text">اكتب بريدك<br>وكلمة السرّ هنا</div>
+</div>
+
+<main class="wrap">
+  <span class="tape a" aria-hidden="true"></span>
+  <span class="tape b" aria-hidden="true"></span>
+
+  <div class="sheet">
+    <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+    <div class="meta">
       <div class="brand">
-        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
-          <rect width="40" height="40" rx="11" fill="var(--accent)"/>
-          <path d="M12 21.5 18 27l10-14" fill="none" stroke="var(--accent-fg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="brand-name">منصة الأعمال</span>
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4C30 3 37 11 36 21C35 31 27 37 18 36C9 35 3 27 4 18C5 10 12 5 21 5" fill="none" stroke="#1d2f6f" stroke-width="2.6" stroke-linecap="round"/><text x="20" y="28" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="25" font-weight="700" fill="#c8352f">م</text></svg>
+        <span>منصة الأعمال</span>
+      </div>
+      <span id="today">التاريخ: —</span>
+    </div>
+
+    <h1>أهلًا بعودتك</h1>
+    <svg class="uline" viewBox="0 0 220 14" aria-hidden="true" preserveAspectRatio="none"><path d="M3 8C40 3 82 12 122 6S192 4 217 8" fill="none" stroke="#c8352f" stroke-width="3.6" stroke-linecap="round"/><path d="M22 12C72 9 132 13 192 10" fill="none" stroke="#c8352f" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg>
+    <p class="sub">سجّل دخولك لتكمل من حيث توقفت.</p>
+
+    <form id="loginForm" novalidate>
+      <p class="note bad" id="formError" role="alert" hidden></p>
+      <p class="note" id="formOk" role="status" hidden></p>
+
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <div class="control">
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="name@company.com" dir="ltr" style="text-align:right" required>
+        </div>
+        <p class="error" id="emailErr"></p>
       </div>
 
-      <h1>مرحبًا بعودتك</h1>
-      <p class="sub">سجّل الدخول للوصول إلى لوحة التحكم ومتابعة أعمالك.</p>
-
-      <form id="loginForm" novalidate>
-        <div class="status bad" id="formError" role="alert" hidden></div>
-        <div class="status ok" id="formOk" role="status" hidden></div>
-
-        <div class="field">
-          <label for="email">البريد الإلكتروني</label>
-          <div class="control">
-            <input id="email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="name@company.com" dir="ltr" style="text-align:right" required>
-          </div>
-          <p class="error" id="emailErr"></p>
+      <div class="field">
+        <div class="label-row">
+          <label for="password">كلمة المرور</label>
+          <button type="button" class="scribble" id="forgot">نسيتها؟</button>
         </div>
-
-        <div class="field">
-          <div class="label-row">
-            <label for="password">كلمة المرور</label>
-            <a class="link" href="#forgot" id="forgot">نسيت كلمة المرور؟</a>
-          </div>
-          <div class="control has-toggle">
-            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" dir="ltr" style="text-align:right" required>
-            <button class="toggle" id="toggle" type="button" aria-label="إظهار كلمة المرور" aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-          </div>
-          <p class="error" id="passErr"></p>
+        <div class="control has-toggle">
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" dir="ltr" style="text-align:right" required>
+          <button class="scribble toggle" id="toggle" type="button" aria-pressed="false">أظهرها</button>
         </div>
+        <p class="error" id="passErr"></p>
+      </div>
 
-        <label class="check" for="remember">
-          <input id="remember" type="checkbox" checked>
-          <span class="box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 4.8 9 10 3"/></svg></span>
-          <span>تذكّرني على هذا الجهاز</span>
-        </label>
+      <label class="check" for="remember">
+        <input id="remember" type="checkbox" checked>
+        <span class="box"><svg viewBox="0 0 32 30" aria-hidden="true"><path d="M5 16C9 18 11 22 13 25C17 15 23 8 29 3"/></svg></span>
+        <span>تذكّرني على هذا الجهاز</span>
+      </label>
 
-        <button class="btn btn-primary" id="submit" type="submit"><span id="submitText">تسجيل الدخول</span></button>
+      <button class="btn" id="submit" type="submit"><span id="submitText">تسجيل الدخول</span></button>
 
-        <div class="divider">أو</div>
+      <div class="or">أو</div>
 
-        <button class="btn btn-ghost" type="button" id="sso">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
-          الدخول عبر الدخول الموحّد (SSO)
-        </button>
-      </form>
+      <button class="btn btn-dashed" type="button" id="sso">الدخول بحساب المؤسسة</button>
+    </form>
 
-      <p class="foot">ليس لديك حساب؟ <a class="link" href="#register">أنشئ حسابًا جديدًا</a></p>
-      <p class="secure">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
-        اتصال مشفّر ومحمي بالتحقق الثنائي
-      </p>
+    <div class="foot">
+      <span>ليس لديك حساب؟ <button type="button" class="scribble" id="register">أنشئ واحدًا</button></span>
+      <svg class="stamp" viewBox="0 0 100 100" aria-label="اتصال آمن" role="img">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#c8352f" stroke-width="3.5"/>
+        <circle cx="50" cy="50" r="37" fill="none" stroke="#c8352f" stroke-width="1.6"/>
+        <text x="50" y="43" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="19" font-weight="700" fill="#c8352f">اتصال</text>
+        <text x="50" y="66" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="21" font-weight="700" fill="#c8352f">آمن</text>
+        <path d="M30 74L36 71L42 74M58 74L64 71L70 74" fill="none" stroke="#c8352f" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
     </div>
-  </section>
-
-  <aside class="panel" aria-hidden="true">
-    <span class="live"><span class="dot"></span> جميع الأنظمة تعمل بشكل طبيعي</span>
-    <div>
-      <h2>كل ما يخص عملك، في مكان واحد وبأمان كامل.</h2>
-      <p>تابع المهام والتقارير والفرق من لوحة تحكم واحدة، وابقَ على اطلاع لحظة بلحظة.</p>
-    </div>
-    <div class="metrics">
-      <div class="metric"><b>99.9%</b><span>وقت التشغيل</span></div>
-      <div class="metric"><b>+12,400</b><span>مستخدم نشط</span></div>
-      <div class="metric"><b>256-bit</b><span>تشفير البيانات</span></div>
-    </div>
-  </aside>
+  </div>
 </main>
+
+<div class="chalk-foot" aria-hidden="true">كُتبت هذه الصفحة بالحبر والطبشور</div>
 
 <script>
   (function () {
@@ -278,25 +302,24 @@
     var emailErr = $('emailErr'), passErr = $('passErr'), formError = $('formError'), formOk = $('formOk');
     var submit = $('submit'), submitText = $('submitText');
 
-    // Theme toggle (per-viewer convenience only)
-    var root = document.documentElement;
-    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
-    $('themeBtn').addEventListener('click', function () {
-      var dark = root.getAttribute('data-theme') === 'dark' ||
-        (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      var next = dark ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
-    });
+    // Today's date, written at the top like a notebook page
+    try {
+      $('today').textContent = new Date().toLocaleDateString('ar', { weekday: 'long', day: 'numeric', month: 'long' });
+    } catch (e) { $('today').textContent = ''; }
 
-    // Show / hide password
+    $('toggle').textContent = 'أظهرها';
     $('toggle').addEventListener('click', function () {
       var show = pass.type === 'password';
       pass.type = show ? 'text' : 'password';
+      this.textContent = show ? 'أخفِها' : 'أظهرها';
       this.setAttribute('aria-pressed', String(show));
-      this.setAttribute('aria-label', show ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
     });
 
+    function note(kind, msg) {
+      formError.hidden = true; formOk.hidden = true;
+      var el = kind === 'bad' ? formError : formOk;
+      el.textContent = msg; el.hidden = false;
+    }
     function setErr(input, el, msg) {
       el.textContent = msg || '';
       if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
@@ -304,13 +327,13 @@
     }
     function checkEmail() {
       var v = email.value.trim();
-      if (!v) return setErr(email, emailErr, 'أدخل البريد الإلكتروني.');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return setErr(email, emailErr, 'صيغة البريد غير صحيحة، مثال: name@company.com');
+      if (!v) return setErr(email, emailErr, 'نسيت كتابة بريدك.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return setErr(email, emailErr, 'شكل البريد غير مألوف، مثال: name@company.com');
       return setErr(email, emailErr, '');
     }
     function checkPass() {
-      if (!pass.value) return setErr(pass, passErr, 'أدخل كلمة المرور.');
-      if (pass.value.length < 8) return setErr(pass, passErr, 'كلمة المرور لا تقل عن 8 أحرف.');
+      if (!pass.value) return setErr(pass, passErr, 'اكتب كلمة المرور أولًا.');
+      if (pass.value.length < 8) return setErr(pass, passErr, 'كلمة المرور أقصر من 8 أحرف.');
       return setErr(pass, passErr, '');
     }
     email.addEventListener('blur', function () { if (email.value) checkEmail(); });
@@ -324,26 +347,20 @@
       var a = checkEmail(), b = checkPass();
       if (!a || !b) { (a ? pass : email).focus(); return; }
       submit.disabled = true;
-      submitText.textContent = 'جارٍ التحقق…';
-      submit.insertAdjacentHTML('afterbegin', '<span class="spinner" id="spin"></span>');
-      // Demo only: no server behind this page.
+      submitText.textContent = 'لحظة';
+      submitText.className = 'dots';
+      // Demo only: there is no server behind this page.
       setTimeout(function () {
-        var spin = $('spin'); if (spin) spin.remove();
         submit.disabled = false;
+        submitText.className = '';
         submitText.textContent = 'تسجيل الدخول';
-        formOk.textContent = 'تم التحقق من البيانات. هذه صفحة عرض ولا تتصل بخادم.';
-        formOk.hidden = false;
-      }, 1200);
+        note('ok', 'تم التحقق من بياناتك. هذه صفحة تجريبية ولا تتصل بخادم.');
+      }, 1300);
     });
 
-    $('sso').addEventListener('click', function () {
-      formOk.hidden = true;
-      formError.textContent = 'الدخول الموحّد غير مفعّل في نسخة العرض.';
-      formError.hidden = false;
-    });
-    ['forgot'].forEach(function (id) {
-      $(id).addEventListener('click', function (e) { e.preventDefault(); });
-    });
+    $('sso').addEventListener('click', function () { note('bad', 'الدخول بحساب المؤسسة غير مفعّل في هذه النسخة.'); });
+    $('forgot').addEventListener('click', function () { note('ok', 'في النسخة الحقيقية سنرسل لك رابط استعادة كلمة المرور على بريدك.'); });
+    $('register').addEventListener('click', function () { note('ok', 'إنشاء الحساب غير مفعّل في النسخة التجريبية.'); });
   })();
 </script>
 </body>
