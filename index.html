@@ -3,365 +3,670 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#213a33">
-<title>بوابة الدخول</title>
+<meta name="theme-color" content="#0e3b38">
+<title>بوابة الخدمات الإلكترونية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Playpen+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Concept: a classroom blackboard in a wooden frame. A notebook page is taped on it,
-     bound on the right as Arabic notebooks are. Everything is slightly crooked on purpose. */
+  /* Concept: an institutional portal. A pine-green band tiled with an eight-point star lattice,
+     and a white sign-in card that hangs across the band's lower edge.
+     Signature: the data console, a live view of the simulated database that updates with every sign-up and sign-in. */
   :root {
-    --board: #213a33;
-    --board-deep: #172a25;
-    --chalk: #eef1e6;
-    --paper: #f1f3f2;
-    --ink: #1d2f6f;
-    --ink-soft: #4a557a;
-    --pen-red: #c8352f;
-    --mustard: #f2c14e;
-    --note: #ffe36e;
-    --note-bad: #ffc2bd;
-    --wood: #6a4a31;
-    --font-hand: "Playpen Sans Arabic", "Segoe UI", Tahoma, sans-serif;
-    --font-calli: "Aref Ruqaa", "Playpen Sans Arabic", "Segoe UI", Tahoma, serif;
-    --wobble: 255px 14px 225px 14px / 14px 225px 14px 255px;
-    --line-ok: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 C20 1 40 7 62 4 S105 2 132 5 S182 6 200 3' fill='none' stroke='%231d2f6f' stroke-width='2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-    --line-bad: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 C20 1 40 7 62 4 S105 2 132 5 S182 6 200 3' fill='none' stroke='%23c8352f' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-    --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .12 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --pine: #0e3b38;
+    --pine-2: #17524d;
+    --brass: #b8872b;
+    --brass-soft: #f4ead0;
+    --paper: #f5f6f3;
+    --card: #ffffff;
+    --ink: #16282a;
+    --muted: #5b6a69;
+    --line: #dde2de;
+    --danger: #b3261e;
+    --danger-soft: #fbe9e7;
+    --ok: #1c7a4c;
+    --ok-soft: #e4f3ea;
+    --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --font-display: "Reem Kufi", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.11' stroke-width='1'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='11'/%3E%3Cpath d='M0 0L24 24M88 0L64 24M0 88L24 64M88 88L64 64'/%3E%3C/g%3E%3C/svg%3E");
   }
-
   * { box-sizing: border-box; }
-  html { color-scheme: dark; background: var(--board); }
-  body {
-    margin: 0; min-height: 100vh; min-height: 100dvh;
-    display: grid; place-items: center;
-    padding-block: max(44px, env(safe-area-inset-top, 0px)) max(44px, env(safe-area-inset-bottom, 0px));
-    padding-left: max(28px, env(safe-area-inset-left, 0px));
-    padding-right: max(28px, env(safe-area-inset-right, 0px));
-    font-family: var(--font-hand); font-size: 17px; line-height: 1.65; color: var(--ink);
-    background-color: var(--board);
-    background-image:
-      var(--grain-light),
-      radial-gradient(ellipse 60% 40% at 18% 22%, rgba(255,255,255,.07), transparent 70%),
-      radial-gradient(ellipse 50% 35% at 82% 78%, rgba(255,255,255,.055), transparent 70%),
-      radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,.38) 100%);
-  }
-  /* Wooden frame */
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none;
-    border: 14px solid var(--wood);
-    border-image: repeating-linear-gradient(94deg, #6d4c33 0 13px, #62422a 13px 21px, #765539 21px 40px, #5b3d27 40px 47px) 14;
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,.35), inset 0 8px 28px rgba(0,0,0,.55);
-  }
+  html { color-scheme: light; background: var(--paper); }
+  body { margin: 0; min-height: 100vh; font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--paper); }
+  [hidden] { display: none !important; }
+  button, input { font: inherit; }
+  .gut { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
 
-  /* ---------- chalk drawings on the board ---------- */
-  .doodles { position: fixed; inset: 0; pointer-events: none; z-index: 0; display: none; color: var(--chalk); }
-  .doodles svg { position: absolute; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: url(#chalk); opacity: .82; }
-  .d-sun  { left: 6vw;  top: 11vh; width: 118px; }
-  .d-cup  { left: 8vw;  bottom: 12vh; width: 104px; transform: rotate(-5deg); }
-  .d-star { right: 9vw; bottom: 13vh; width: 70px; transform: rotate(12deg); }
-  .d-star2{ right: 15vw; bottom: 22vh; width: 38px; transform: rotate(-10deg); }
-  .d-arrow{ right: 10vw; top: 30vh; width: 130px; transform: scaleX(-1) rotate(4deg); }
-  .chalk-text {
-    position: absolute; right: 7vw; top: 21vh; font-size: 24px; font-weight: 500; transform: rotate(-5deg);
-    filter: url(#chalk); opacity: .85; color: var(--chalk); max-width: 220px; line-height: 1.5;
-  }
-  .chalk-foot { position: fixed; bottom: 26px; inset-inline: 0; text-align: center; font-size: 14px; color: rgba(238,241,230,.6); filter: url(#chalk); pointer-events: none; z-index: 1; }
+  /* ---------- band + top bar ---------- */
+  .band { position: absolute; inset: 0 0 auto 0; height: 470px; z-index: 0; background: var(--pine) var(--lattice); background-size: 88px 88px;
+    background-image: var(--lattice), linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.28)); }
+  .band::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 4px; background: var(--brass); }
+  .top { position: relative; z-index: 2; color: #fff; }
+  .top-in { max-width: 1120px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: max(18px, env(safe-area-inset-top, 0px)) 18px; }
+  .org { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .emblem { width: 42px; height: 42px; flex: none; }
+  .org b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.2; }
+  .org small { display: block; font-size: 12.5px; color: rgba(255,255,255,.72); }
+  .btn-line { color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.4); border-radius: 8px; padding: 8px 14px; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .btn-line:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.7); }
+  .btn-line svg { width: 16px; height: 16px; }
 
-  /* ---------- the taped notebook page ---------- */
-  .wrap {
-    position: relative; z-index: 2; width: min(100%, 470px);
-    transform: rotate(-1.1deg);
-    filter: drop-shadow(0 22px 20px rgba(0,0,0,.42)) drop-shadow(0 2px 2px rgba(0,0,0,.4));
-    animation: settle .7s cubic-bezier(.2,.9,.3,1.1) both;
-  }
-  @keyframes settle { from { transform: translateY(-18px) rotate(-3.2deg); opacity: .0; } to { transform: rotate(-1.1deg); opacity: 1; } }
+  /* ---------- stage ---------- */
+  .stage { position: relative; z-index: 1; max-width: 1120px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 56px; align-items: start; padding-block: 36px 56px; }
+  .intro { color: #fff; padding-top: 18px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--brass-soft); border: 1px solid rgba(244,234,208,.35); border-radius: 999px; padding: 3px 12px; }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); }
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 4.4vw, 48px); line-height: 1.3; margin: 16px 0 12px; text-wrap: balance; }
+  .intro p { margin: 0; max-width: 34em; color: rgba(255,255,255,.82); }
+  .perks { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; }
+  .perks li { display: flex; gap: 12px; align-items: baseline; color: rgba(255,255,255,.9); font-size: 15.5px; }
+  .perks svg { width: 16px; height: 16px; flex: none; transform: translateY(3px); stroke: var(--brass); }
 
-  .tape {
-    position: absolute; top: -15px; width: 104px; height: 32px; z-index: 5;
-    background: linear-gradient(180deg, rgba(242,193,78,.82), rgba(232,178,60,.74));
-    box-shadow: 0 1px 2px rgba(0,0,0,.25);
-    clip-path: polygon(0 0,100% 0,97% 20%,100% 40%,97% 60%,100% 80%,97% 100%,0 100%,3% 80%,0 60%,3% 40%,0 20%);
-  }
-  .tape.a { inset-inline-start: 14%; transform: rotate(-7deg); }
-  .tape.b { inset-inline-end: 12%; transform: rotate(5deg); width: 90px; }
+  /* ---------- card ---------- */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 1px 2px rgba(14,59,56,.06), 0 18px 44px rgba(14,59,56,.16); overflow: hidden; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); background: #fafbf9; }
+  .tab { position: relative; background: none; border: 0; padding: 16px 8px 15px; font-weight: 600; font-size: 15.5px; color: var(--muted); cursor: pointer; }
+  .tab[aria-selected="true"] { color: var(--pine); background: var(--card); }
+  .tab[aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 3px; background: var(--brass); }
+  .pane { padding: 28px 28px 26px; }
+  h2 { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.3; margin: 0 0 4px; color: var(--pine); }
+  .lead { margin: 0 0 22px; color: var(--muted); font-size: 15px; }
 
-  .sheet {
-    position: relative; padding: 50px 34px 62px; padding-inline-start: 84px;
-    background-color: var(--paper);
-    background-image: var(--grain-dark), linear-gradient(172deg, rgba(255,255,255,.7), rgba(0,0,0,.035));
-    clip-path: polygon(0 0,100% 0,100% calc(100% - 9px),96% calc(100% - 3px),92% calc(100% - 10px),87% calc(100% - 2px),82% calc(100% - 8px),76% calc(100% - 1px),70% calc(100% - 9px),64% calc(100% - 4px),58% calc(100% - 10px),52% calc(100% - 2px),46% calc(100% - 8px),40% calc(100% - 1px),33% calc(100% - 9px),27% calc(100% - 3px),21% calc(100% - 10px),14% calc(100% - 2px),8% calc(100% - 8px),3% calc(100% - 3px),0 calc(100% - 9px));
-  }
-  /* double red margin line, binding holes (Arabic notebooks bind on the right) */
-  .sheet::before {
-    content: ""; position: absolute; inset-block: 0; inset-inline-start: 62px; width: 6px;
-    border-inline: 1.5px solid rgba(200,53,47,.5);
-  }
-  .holes i {
-    position: absolute; inset-inline-start: 18px; width: 22px; height: 22px; border-radius: 50%;
-    background: var(--board-deep); box-shadow: inset 0 3px 4px rgba(0,0,0,.65), 0 1px 0 rgba(255,255,255,.6);
-  }
-  .holes i:nth-child(1) { top: 16%; } .holes i:nth-child(2) { top: 49%; } .holes i:nth-child(3) { top: 82%; }
-
-  .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; font-size: 14px; color: var(--ink-soft); }
-  .brand { display: flex; align-items: center; gap: 9px; font-family: var(--font-calli); font-size: 22px; font-weight: 700; color: var(--ink); }
-  .brand svg { width: 34px; height: 34px; }
-  #today { white-space: nowrap; }
-
-  h1 { font-family: var(--font-calli); font-weight: 700; font-size: 50px; line-height: 1.3; margin: 6px 0 0; color: var(--ink); transform: rotate(.7deg); text-wrap: balance; }
-  .uline { display: block; width: 200px; max-width: 70%; height: 14px; margin: -2px 0 8px; transform: rotate(.5deg); }
-  .sub { margin: 0 0 24px; color: var(--ink-soft); font-size: 16px; }
-
-  form { display: grid; gap: 24px; }
-  .field { display: grid; gap: 2px; min-width: 0; }
-  .label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  label, .small { font-weight: 600; font-size: 15px; color: var(--ink); }
-  .scribble {
-    background: none; border: 0; padding: 0 0 5px; font: inherit; font-size: 14px; font-weight: 500; color: var(--ink);
-    cursor: pointer; text-decoration: none; background-image: var(--line-ok); background-repeat: no-repeat; background-size: 100% 6px; background-position: bottom;
-  }
-  .scribble:hover { color: var(--pen-red); background-image: var(--line-bad); }
-
+  form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; min-width: 0; }
+  label, .lbl { font-weight: 500; font-size: 14.5px; }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .link { background: none; border: 0; padding: 0; color: var(--pine-2); font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(23,82,77,.35); }
+  .link:hover { text-decoration-color: currentColor; }
   .control { position: relative; }
-  input[type="email"], input[type="password"], input[type="text"] {
-    width: 100%; font: inherit; font-size: 18px; font-weight: 500; color: var(--ink);
-    background-color: transparent; border: 0; border-radius: 4px 12px 3px 10px; padding: 8px 6px 11px;
-    background-image: var(--line-ok); background-repeat: no-repeat; background-size: 100% 8px; background-position: bottom;
-    transition: background-color .2s;
-    caret-color: var(--pen-red);
-  }
-  input::placeholder { color: #8a93b0; font-weight: 300; }
-  input:focus { outline: none; background-color: rgba(255,227,110,.38); }
-  input[aria-invalid="true"] { background-image: var(--line-bad); }
-  .has-toggle input { padding-inline-end: 64px; }
-  .toggle { position: absolute; inset-inline-end: 4px; bottom: 9px; }
-  .error { margin: 4px 0 0; color: var(--pen-red); font-size: 14px; font-weight: 500; transform: rotate(-.6deg); }
-  .error:empty { display: none; }
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%; height: 48px; padding-inline: 14px; border: 1px solid #c9d1cc; border-radius: 8px; background: #fff; color: var(--ink); transition: border-color .15s, box-shadow .15s; }
+  input::placeholder { color: #93a09e; }
+  input:hover { border-color: #a9b6b1; }
+  input:focus { outline: none; border-color: var(--pine-2); box-shadow: 0 0 0 4px rgba(23,82,77,.16); }
+  input[aria-invalid="true"] { border-color: var(--danger); }
+  input[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(179,38,30,.14); }
+  .ltr { direction: ltr; text-align: right; }
+  .has-eye input { padding-inline-end: 62px; }
+  .eye { position: absolute; inset-block: 0; inset-inline-end: 6px; padding-inline: 8px; background: none; border: 0; color: var(--pine-2); font-size: 13.5px; font-weight: 500; cursor: pointer; }
+  .err { margin: 0; color: var(--danger); font-size: 13.5px; }
+  .err:empty { display: none; }
+  .hint { margin: 0; color: var(--muted); font-size: 13px; }
 
-  .check { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; user-select: none; }
-  .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-  .box { position: relative; width: 24px; height: 24px; flex: none; border: 2px solid var(--ink); border-radius: 6px 3px 7px 4px / 4px 7px 3px 6px; background: rgba(255,255,255,.55); transform: rotate(-3deg); }
-  .box svg { position: absolute; inset: -7px -3px auto auto; width: 32px; height: 30px; fill: none; stroke: var(--pen-red); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 50; stroke-dashoffset: 50; transition: stroke-dashoffset .28s ease-out; }
-  .check input:checked + .box svg { stroke-dashoffset: 0; }
-  .check input:focus-visible + .box { outline: 3px dashed var(--pen-red); outline-offset: 3px; }
+  .meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 2px; }
+  .meter i { height: 4px; border-radius: 2px; background: #e3e8e4; transition: background .2s; }
+  .meter[data-s="1"] i:nth-child(-n+1) { background: var(--danger); }
+  .meter[data-s="2"] i:nth-child(-n+2) { background: #d08a1a; }
+  .meter[data-s="3"] i:nth-child(-n+3) { background: #5f9a3b; }
+  .meter[data-s="4"] i { background: var(--ok); }
 
-  .btn {
-    position: relative; font-family: var(--font-calli); font-weight: 700; font-size: 26px; line-height: 1; color: #16193a;
-    padding: 15px 22px 17px; border: 3px solid #16193a; border-radius: var(--wobble); cursor: pointer;
-    background: var(--mustard); box-shadow: 4px 5px 0 #16193a; transform: rotate(-.7deg);
-    transition: transform .12s, box-shadow .12s, background .15s;
-  }
-  .btn:hover { transform: translate(-1px,-2px) rotate(-.7deg); box-shadow: 6px 8px 0 #16193a; background: #f6cc66; }
-  .btn:active { transform: translate(3px,4px) rotate(-.7deg); box-shadow: 1px 1px 0 #16193a; }
-  .btn[disabled] { cursor: progress; opacity: .85; }
-  .btn-dashed { background: transparent; box-shadow: none; border-style: dashed; border-width: 2.5px; border-color: var(--ink); color: var(--ink); font-family: var(--font-hand); font-weight: 600; font-size: 16px; padding: 12px 18px 13px; border-radius: 12px 4px 14px 5px / 5px 14px 4px 12px; transform: rotate(.5deg); }
-  .btn-dashed:hover { background: rgba(29,47,111,.07); transform: rotate(.5deg); box-shadow: none; }
-  .btn-dashed:active { transform: translateY(1px) rotate(.5deg); box-shadow: none; }
-  .dots::after { content: ""; display: inline-block; width: 1.4em; text-align: start; animation: dots 1.2s steps(4) infinite; }
-  @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+  .check input { width: 18px; height: 18px; margin: 3px 0 0; flex: none; accent-color: var(--pine-2); }
 
-  .or { display: flex; align-items: center; gap: 14px; color: var(--ink-soft); font-size: 14px; margin-block: -4px; }
-  .or::before, .or::after { content: ""; flex: 1; height: 8px; background: var(--line-ok) center / 100% 6px no-repeat; opacity: .55; }
+  .btn { height: 50px; border-radius: 8px; border: 1px solid transparent; font-weight: 600; font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background .15s, border-color .15s, transform .08s; padding-inline: 18px; }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--pine); color: #fff; }
+  .btn-primary:hover { background: var(--pine-2); }
+  .btn-primary[disabled] { opacity: .7; cursor: progress; }
+  .btn-google { background: #fff; color: var(--ink); border-color: #c9d1cc; }
+  .btn-google:hover { background: #f8faf8; border-color: #9fb0aa; }
+  .btn-quiet { background: transparent; color: var(--pine); border-color: #c9d1cc; }
+  .btn-quiet:hover { background: #f3f6f4; }
+  .gwrap .btn, #lSubmit, #rSubmit { width: 100%; }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .spin { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,.4); border-top-color: #fff; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13.5px; }
+  .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  #gisBtn { display: flex; justify-content: center; min-height: 44px; }
 
-  /* sticky-note messages */
-  .note {
-    position: relative; margin: 0; padding: 13px 16px 15px; font-size: 15px; font-weight: 500; line-height: 1.6;
-    background: linear-gradient(225deg, transparent 20px, var(--note) 0); color: #3a2f00; transform: rotate(1.3deg);
-    box-shadow: 0 5px 8px -4px rgba(0,0,0,.35); animation: pop .35s cubic-bezier(.2,1.4,.4,1) both;
-  }
-  .note::after { content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0; width: 20px; height: 20px; background: linear-gradient(225deg, rgba(0,0,0,.18) 0 50%, #e9c943 50%); box-shadow: 1px 1px 2px rgba(0,0,0,.2); }
-  .note.bad { background: linear-gradient(225deg, transparent 20px, var(--note-bad) 0); color: #5a1410; transform: rotate(-1.1deg); }
-  .note.bad::after { background: linear-gradient(225deg, rgba(0,0,0,.18) 0 50%, #e49a94 50%); }
-  .note[hidden] { display: none !important; }
-  @keyframes pop { from { transform: scale(.82) rotate(6deg); opacity: 0; } }
+  .alert { display: flex; gap: 10px; padding: 11px 14px; border-radius: 8px; font-size: 14.5px; border: 1px solid; }
+  .alert.bad { background: var(--danger-soft); color: #7e1a14; border-color: #f0c4be; }
+  .alert.ok { background: var(--ok-soft); color: #155a38; border-color: #b9dcc7; }
+  .alert.info { background: var(--brass-soft); color: #5b4210; border-color: #e6d3a1; }
 
-  .foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; font-size: 15px; color: var(--ink-soft); }
-  .stamp { flex: none; width: 92px; height: 92px; margin-block: -14px -10px; transform: rotate(-14deg); mix-blend-mode: multiply; opacity: .88; filter: url(#chalk); }
+  .demo-note { margin: 18px 0 0; padding: 12px 14px; border-radius: 8px; background: #f3f5f2; border: 1px dashed #b6c1bc; font-size: 13.5px; color: var(--muted); }
+  .demo-note code { font-family: var(--font-mono); direction: ltr; unicode-bidi: embed; font-size: 12.5px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+  .demo-note button { margin-top: 6px; }
 
-  :focus-visible { outline: 3px dashed var(--pen-red); outline-offset: 3px; }
+  /* ---------- account view ---------- */
+  .who { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .avatar { width: 54px; height: 54px; border-radius: 50%; background: var(--pine); color: var(--brass-soft); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 22px; flex: none; border: 3px solid var(--brass-soft); }
+  .who b { display: block; font-size: 19px; line-height: 1.3; }
+  .who span { color: var(--muted); font-size: 14px; direction: ltr; unicode-bidi: embed; }
+  .facts { margin: 0 0 20px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 14px; font-size: 14.5px; }
+  .facts div + div { border-top: 1px solid var(--line); }
+  .facts dt { color: var(--muted); } .facts dd { margin: 0; font-weight: 500; text-align: end; min-width: 0; overflow-wrap: anywhere; }
+  .pill { display: inline-block; padding: 1px 10px; border-radius: 999px; background: var(--brass-soft); color: #6b4d12; font-size: 13px; }
+  .pill.g { background: #e7eefb; color: #23407a; }
+  .sub-h { font-size: 14px; font-weight: 600; margin: 0 0 8px; color: var(--pine); }
+  .log { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 0; font-size: 14px; }
+  .log li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .log time { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+  .foot { max-width: 1120px; margin-inline: auto; padding-block: 8px 36px; color: var(--muted); font-size: 13.5px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+  /* ---------- dialogs ---------- */
+  dialog { border: 0; padding: 0; border-radius: 14px; max-width: min(94vw, 460px); width: 100%; color: var(--ink); box-shadow: 0 24px 70px rgba(0,0,0,.35); font-family: var(--font-body); }
+  dialog::backdrop { background: rgba(8,28,26,.6); backdrop-filter: blur(2px); }
+  .dlg-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+  .dlg-h h3 { margin: 0; font-family: var(--font-display); font-size: 19px; color: var(--pine); }
+  .x { background: none; border: 0; font-size: 24px; line-height: 1; padding: 4px 8px; cursor: pointer; color: var(--muted); border-radius: 6px; }
+  .x:hover { background: #eef1ee; }
+  .dlg-b { padding: 18px 20px 22px; display: grid; gap: 14px; }
+  .acct { display: flex; align-items: center; gap: 12px; width: 100%; text-align: start; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+  .acct:hover { background: #f6f8f6; border-color: #a9b6b1; }
+  .acct .dot { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 600; flex: none; }
+  .acct b { display: block; font-size: 15px; line-height: 1.3; } .acct span { color: var(--muted); font-size: 13px; direction: ltr; unicode-bidi: embed; }
+  dialog.wide { max-width: min(96vw, 860px); }
+  .dtabs { display: flex; gap: 4px; padding: 10px 14px 0; border-bottom: 1px solid var(--line); background: #fafbf9; flex-wrap: wrap; }
+  .dtab { border: 0; background: none; padding: 9px 14px; font-size: 14px; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; }
+  .dtab[aria-selected="true"] { color: var(--pine); border-bottom-color: var(--brass); }
+  .tbl-wrap { overflow: auto; max-height: min(52vh, 420px); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 9px 12px; text-align: start; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { position: sticky; top: 0; background: #f2f5f2; font-weight: 600; color: var(--pine); }
+  td.m { font-family: var(--font-mono); font-size: 12px; direction: ltr; text-align: left; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); }
+  .dfoot { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--line); background: #fafbf9; font-size: 13px; color: var(--muted); }
+  .dfoot .btn { height: 38px; font-size: 14px; }
+
+  .toast { position: fixed; inset-inline: 0; bottom: max(22px, env(safe-area-inset-bottom, 0px)); z-index: 100; display: flex; justify-content: center; pointer-events: none; padding-inline: 16px; }
+  .toast span { background: var(--ink); color: #fff; border-radius: 10px; padding: 11px 18px; font-size: 14.5px; box-shadow: 0 10px 30px rgba(0,0,0,.3); opacity: 0; transform: translateY(10px); transition: opacity .2s, transform .2s; max-width: 520px; }
+  .toast.on span { opacity: 1; transform: none; }
+
+  :focus-visible { outline: 3px solid #e1b34f; outline-offset: 2px; }
   input:focus-visible { outline: none; }
-  .btn:focus-visible { outline-offset: 6px; }
 
-  @media (min-width: 1100px) { .doodles { display: block; } }
-  @media (max-height: 980px) { .chalk-foot { display: none; } }
+  @media (max-width: 920px) {
+    .stage { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 12px; }
+    .intro { padding-top: 0; } .perks { display: none; }
+    .band { height: 390px; }
+    .card { max-width: 520px; width: 100%; margin-inline: auto; }
+  }
   @media (max-width: 520px) {
-    body { padding-inline: 18px; padding-block: 34px; }
-    body::after { border-width: 8px; border-image-slice: 8; }
-    .sheet { padding: 44px 20px 58px; padding-inline-start: 62px; }
-    .sheet::before { inset-inline-start: 46px; }
-    .holes i { inset-inline-start: 11px; width: 18px; height: 18px; }
-    h1 { font-size: 40px; }
-    .wrap { transform: rotate(-.6deg); }
-    @keyframes settle { from { transform: translateY(-14px) rotate(-2deg); opacity: 0; } to { transform: rotate(-.6deg); opacity: 1; } }
-    .chalk-foot { display: none; }
-    .meta { flex-wrap: wrap; }
+    .pane { padding: 22px 18px 20px; }
+    .org small { display: none; } .org b { font-size: 17px; }
+    .btn-line span { display: none; }
+    .band { height: 360px; }
+    .foot { flex-direction: column; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
+<div class="band" aria-hidden="true"></div>
 
-<!-- SVG filters: rough chalk edges and a little wobble in the lines -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="chalk" x="-8%" y="-8%" width="116%" height="116%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5" result="warp"/>
-    <feDisplacementMap in="SourceGraphic" in2="warp" scale="3.4" result="d"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9" result="grain"/>
-    <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -0.55" result="mask"/>
-    <feComposite in="d" in2="mask" operator="in"/>
-  </filter>
-</svg>
-
-<!-- chalk doodles (desktop only) -->
-<div class="doodles" aria-hidden="true">
-  <svg class="d-sun" viewBox="0 0 120 120"><path d="M38 60C38 46 50 36 62 38C76 40 84 52 82 64C80 76 68 84 56 82C44 80 38 70 38 60"/><path d="M60 22V8M92 29L101 19M102 60H117M92 93L101 102M60 98V113M28 92L19 101M18 60H3M28 28L19 19"/></svg>
-  <svg class="d-cup" viewBox="0 0 120 130"><path d="M18 60C18 100 28 112 50 112C72 112 82 100 82 60Z"/><path d="M82 70C104 66 106 94 80 94"/><path d="M8 118C40 124 70 124 96 118"/><path d="M38 46C30 34 46 28 38 14M58 46C50 34 66 28 58 14"/></svg>
-  <svg class="d-star" viewBox="0 0 60 58"><path d="M30 5L37 23L55 24L41 36L46 54L30 43L14 54L19 36L5 24L24 23Z"/></svg>
-  <svg class="d-star2" viewBox="0 0 60 58"><path d="M30 5L37 23L55 24L41 36L46 54L30 43L14 54L19 36L5 24L24 23Z"/></svg>
-  <svg class="d-arrow" viewBox="0 0 160 120"><path d="M10 20C60 8 112 40 140 98"/><path d="M140 98L121 90M140 98L148 77"/></svg>
-  <div class="chalk-text">اكتب بريدك<br>وكلمة السرّ هنا</div>
-</div>
-
-<main class="wrap">
-  <span class="tape a" aria-hidden="true"></span>
-  <span class="tape b" aria-hidden="true"></span>
-
-  <div class="sheet">
-    <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
-
-    <div class="meta">
-      <div class="brand">
-        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4C30 3 37 11 36 21C35 31 27 37 18 36C9 35 3 27 4 18C5 10 12 5 21 5" fill="none" stroke="#1d2f6f" stroke-width="2.6" stroke-linecap="round"/><text x="20" y="28" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="25" font-weight="700" fill="#c8352f">م</text></svg>
-        <span>منصة الأعمال</span>
-      </div>
-      <span id="today">التاريخ: —</span>
+<header class="top gut">
+  <div class="top-in">
+    <div class="org">
+      <svg class="emblem" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#b8872b" stroke-width="1.5"/><g fill="none" stroke="#f4ead0" stroke-width="1.6" stroke-linejoin="round"><rect x="11.5" y="11.5" width="17" height="17"/><rect x="11.5" y="11.5" width="17" height="17" transform="rotate(45 20 20)"/></g><circle cx="20" cy="20" r="3.2" fill="#b8872b"/></svg>
+      <div><b>بوابة الخدمات الإلكترونية</b><small>الحساب الموحّد للمستفيدين</small></div>
     </div>
-
-    <h1>أهلًا بعودتك</h1>
-    <svg class="uline" viewBox="0 0 220 14" aria-hidden="true" preserveAspectRatio="none"><path d="M3 8C40 3 82 12 122 6S192 4 217 8" fill="none" stroke="#c8352f" stroke-width="3.6" stroke-linecap="round"/><path d="M22 12C72 9 132 13 192 10" fill="none" stroke="#c8352f" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg>
-    <p class="sub">سجّل دخولك لتكمل من حيث توقفت.</p>
-
-    <form id="loginForm" novalidate>
-      <p class="note bad" id="formError" role="alert" hidden></p>
-      <p class="note" id="formOk" role="status" hidden></p>
-
-      <div class="field">
-        <label for="email">البريد الإلكتروني</label>
-        <div class="control">
-          <input id="email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="name@company.com" dir="ltr" style="text-align:right" required>
-        </div>
-        <p class="error" id="emailErr"></p>
-      </div>
-
-      <div class="field">
-        <div class="label-row">
-          <label for="password">كلمة المرور</label>
-          <button type="button" class="scribble" id="forgot">نسيتها؟</button>
-        </div>
-        <div class="control has-toggle">
-          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" dir="ltr" style="text-align:right" required>
-          <button class="scribble toggle" id="toggle" type="button" aria-pressed="false">أظهرها</button>
-        </div>
-        <p class="error" id="passErr"></p>
-      </div>
-
-      <label class="check" for="remember">
-        <input id="remember" type="checkbox" checked>
-        <span class="box"><svg viewBox="0 0 32 30" aria-hidden="true"><path d="M5 16C9 18 11 22 13 25C17 15 23 8 29 3"/></svg></span>
-        <span>تذكّرني على هذا الجهاز</span>
-      </label>
-
-      <button class="btn" id="submit" type="submit"><span id="submitText">تسجيل الدخول</span></button>
-
-      <div class="or">أو</div>
-
-      <button class="btn btn-dashed" type="button" id="sso">الدخول بحساب المؤسسة</button>
-    </form>
-
-    <div class="foot">
-      <span>ليس لديك حساب؟ <button type="button" class="scribble" id="register">أنشئ واحدًا</button></span>
-      <svg class="stamp" viewBox="0 0 100 100" aria-label="اتصال آمن" role="img">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#c8352f" stroke-width="3.5"/>
-        <circle cx="50" cy="50" r="37" fill="none" stroke="#c8352f" stroke-width="1.6"/>
-        <text x="50" y="43" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="19" font-weight="700" fill="#c8352f">اتصال</text>
-        <text x="50" y="66" text-anchor="middle" font-family="Aref Ruqaa, serif" font-size="21" font-weight="700" fill="#c8352f">آمن</text>
-        <path d="M30 74L36 71L42 74M58 74L64 71L70 74" fill="none" stroke="#c8352f" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-    </div>
+    <button class="btn-line" id="openDb" type="button" title="عرض جداول قاعدة البيانات المحاكاة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+      <span>مستكشف البيانات</span>
+    </button>
   </div>
+</header>
+
+<main class="stage gut">
+  <section class="intro">
+    <span class="chip"><i></i> النسخة التجريبية</span>
+    <h1>حسابٌ واحد لجميع خدماتك</h1>
+    <p>سجّل الدخول لمتابعة طلباتك وتحديث بياناتك والاطلاع على سجل نشاط حسابك.</p>
+    <ul class="perks">
+      <li><svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>تابع حالة طلباتك دون زيارة أي مقر</li>
+      <li><svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>سجّل بالبريد وكلمة المرور أو بحساب Google</li>
+      <li><svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>كل عملية دخول تُسجَّل في سجل نشاطك</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <div id="authView">
+      <div class="tabs" role="tablist" aria-label="نوع العملية">
+        <button class="tab" role="tab" id="tabLogin" aria-selected="true" aria-controls="paneLogin" type="button">تسجيل الدخول</button>
+        <button class="tab" role="tab" id="tabReg" aria-selected="false" aria-controls="paneReg" type="button">حساب جديد</button>
+      </div>
+
+      <div class="pane" id="paneLogin" role="tabpanel" aria-labelledby="tabLogin">
+        <h2>مرحبًا بعودتك</h2>
+        <p class="lead">أدخل بيانات حسابك للمتابعة.</p>
+        <form id="loginForm" novalidate>
+          <div class="alert bad" id="loginAlert" role="alert" hidden></div>
+          <div class="field">
+            <label for="lEmail">البريد الإلكتروني</label>
+            <input id="lEmail" class="ltr" type="email" inputmode="email" autocomplete="username" placeholder="name@example.com" required>
+            <p class="err" id="lEmailErr"></p>
+          </div>
+          <div class="field">
+            <div class="row"><label for="lPass">كلمة المرور</label><button type="button" class="link" id="forgotBtn">نسيت كلمة المرور؟</button></div>
+            <div class="control has-eye">
+              <input id="lPass" class="ltr" type="password" autocomplete="current-password" placeholder="••••••••" required>
+              <button type="button" class="eye" data-eye="lPass" aria-pressed="false">إظهار</button>
+            </div>
+            <p class="err" id="lPassErr"></p>
+          </div>
+          <label class="check" for="lRemember"><input id="lRemember" type="checkbox" checked><span>ابقني مسجّلًا لمدة 30 يومًا على هذا الجهاز</span></label>
+          <button class="btn btn-primary" id="lSubmit" type="submit">تسجيل الدخول</button>
+          <div class="or">أو</div>
+          <div class="gwrap"><button class="btn btn-google" type="button" data-google>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.4-4.7 7.1l7.3 5.7c4.3-4 6.8-9.9 6.8-17.2z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2 1.4-4.7 2.3-8.6 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+            المتابعة بحساب Google</button><div id="gisBtnL" class="gis" hidden></div></div>
+        </form>
+        <p class="demo-note">حساب تجريبي جاهز: <code>demo@portal.demo</code> وكلمة المرور <code>Demo@12345</code><br><button type="button" class="link" id="fillDemo">تعبئة البيانات تلقائيًا</button></p>
+      </div>
+
+      <div class="pane" id="paneReg" role="tabpanel" aria-labelledby="tabReg" hidden>
+        <h2>إنشاء حساب جديد</h2>
+        <p class="lead">يستغرق الأمر دقيقة واحدة.</p>
+        <form id="regForm" novalidate>
+          <div class="alert bad" id="regAlert" role="alert" hidden></div>
+          <div class="field"><label for="rName">الاسم الكامل</label><input id="rName" type="text" autocomplete="name" placeholder="الاسم كما في الهوية" required><p class="err" id="rNameErr"></p></div>
+          <div class="field"><label for="rEmail">البريد الإلكتروني</label><input id="rEmail" class="ltr" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" required><p class="err" id="rEmailErr"></p></div>
+          <div class="field">
+            <label for="rPass">كلمة المرور</label>
+            <div class="control has-eye"><input id="rPass" class="ltr" type="password" autocomplete="new-password" placeholder="8 أحرف على الأقل" required><button type="button" class="eye" data-eye="rPass" aria-pressed="false">إظهار</button></div>
+            <div class="meter" id="meter" data-s="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <p class="hint" id="meterTxt">استخدم 8 أحرف على الأقل تجمع الحروف والأرقام.</p>
+            <p class="err" id="rPassErr"></p>
+          </div>
+          <div class="field"><label for="rPass2">تأكيد كلمة المرور</label><input id="rPass2" class="ltr" type="password" autocomplete="new-password" required><p class="err" id="rPass2Err"></p></div>
+          <label class="check" for="rTerms"><input id="rTerms" type="checkbox"><span>أوافق على شروط الاستخدام وسياسة الخصوصية.</span></label>
+          <p class="err" id="rTermsErr"></p>
+          <button class="btn btn-primary" id="rSubmit" type="submit">إنشاء الحساب</button>
+          <div class="or">أو</div>
+          <div class="gwrap"><button class="btn btn-google" type="button" data-google>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.4-4.7 7.1l7.3 5.7c4.3-4 6.8-9.9 6.8-17.2z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2 1.4-4.7 2.3-8.6 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+            التسجيل بحساب Google</button><div id="gisBtnR" class="gis" hidden></div></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="pane" id="accountView" hidden>
+      <div class="who"><div class="avatar" id="avatar">م</div><div><b id="aName"></b><span id="aEmail"></span></div></div>
+      <div class="alert ok" id="welcomeNote" hidden></div>
+      <dl class="facts" style="margin-top:16px">
+        <div><dt>طريقة التسجيل</dt><dd id="aProv"></dd></div>
+        <div><dt>تاريخ إنشاء الحساب</dt><dd id="aCreated"></dd></div>
+        <div><dt>آخر دخول سابق</dt><dd id="aLast"></dd></div>
+        <div><dt>تنتهي الجلسة في</dt><dd id="aExp"></dd></div>
+      </dl>
+      <h3 class="sub-h">آخر نشاط على حسابك</h3>
+      <ul class="log" id="aLog"></ul>
+      <div style="display:grid;gap:10px"><button class="btn btn-quiet" id="openDb2" type="button">عرض الجداول في قاعدة البيانات</button><button class="btn btn-primary" id="logoutBtn" type="button">تسجيل الخروج</button></div>
+    </div>
+  </section>
 </main>
 
-<div class="chalk-foot" aria-hidden="true">كُتبت هذه الصفحة بالحبر والطبشور</div>
+<footer class="foot gut"><span>بوابة الخدمات الإلكترونية، نسخة تجريبية.</span><span>البيانات تُحفظ في متصفحك فقط ولا تُرسل إلى أي خادم.</span></footer>
+
+<!-- Google account chooser (simulation, used when no Google client ID is configured) -->
+<dialog id="gDlg" aria-labelledby="gTitle">
+  <div class="dlg-h"><h3 id="gTitle">اختر حسابًا للمتابعة مع Google</h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div>
+  <div class="dlg-b">
+    <div class="alert info">نافذة محاكاة. تظهر عندما لا يكون معرّف عميل Google مضبوطًا في الصفحة.</div>
+    <div id="gList" style="display:grid;gap:8px"></div>
+    <button class="link" type="button" id="gOther" style="justify-self:start">استخدام حساب آخر</button>
+    <form id="gForm" hidden novalidate style="gap:12px">
+      <div class="field"><label for="gName">الاسم</label><input id="gName" type="text" placeholder="الاسم الظاهر في حساب Google"></div>
+      <div class="field"><label for="gEmail">بريد Gmail</label><input id="gEmail" class="ltr" type="email" placeholder="name@gmail.com"></div>
+      <p class="err" id="gErr"></p>
+      <button class="btn btn-primary" type="submit">متابعة</button>
+    </form>
+  </div>
+</dialog>
+
+<!-- Forgot password -->
+<dialog id="fDlg" aria-labelledby="fTitle">
+  <div class="dlg-h"><h3 id="fTitle">استعادة كلمة المرور</h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div>
+  <div class="dlg-b">
+    <form id="fReq" novalidate style="gap:12px">
+      <p class="hint">أدخل بريد حسابك وسنُصدر رمز تحقق من ستة أرقام.</p>
+      <div class="field"><label for="fEmail">البريد الإلكتروني</label><input id="fEmail" class="ltr" type="email" placeholder="name@example.com"></div>
+      <p class="err" id="fErr1"></p>
+      <button class="btn btn-primary" type="submit">إرسال الرمز</button>
+    </form>
+    <form id="fSet" hidden novalidate style="gap:12px">
+      <div class="alert info" id="fCodeNote"></div>
+      <div class="field"><label for="fCode">رمز التحقق</label><input id="fCode" class="ltr" type="text" inputmode="numeric" maxlength="6" placeholder="000000"></div>
+      <div class="field"><label for="fPass">كلمة المرور الجديدة</label><input id="fPass" class="ltr" type="password" autocomplete="new-password"></div>
+      <p class="err" id="fErr2"></p>
+      <button class="btn btn-primary" type="submit">حفظ كلمة المرور</button>
+    </form>
+  </div>
+</dialog>
+
+<!-- Data console: the simulated database -->
+<dialog id="dbDlg" class="wide" aria-labelledby="dbTitle">
+  <div class="dlg-h"><h3 id="dbTitle">مستكشف قاعدة البيانات المحاكاة</h3><button class="x" type="button" data-close aria-label="إغلاق">×</button></div>
+  <div class="dtabs" role="tablist" id="dTabs">
+    <button class="dtab" role="tab" data-t="users" aria-selected="true">المستخدمون</button>
+    <button class="dtab" role="tab" data-t="sessions" aria-selected="false">الجلسات</button>
+    <button class="dtab" role="tab" data-t="audit" aria-selected="false">سجل التدقيق</button>
+  </div>
+  <div class="tbl-wrap" id="dBody"></div>
+  <div class="dfoot"><span id="dCount"></span><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-quiet" id="dExport" type="button">تنزيل JSON</button><button class="btn btn-quiet" id="dReset" type="button" style="color:var(--danger)">إعادة ضبط القاعدة</button></span></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTxt"></span></div>
 
 <script>
-  (function () {
-    var $ = function (id) { return document.getElementById(id); };
-    var form = $('loginForm'), email = $('email'), pass = $('password');
-    var emailErr = $('emailErr'), passErr = $('passErr'), formError = $('formError'), formOk = $('formOk');
-    var submit = $('submit'), submitText = $('submitText');
+(function () {
+  'use strict';
 
-    // Today's date, written at the top like a notebook page
-    try {
-      $('today').textContent = new Date().toLocaleDateString('ar', { weekday: 'long', day: 'numeric', month: 'long' });
-    } catch (e) { $('today').textContent = ''; }
+  /* ======================================================================
+     Settings. To turn on the real Google sign-in, paste your OAuth Web client ID here
+     and add https://tareqsoft2025.github.io to its "Authorized JavaScript origins".
+     Left empty, the page uses the simulated account chooser instead.
+     ====================================================================== */
+  var PORTAL_CONFIG = { googleClientId: '' };
 
-    $('toggle').textContent = 'أظهرها';
-    $('toggle').addEventListener('click', function () {
-      var show = pass.type === 'password';
-      pass.type = show ? 'text' : 'password';
-      this.textContent = show ? 'أخفِها' : 'أظهرها';
-      this.setAttribute('aria-pressed', String(show));
-    });
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var DB_KEY = 'portal.db.v1', TOKEN_KEY = 'portal.session';
+  var MAX_FAILS = 5, LOCK_MS = 30000;
 
-    function note(kind, msg) {
-      formError.hidden = true; formOk.hidden = true;
-      var el = kind === 'bad' ? formError : formOk;
-      el.textContent = msg; el.hidden = false;
+  /* ---------------- storage helpers (never throw) ---------------- */
+  var mem = {};
+  function sget(store, k) { try { return window[store].getItem(k); } catch (e) { return mem[store + k] || null; } }
+  function sset(store, k, v) { try { window[store].setItem(k, v); } catch (e) { mem[store + k] = v; } }
+  function sdel(store, k) { try { window[store].removeItem(k); } catch (e) { delete mem[store + k]; } }
+
+  /* ---------------- the simulated database ---------------- */
+  var db;
+  function emptyDb() { return { meta: { version: 1, createdAt: Date.now() }, users: [], sessions: [], audit: [] }; }
+  function loadDb() {
+    try { var raw = sget('localStorage', DB_KEY); db = raw ? JSON.parse(raw) : emptyDb(); } catch (e) { db = emptyDb(); }
+    if (!db.users || !db.sessions || !db.audit) db = emptyDb();
+  }
+  function saveDb() { sset('localStorage', DB_KEY, JSON.stringify(db)); }
+  function rid(p) { var a = new Uint8Array(6); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach(function (_, i) { a[i] = Math.random() * 256; }); return p + '_' + Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  function weakHash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(16); }
+
+  function hashPassword(password, salt) {
+    var subtle = window.crypto && crypto.subtle;
+    if (!subtle) return Promise.resolve({ algo: 'weak-demo', iter: 1, salt: salt, hash: weakHash(salt + password) });
+    var enc = new TextEncoder();
+    return subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']).then(function (key) {
+      return subtle.deriveBits({ name: 'PBKDF2', salt: enc.encode(salt), iterations: 100000, hash: 'SHA-256' }, key, 256);
+    }).then(function (bits) { return { algo: 'pbkdf2-sha256', iter: 100000, salt: salt, hash: hex(bits) }; });
+  }
+  function verifyPassword(password, rec) { return hashPassword(password, rec.salt).then(function (r) { return r.algo === rec.algo && r.hash === rec.hash; }); }
+
+  function audit(type, user, detail) {
+    db.audit.unshift({ id: rid('evt'), ts: Date.now(), type: type, userId: user ? user.id : null, email: user ? user.email : (detail && detail.email) || null, detail: detail && detail.note || '' });
+    db.audit = db.audit.slice(0, 200);
+  }
+  function findByEmail(email) { email = String(email || '').trim().toLowerCase(); return db.users.filter(function (u) { return u.email === email; })[0]; }
+  function pruneSessions() { var now = Date.now(); db.sessions = db.sessions.filter(function (s) { return s.expiresAt > now; }); }
+
+  function createSession(user, remember) {
+    pruneSessions();
+    var s = { id: rid('ses'), userId: user.id, createdAt: Date.now(), expiresAt: Date.now() + (remember ? 30 * 864e5 : 8 * 36e5), remember: !!remember };
+    db.sessions.push(s);
+    sset(remember ? 'localStorage' : 'sessionStorage', TOKEN_KEY, s.id);
+    sdel(remember ? 'sessionStorage' : 'localStorage', TOKEN_KEY);
+    return s;
+  }
+  function currentSession() {
+    var id = sget('sessionStorage', TOKEN_KEY) || sget('localStorage', TOKEN_KEY);
+    if (!id) return null;
+    var s = db.sessions.filter(function (x) { return x.id === id && x.expiresAt > Date.now(); })[0];
+    if (!s) return null;
+    var u = db.users.filter(function (x) { return x.id === s.userId; })[0];
+    return u ? { session: s, user: u } : null;
+  }
+
+  var Auth = {
+    register: function (o) {
+      if (findByEmail(o.email)) return Promise.reject({ field: 'email', msg: 'هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول.' });
+      var salt = rid('salt');
+      return hashPassword(o.password, salt).then(function (pwd) {
+        var u = { id: rid('usr'), name: o.name.trim(), email: o.email.trim().toLowerCase(), provider: 'password', pwd: pwd, createdAt: Date.now(), lastLoginAt: null, prevLoginAt: null, failedLogins: 0, lockedUntil: 0 };
+        db.users.push(u); audit('register', u, { note: 'إنشاء حساب بالبريد' }); saveDb(); return u;
+      });
+    },
+    login: function (email, password, remember) {
+      var u = findByEmail(email);
+      if (!u) { audit('login_failed', null, { email: String(email).toLowerCase(), note: 'بريد غير مسجّل' }); saveDb(); return Promise.reject({ msg: 'البريد أو كلمة المرور غير صحيحة.' }); }
+      if (u.lockedUntil > Date.now()) return Promise.reject({ msg: 'تم قفل الحساب مؤقتًا بعد محاولات متكررة. حاول بعد ' + Math.ceil((u.lockedUntil - Date.now()) / 1000) + ' ثانية.' });
+      if (!u.pwd) return Promise.reject({ msg: 'هذا الحساب مسجّل عبر Google. استخدم زر «المتابعة بحساب Google».' });
+      return verifyPassword(password, u.pwd).then(function (ok) {
+        if (!ok) {
+          u.failedLogins = (u.failedLogins || 0) + 1;
+          audit('login_failed', u, { note: 'كلمة مرور خاطئة (' + u.failedLogins + ')' });
+          var left = MAX_FAILS - u.failedLogins;
+          if (left <= 0) { u.lockedUntil = Date.now() + LOCK_MS; u.failedLogins = 0; audit('lockout', u, { note: 'قفل لمدة 30 ثانية' }); saveDb(); return Promise.reject({ msg: 'تم قفل الحساب لمدة 30 ثانية بعد 5 محاولات خاطئة.' }); }
+          saveDb(); return Promise.reject({ msg: 'البريد أو كلمة المرور غير صحيحة. تبقّى ' + left + ' محاولات قبل القفل المؤقت.' });
+        }
+        u.failedLogins = 0; u.prevLoginAt = u.lastLoginAt; u.lastLoginAt = Date.now();
+        audit('login', u, { note: 'تسجيل دخول بالبريد' });
+        var s = createSession(u, remember); saveDb(); return { user: u, session: s };
+      });
+    },
+    google: function (p) {
+      var email = String(p.email || '').toLowerCase(), isNew = false;
+      var u = findByEmail(email);
+      if (!u) { isNew = true; u = { id: rid('usr'), name: p.name || email.split('@')[0], email: email, provider: 'google', googleSub: p.sub || rid('g'), pwd: null, createdAt: Date.now(), lastLoginAt: null, prevLoginAt: null, failedLogins: 0, lockedUntil: 0 }; db.users.push(u); audit('register', u, { note: 'إنشاء حساب عبر Google' }); }
+      else if (!u.googleSub) { u.googleSub = p.sub || rid('g'); u.linkedGoogle = true; audit('link_google', u, { note: 'ربط حساب Google بالحساب الحالي' }); }
+      u.prevLoginAt = u.lastLoginAt; u.lastLoginAt = Date.now();
+      audit('google_login', u, { note: 'دخول عبر Google' });
+      var s = createSession(u, true); saveDb(); return { user: u, session: s, isNew: isNew };
+    },
+    logout: function () {
+      var c = currentSession();
+      if (c) { db.sessions = db.sessions.filter(function (s) { return s.id !== c.session.id; }); audit('logout', c.user, { note: 'تسجيل خروج' }); saveDb(); }
+      sdel('sessionStorage', TOKEN_KEY); sdel('localStorage', TOKEN_KEY);
+    },
+    requestReset: function (email) {
+      var u = findByEmail(email);
+      if (!u) return null;
+      var code = String(Math.floor(100000 + Math.random() * 900000));
+      u.reset = { code: code, exp: Date.now() + 10 * 6e4 }; audit('reset_request', u, { note: 'طلب استعادة كلمة المرور' }); saveDb(); return code;
+    },
+    confirmReset: function (email, code, newPass) {
+      var u = findByEmail(email);
+      if (!u || !u.reset || u.reset.exp < Date.now() || u.reset.code !== code) return Promise.reject({ msg: 'الرمز غير صحيح أو منتهي الصلاحية.' });
+      var salt = rid('salt');
+      return hashPassword(newPass, salt).then(function (pwd) { u.pwd = pwd; u.reset = null; u.failedLogins = 0; u.lockedUntil = 0; audit('reset_done', u, { note: 'تغيير كلمة المرور' }); saveDb(); });
+    },
+    seed: function () {
+      if (db.users.length) return Promise.resolve();
+      var salt = rid('salt');
+      return hashPassword('Demo@12345', salt).then(function (pwd) {
+        var u = { id: rid('usr'), name: 'مستخدم تجريبي', email: 'demo@portal.demo', provider: 'password', pwd: pwd, createdAt: Date.now() - 12 * 864e5, lastLoginAt: null, prevLoginAt: null, failedLogins: 0, lockedUntil: 0 };
+        db.users.push(u); audit('register', u, { note: 'حساب تجريبي أولي' }); saveDb();
+      });
     }
-    function setErr(input, el, msg) {
-      el.textContent = msg || '';
-      if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
-      return !msg;
-    }
-    function checkEmail() {
-      var v = email.value.trim();
-      if (!v) return setErr(email, emailErr, 'نسيت كتابة بريدك.');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return setErr(email, emailErr, 'شكل البريد غير مألوف، مثال: name@company.com');
-      return setErr(email, emailErr, '');
-    }
-    function checkPass() {
-      if (!pass.value) return setErr(pass, passErr, 'اكتب كلمة المرور أولًا.');
-      if (pass.value.length < 8) return setErr(pass, passErr, 'كلمة المرور أقصر من 8 أحرف.');
-      return setErr(pass, passErr, '');
-    }
-    email.addEventListener('blur', function () { if (email.value) checkEmail(); });
-    pass.addEventListener('blur', function () { if (pass.value) checkPass(); });
-    email.addEventListener('input', function () { if (email.getAttribute('aria-invalid')) checkEmail(); });
-    pass.addEventListener('input', function () { if (pass.getAttribute('aria-invalid')) checkPass(); });
+  };
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      formError.hidden = true; formOk.hidden = true;
-      var a = checkEmail(), b = checkPass();
-      if (!a || !b) { (a ? pass : email).focus(); return; }
-      submit.disabled = true;
-      submitText.textContent = 'لحظة';
-      submitText.className = 'dots';
-      // Demo only: there is no server behind this page.
-      setTimeout(function () {
-        submit.disabled = false;
-        submitText.className = '';
-        submitText.textContent = 'تسجيل الدخول';
-        note('ok', 'تم التحقق من بياناتك. هذه صفحة تجريبية ولا تتصل بخادم.');
-      }, 1300);
-    });
+  /* ---------------- UI helpers ---------------- */
+  var fmt = function (t) { return t ? new Date(t).toLocaleString('ar', { dateStyle: 'medium', timeStyle: 'short' }) : '—'; };
+  var fmtD = function (t) { return t ? new Date(t).toLocaleDateString('ar', { dateStyle: 'long' }) : '—'; };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var toastT;
+  function toast(msg) { $('#toastTxt').textContent = msg; $('#toast').classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { $('#toast').classList.remove('on'); }, 3200); }
+  function setErr(input, errEl, msg) { errEl.textContent = msg || ''; if (input) { if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid'); } return !msg; }
+  function showAlert(el, msg) { el.textContent = msg; el.hidden = !msg; }
+  function busy(btn, on, label) { btn.disabled = on; btn.innerHTML = on ? '<span class="spin"></span>' + esc(label) : esc(label); }
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-    $('sso').addEventListener('click', function () { note('bad', 'الدخول بحساب المؤسسة غير مفعّل في هذه النسخة.'); });
-    $('forgot').addEventListener('click', function () { note('ok', 'في النسخة الحقيقية سنرسل لك رابط استعادة كلمة المرور على بريدك.'); });
-    $('register').addEventListener('click', function () { note('ok', 'إنشاء الحساب غير مفعّل في النسخة التجريبية.'); });
-  })();
+  /* tabs */
+  function setTab(which) {
+    var login = which === 'login';
+    $('#tabLogin').setAttribute('aria-selected', login); $('#tabReg').setAttribute('aria-selected', !login);
+    $('#paneLogin').hidden = !login; $('#paneReg').hidden = login;
+  }
+  $('#tabLogin').onclick = function () { setTab('login'); };
+  $('#tabReg').onclick = function () { setTab('register'); };
+
+  /* show / hide password */
+  $$('[data-eye]').forEach(function (b) {
+    b.onclick = function () { var i = $('#' + b.getAttribute('data-eye')), show = i.type === 'password'; i.type = show ? 'text' : 'password'; b.textContent = show ? 'إخفاء' : 'إظهار'; b.setAttribute('aria-pressed', show); };
+  });
+
+  /* dialogs */
+  $$('dialog').forEach(function (d) {
+    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+    $$('[data-close]', d).forEach(function (b) { b.onclick = function () { d.close(); }; });
+  });
+
+  /* ---------------- views ---------------- */
+  var LABELS = { register: 'إنشاء الحساب', login: 'تسجيل دخول', google_login: 'دخول عبر Google', login_failed: 'محاولة دخول فاشلة', logout: 'تسجيل خروج', lockout: 'قفل مؤقت للحساب', reset_request: 'طلب استعادة كلمة المرور', reset_done: 'تغيير كلمة المرور', link_google: 'ربط حساب Google' };
+  function renderAccount(cur, welcome) {
+    var u = cur.user;
+    $('#authView').hidden = true; $('#accountView').hidden = false;
+    $('#avatar').textContent = (u.name || '؟').trim().charAt(0);
+    $('#aName').textContent = u.name; $('#aEmail').textContent = u.email;
+    $('#aProv').innerHTML = u.provider === 'google' || u.googleSub ? '<span class="pill g">Google</span>' : '<span class="pill">بريد وكلمة مرور</span>';
+    $('#aCreated').textContent = fmtD(u.createdAt); $('#aLast').textContent = u.prevLoginAt ? fmt(u.prevLoginAt) : 'هذا أول دخول';
+    $('#aExp').textContent = fmt(cur.session.expiresAt);
+    var wn = $('#welcomeNote'); wn.hidden = !welcome; wn.textContent = welcome || '';
+    var rows = db.audit.filter(function (e) { return e.userId === u.id; }).slice(0, 6);
+    $('#aLog').innerHTML = rows.map(function (e) { return '<li><span>' + esc(LABELS[e.type] || e.type) + '</span><time>' + esc(fmt(e.ts)) + '</time></li>'; }).join('') || '<li>لا يوجد نشاط بعد.</li>';
+  }
+  function renderAuth() { $('#authView').hidden = false; $('#accountView').hidden = true; }
+  $('#logoutBtn').onclick = function () { Auth.logout(); renderAuth(); setTab('login'); toast('تم تسجيل الخروج.'); };
+
+  /* ---------------- login form ---------------- */
+  var lEmail = $('#lEmail'), lPass = $('#lPass');
+  $('#fillDemo').onclick = function () { lEmail.value = 'demo@portal.demo'; lPass.value = 'Demo@12345'; setErr(lEmail, $('#lEmailErr')); setErr(lPass, $('#lPassErr')); showAlert($('#loginAlert'), ''); lPass.focus(); };
+  $('#loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); showAlert($('#loginAlert'), '');
+    var a = setErr(lEmail, $('#lEmailErr'), !lEmail.value.trim() ? 'أدخل بريدك الإلكتروني.' : !EMAIL_RE.test(lEmail.value.trim()) ? 'صيغة البريد غير صحيحة.' : '');
+    var b = setErr(lPass, $('#lPassErr'), lPass.value ? '' : 'أدخل كلمة المرور.');
+    if (!a || !b) { (a ? lPass : lEmail).focus(); return; }
+    var btn = $('#lSubmit'); busy(btn, true, 'جارٍ التحقق');
+    Auth.login(lEmail.value, lPass.value, $('#lRemember').checked).then(function (r) {
+      lPass.value = ''; renderAccount(r, ''); toast('تم تسجيل الدخول.');
+    }, function (err) { showAlert($('#loginAlert'), err.msg || 'تعذّر تسجيل الدخول.'); }).then(function () { busy(btn, false, 'تسجيل الدخول'); });
+  });
+  lEmail.addEventListener('input', function () { if (lEmail.getAttribute('aria-invalid')) setErr(lEmail, $('#lEmailErr')); });
+  lPass.addEventListener('input', function () { if (lPass.getAttribute('aria-invalid')) setErr(lPass, $('#lPassErr')); });
+
+  /* ---------------- register form ---------------- */
+  var rName = $('#rName'), rEmail = $('#rEmail'), rPass = $('#rPass'), rPass2 = $('#rPass2');
+  function strength(p) {
+    var s = 0; if (p.length >= 8) s++; if (/[a-z]/.test(p) && /[A-Z]/.test(p)) s++; if (/\d/.test(p)) s++; if (/[^\w\s]/.test(p) || p.length >= 12) s++;
+    return p.length < 8 ? Math.min(s, 1) : Math.max(s, 1);
+  }
+  rPass.addEventListener('input', function () {
+    var s = rPass.value ? strength(rPass.value) : 0;
+    $('#meter').setAttribute('data-s', s);
+    $('#meterTxt').textContent = !s ? 'استخدم 8 أحرف على الأقل تجمع الحروف والأرقام.' : ['', 'كلمة المرور ضعيفة.', 'كلمة المرور مقبولة.', 'كلمة المرور جيدة.', 'كلمة المرور قوية.'][s];
+    if (rPass.getAttribute('aria-invalid')) setErr(rPass, $('#rPassErr'));
+  });
+  $('#regForm').addEventListener('submit', function (e) {
+    e.preventDefault(); showAlert($('#regAlert'), '');
+    var ok = [
+      setErr(rName, $('#rNameErr'), rName.value.trim().length < 3 ? 'اكتب اسمك الكامل (3 أحرف على الأقل).' : ''),
+      setErr(rEmail, $('#rEmailErr'), !EMAIL_RE.test(rEmail.value.trim()) ? 'صيغة البريد غير صحيحة.' : ''),
+      setErr(rPass, $('#rPassErr'), rPass.value.length < 8 || !/[A-Za-z؀-ۿ]/.test(rPass.value) || !/\d/.test(rPass.value) ? 'كلمة المرور 8 أحرف على الأقل وتتضمن حروفًا وأرقامًا.' : ''),
+      setErr(rPass2, $('#rPass2Err'), rPass2.value !== rPass.value ? 'كلمتا المرور غير متطابقتين.' : ''),
+      setErr(null, $('#rTermsErr'), $('#rTerms').checked ? '' : 'يلزم الموافقة على الشروط للمتابعة.')
+    ];
+    var bad = ok.indexOf(false); if (bad > -1) { [rName, rEmail, rPass, rPass2, $('#rTerms')][bad].focus(); return; }
+    var btn = $('#rSubmit'); busy(btn, true, 'جارٍ إنشاء الحساب');
+    Auth.register({ name: rName.value, email: rEmail.value, password: rPass.value }).then(function (u) {
+      return Auth.login(u.email, rPass.value, true);
+    }).then(function (r) {
+      $('#regForm').reset(); $('#meter').setAttribute('data-s', 0); renderAccount(r, 'تم إنشاء حسابك وتسجيل دخولك. تجد سجلّك الآن في قاعدة البيانات.'); toast('تم إنشاء الحساب.');
+    }, function (err) { if (err.field === 'email') setErr(rEmail, $('#rEmailErr'), err.msg); else showAlert($('#regAlert'), err.msg || 'تعذّر إنشاء الحساب.'); }).then(function () { busy(btn, false, 'إنشاء الحساب'); });
+  });
+
+  /* ---------------- Google ---------------- */
+  var SAMPLES = [
+    { name: 'سارة المطيري', email: 'sara.almutairi@gmail.com', color: '#7a4fb5' },
+    { name: 'خالد العتيبي', email: 'khaled.otaibi@gmail.com', color: '#1f7a8c' },
+    { name: 'نورة القحطاني', email: 'noura.qahtani@gmail.com', color: '#b5533c' }
+  ];
+  function afterGoogle(r) {
+    $('#gDlg').close && $('#gDlg').open && $('#gDlg').close();
+    renderAccount(r, r.isNew ? 'تم إنشاء حسابك عبر Google وتسجيل دخولك.' : 'تم تسجيل دخولك عبر Google.'); toast('تم الدخول عبر Google.');
+  }
+  function openChooser() {
+    $('#gList').innerHTML = SAMPLES.map(function (s, i) { return '<button type="button" class="acct" data-i="' + i + '"><span class="dot" style="background:' + s.color + '">' + esc(s.name.charAt(0)) + '</span><span><b>' + esc(s.name) + '</b><span>' + esc(s.email) + '</span></span></button>'; }).join('');
+    $$('#gList .acct').forEach(function (b) { b.onclick = function () { var s = SAMPLES[+b.dataset.i]; afterGoogle(Auth.google({ name: s.name, email: s.email, sub: 'sim_' + s.email })); }; });
+    $('#gForm').hidden = true; $('#gOther').hidden = false; $('#gDlg').showModal();
+  }
+  $('#gOther').onclick = function () { $('#gForm').hidden = false; $('#gForm').style.display = 'grid'; $('#gOther').hidden = true; $('#gName').focus(); };
+  $('#gForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var n = $('#gName').value.trim(), m = $('#gEmail').value.trim();
+    if (!n || !EMAIL_RE.test(m)) { $('#gErr').textContent = 'أدخل الاسم وبريدًا صحيحًا.'; return; }
+    $('#gErr').textContent = ''; afterGoogle(Auth.google({ name: n, email: m, sub: 'sim_' + m.toLowerCase() }));
+  });
+
+  function decodeJwt(t) { var p = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(p).split('').map(function (c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''))); }
+  function initGoogle() {
+    if (!PORTAL_CONFIG.googleClientId) { $$('[data-google]').forEach(function (b) { b.onclick = openChooser; }); return; }
+    var s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
+    s.onload = function () {
+      google.accounts.id.initialize({ client_id: PORTAL_CONFIG.googleClientId, callback: function (resp) { try { var p = decodeJwt(resp.credential); afterGoogle(Auth.google({ name: p.name, email: p.email, sub: p.sub })); } catch (e) { toast('تعذّر قراءة استجابة Google.'); } } });
+      ['gisBtnL', 'gisBtnR'].forEach(function (id) { var host = $('#' + id); host.hidden = false; host.previousElementSibling.hidden = true; google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 340, text: id === 'gisBtnL' ? 'signin_with' : 'signup_with', locale: 'ar' }); });
+    };
+    s.onerror = function () { $$('[data-google]').forEach(function (b) { b.onclick = openChooser; }); toast('تعذّر تحميل Google، تم استخدام النافذة المحاكاة.'); };
+    document.head.appendChild(s);
+    $$('[data-google]').forEach(function (b) { b.onclick = openChooser; });
+  }
+
+  /* ---------------- forgot password ---------------- */
+  var resetEmail = '';
+  $('#forgotBtn').onclick = function () { $('#fReq').hidden = false; $('#fSet').hidden = true; $('#fEmail').value = lEmail.value; $('#fErr1').textContent = ''; $('#fDlg').showModal(); $('#fEmail').focus(); };
+  $('#fReq').addEventListener('submit', function (e) {
+    e.preventDefault(); var m = $('#fEmail').value.trim();
+    if (!EMAIL_RE.test(m)) { $('#fErr1').textContent = 'أدخل بريدًا صحيحًا.'; return; }
+    var code = Auth.requestReset(m); resetEmail = m; $('#fReq').hidden = true; $('#fSet').hidden = false; $('#fSet').style.display = 'grid'; $('#fErr2').textContent = '';
+    $('#fCodeNote').innerHTML = code ? 'نسخة تجريبية لا ترسل بريدًا فعليًا. رمزك: <b class="m" style="font-family:var(--font-mono);letter-spacing:2px">' + code + '</b>' : 'إذا كان البريد مسجّلًا فسيصل إليه رمز التحقق. (النسخة التجريبية لا ترسل بريدًا فعليًا.)';
+    $('#fCode').focus();
+  });
+  $('#fSet').addEventListener('submit', function (e) {
+    e.preventDefault(); var p = $('#fPass').value;
+    if (p.length < 8 || !/\d/.test(p) || !/[A-Za-z]/.test(p)) { $('#fErr2').textContent = 'كلمة المرور 8 أحرف على الأقل وتتضمن حروفًا وأرقامًا.'; return; }
+    Auth.confirmReset(resetEmail, $('#fCode').value.trim(), p).then(function () { $('#fDlg').close(); $('#fSet').reset(); setTab('login'); lEmail.value = resetEmail; toast('تم تغيير كلمة المرور. سجّل دخولك الآن.'); }, function (err) { $('#fErr2').textContent = err.msg; });
+  });
+
+  /* ---------------- data console ---------------- */
+  var dTab = 'users';
+  function pwdCell(u) { return u.pwd ? u.pwd.algo + ':' + u.pwd.hash.slice(0, 10) + '…' : '(بلا كلمة مرور)'; }
+  var VIEWS = {
+    users: { cols: ['id', 'الاسم', 'البريد', 'المزوّد', 'بصمة كلمة المرور', 'أُنشئ في', 'آخر دخول'], row: function (u) { return [['m', u.id], ['', u.name], ['m', u.email], ['', u.provider === 'google' || u.googleSub ? 'google' : 'password'], ['m', pwdCell(u)], ['', fmt(u.createdAt)], ['', fmt(u.lastLoginAt)]]; }, data: function () { return db.users; } },
+    sessions: { cols: ['id', 'المستخدم', 'بدأت', 'تنتهي', 'مدّة'], row: function (s) { return [['m', s.id], ['m', s.userId], ['', fmt(s.createdAt)], ['', fmt(s.expiresAt)], ['', s.remember ? '30 يومًا' : '8 ساعات']]; }, data: function () { return db.sessions; } },
+    audit: { cols: ['الوقت', 'الحدث', 'البريد', 'ملاحظة'], row: function (a) { return [['', fmt(a.ts)], ['', LABELS[a.type] || a.type], ['m', a.email || '—'], ['', a.detail]]; }, data: function () { return db.audit; } }
+  };
+  function renderDb() {
+    var v = VIEWS[dTab], rows = v.data();
+    $$('#dTabs .dtab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.t === dTab); });
+    $('#dBody').innerHTML = rows.length ? '<table><thead><tr>' + v.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr>' + v.row(r).map(function (c) { return '<td' + (c[0] ? ' class="' + c[0] + '"' : '') + '>' + esc(c[1]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>' : '<div class="empty">لا توجد سجلات في هذا الجدول.</div>';
+    $('#dCount').textContent = rows.length + ' سجل في الجدول. التخزين: localStorage';
+  }
+  function openDb() { renderDb(); $('#dbDlg').showModal(); }
+  $('#openDb').onclick = openDb; $('#openDb2').onclick = openDb;
+  $$('#dTabs .dtab').forEach(function (b) { b.onclick = function () { dTab = b.dataset.t; renderDb(); }; });
+  $('#dExport').onclick = function () {
+    var safe = JSON.parse(JSON.stringify(db)); // keep password hashes, drop nothing: it is demo data
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(safe, null, 2)], { type: 'application/json' })); a.download = 'portal-db.json'; document.body.appendChild(a); a.click(); a.remove();
+  };
+  var resetArmed = false;
+  $('#dReset').onclick = function () {
+    var b = $('#dReset');
+    if (!resetArmed) { resetArmed = true; b.textContent = 'اضغط مرة أخرى للتأكيد'; setTimeout(function () { resetArmed = false; b.textContent = 'إعادة ضبط القاعدة'; }, 3500); return; }
+    resetArmed = false; b.textContent = 'إعادة ضبط القاعدة';
+    sdel('localStorage', DB_KEY); sdel('localStorage', TOKEN_KEY); sdel('sessionStorage', TOKEN_KEY);
+    loadDb(); Auth.seed().then(function () { renderDb(); renderAuth(); setTab('login'); toast('أُعيدت القاعدة إلى حالتها الأولى.'); });
+  };
+
+  /* ---------------- boot ---------------- */
+  loadDb();
+  Auth.seed().then(function () {
+    initGoogle();
+    var cur = currentSession(); if (cur) renderAccount(cur, '');
+  });
+})();
 </script>
 </body>
 </html>
