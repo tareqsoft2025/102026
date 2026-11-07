@@ -5,5 +5,6 @@
 window.PORTAL_CONFIG = {
   supabaseUrl: '',      // e.g. https://abcdxyz.supabase.co
   supabaseAnonKey: '',  // the "anon public" key from Project Settings > API
+  showDemoLogin: true,  // false hides the quick-login buttons for the demo accounts
   googleClientId: ''    // only used by the browser-only demo; real Google sign-in is set up inside Supabase
 };
