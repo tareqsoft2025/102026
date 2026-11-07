@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}body{margin:0}</style>
+<title>بوابة الدخول</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: split screen. Form column on the reading side (right in RTL), deep-ink brand panel with a layered grid on the other. */
+  :root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --fg: #101a2b;
+    --muted: #5b6678;
+    --line: #dde2ea;
+    --field: #f7f9fb;
+    --accent: #0f5fd7;
+    --accent-fg: #ffffff;
+    --accent-soft: #e3edfc;
+    --danger: #c0302b;
+    --ok: #17794a;
+    --panel: #0c1a33;
+    --panel-fg: #e8eefb;
+    --panel-muted: #9fb0d0;
+    --panel-line: rgba(160, 185, 235, .16);
+    --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --font-display: "Readex Pro", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --shadow: 0 1px 2px rgba(16, 26, 43, .06), 0 12px 32px rgba(16, 26, 43, .08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a1220; --surface: #111c30; --fg: #eaf0fb; --muted: #94a3bd; --line: #25324b;
+      --field: #0d1626; --accent: #5b9bff; --accent-fg: #06142e; --accent-soft: #172b4d;
+      --danger: #ff7a72; --ok: #4cd08f; --panel: #07101f; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a1220; --surface: #111c30; --fg: #eaf0fb; --muted: #94a3bd; --line: #25324b;
+    --field: #0d1626; --accent: #5b9bff; --accent-fg: #06142e; --accent-soft: #172b4d;
+    --danger: #ff7a72; --ok: #4cd08f; --panel: #07101f; --shadow: 0 12px 32px rgba(0, 0, 0, .4);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  }
+  .shell {
+    min-height: 100%;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+
+  /* Form side */
+  .form-side {
+    display: flex; flex-direction: column; justify-content: center;
+    padding-block: 32px;
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+  }
+  .card { width: 100%; max-width: 420px; margin-inline: auto; }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+  .logo { width: 40px; height: 40px; flex: none; }
+  .brand-name { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: 0; }
+
+  h1 { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.25; margin: 0 0 8px; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+
+  form { display: grid; gap: 18px; }
+  .field { display: grid; gap: 7px; min-width: 0; }
+  .label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  label { font-weight: 500; font-size: 14px; }
+  .link { color: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; border-radius: 4px; }
+  .link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .control { position: relative; }
+  input[type="email"], input[type="password"], input[type="text"] {
+    width: 100%; height: 48px; font: inherit; font-size: 16px; color: var(--fg);
+    background: var(--field); border: 1px solid var(--line); border-radius: 10px;
+    padding-inline: 14px; transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  input::placeholder { color: var(--muted); opacity: .7; }
+  input:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); background: var(--surface); }
+  input[aria-invalid="true"] { border-color: var(--danger); }
+  input[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px color-mix(in srgb, var(--danger) 18%, transparent); }
+  .has-toggle input { padding-inline-end: 48px; }
+  .toggle {
+    position: absolute; inset-block: 0; inset-inline-end: 4px; width: 40px;
+    display: grid; place-items: center; background: none; border: 0; color: var(--muted);
+    cursor: pointer; border-radius: 8px;
+  }
+  .toggle:hover { color: var(--fg); }
+  .toggle svg { width: 20px; height: 20px; }
+  .error { color: var(--danger); font-size: 13px; min-height: 0; margin: 0; }
+  .error:empty { display: none; }
+
+  .check { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; user-select: none; }
+  .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .box {
+    width: 20px; height: 20px; flex: none; border-radius: 6px; border: 1.5px solid var(--line);
+    background: var(--field); display: grid; place-items: center; transition: .15s;
+  }
+  .box svg { width: 12px; height: 12px; stroke: var(--accent-fg); opacity: 0; }
+  .check input:checked + .box { background: var(--accent); border-color: var(--accent); }
+  .check input:checked + .box svg { opacity: 1; }
+  .check input:focus-visible + .box { box-shadow: 0 0 0 4px var(--accent-soft); }
+
+  .btn {
+    height: 50px; border-radius: 10px; border: 1px solid transparent; font: inherit; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform .08s, background .15s, border-color .15s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); color: var(--accent-fg); }
+  .btn-primary:hover { background: color-mix(in srgb, var(--accent) 88%, #000); }
+  .btn-primary[disabled] { opacity: .75; cursor: progress; }
+  .btn-ghost { background: var(--surface); color: var(--fg); border-color: var(--line); font-weight: 500; }
+  .btn-ghost:hover { border-color: var(--accent); }
+  .btn svg { width: 20px; height: 20px; }
+  .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--accent-fg) 35%, transparent); border-top-color: var(--accent-fg); animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .divider { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 13px; margin-block: 4px; }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .status { border-radius: 10px; padding: 11px 14px; font-size: 14px; display: flex; gap: 10px; align-items: flex-start; }
+  .status[hidden] { display: none !important; }
+  .status.ok { background: color-mix(in srgb, var(--ok) 12%, var(--surface)); color: var(--ok); border: 1px solid color-mix(in srgb, var(--ok) 35%, transparent); }
+  .status.bad { background: color-mix(in srgb, var(--danger) 10%, var(--surface)); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent); }
+
+  .foot { margin-top: 28px; color: var(--muted); font-size: 14px; text-align: center; }
+  .secure { margin-top: 36px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12.5px; }
+  .secure svg { width: 15px; height: 15px; }
+
+  /* Brand panel */
+  .panel {
+    position: relative; overflow: hidden; background: var(--panel); color: var(--panel-fg);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 48px; isolation: isolate;
+  }
+  .panel::before {
+    content: ""; position: absolute; inset: 0; z-index: -2;
+    background-image:
+      linear-gradient(var(--panel-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--panel-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 30% 70%, #000 10%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 70%, #000 10%, transparent 75%);
+  }
+  .panel::after {
+    content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; border-radius: 50%;
+    inset-block-start: -260px; inset-inline-start: -200px;
+    background: radial-gradient(circle, rgba(46, 120, 255, .45), transparent 65%);
+  }
+  .panel h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.35; margin: 0; max-width: 18em; text-wrap: balance; }
+  .panel p { color: var(--panel-muted); max-width: 30em; margin: 14px 0 0; }
+  .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .metric { border: 1px solid var(--panel-line); border-radius: 14px; padding: 16px; background: rgba(255, 255, 255, .03); backdrop-filter: blur(6px); }
+  .metric b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .metric span { color: var(--panel-muted); font-size: 13px; }
+  .live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--panel-muted); border: 1px solid var(--panel-line); border-radius: 999px; padding: 5px 12px; width: fit-content; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc97; box-shadow: 0 0 0 4px rgba(61, 220, 151, .18); }
+
+  .theme-btn {
+    position: fixed; inset-block-start: max(14px, env(safe-area-inset-top, 0px)); inset-inline-start: max(14px, env(safe-area-inset-left, 0px));
+    z-index: 20; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--surface); color: var(--fg); display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .theme-btn svg { width: 18px; height: 18px; }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  input:focus-visible { outline: none; }
+
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    .panel { display: none; }
+    .form-side { padding-block: 72px 40px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 28px 22px; box-shadow: var(--shadow); }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation-duration: .001s !important; } }
+</style>
+</head>
+<body>
+
+<button class="theme-btn" id="themeBtn" type="button" aria-label="تبديل الوضع الليلي">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+</button>
+
+<main class="shell" dir="rtl" lang="ar">
+  <section class="form-side">
+    <div class="card">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="var(--accent)"/>
+          <path d="M12 21.5 18 27l10-14" fill="none" stroke="var(--accent-fg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-name">منصة الأعمال</span>
+      </div>
+
+      <h1>مرحبًا بعودتك</h1>
+      <p class="sub">سجّل الدخول للوصول إلى لوحة التحكم ومتابعة أعمالك.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="status bad" id="formError" role="alert" hidden></div>
+        <div class="status ok" id="formOk" role="status" hidden></div>
+
+        <div class="field">
+          <label for="email">البريد الإلكتروني</label>
+          <div class="control">
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="name@company.com" dir="ltr" style="text-align:right" required>
+          </div>
+          <p class="error" id="emailErr"></p>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="password">كلمة المرور</label>
+            <a class="link" href="#forgot" id="forgot">نسيت كلمة المرور؟</a>
+          </div>
+          <div class="control has-toggle">
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" dir="ltr" style="text-align:right" required>
+            <button class="toggle" id="toggle" type="button" aria-label="إظهار كلمة المرور" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <p class="error" id="passErr"></p>
+        </div>
+
+        <label class="check" for="remember">
+          <input id="remember" type="checkbox" checked>
+          <span class="box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5 4.8 9 10 3"/></svg></span>
+          <span>تذكّرني على هذا الجهاز</span>
+        </label>
+
+        <button class="btn btn-primary" id="submit" type="submit"><span id="submitText">تسجيل الدخول</span></button>
+
+        <div class="divider">أو</div>
+
+        <button class="btn btn-ghost" type="button" id="sso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
+          الدخول عبر الدخول الموحّد (SSO)
+        </button>
+      </form>
+
+      <p class="foot">ليس لديك حساب؟ <a class="link" href="#register">أنشئ حسابًا جديدًا</a></p>
+      <p class="secure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+        اتصال مشفّر ومحمي بالتحقق الثنائي
+      </p>
+    </div>
+  </section>
+
+  <aside class="panel" aria-hidden="true">
+    <span class="live"><span class="dot"></span> جميع الأنظمة تعمل بشكل طبيعي</span>
+    <div>
+      <h2>كل ما يخص عملك، في مكان واحد وبأمان كامل.</h2>
+      <p>تابع المهام والتقارير والفرق من لوحة تحكم واحدة، وابقَ على اطلاع لحظة بلحظة.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric"><b>99.9%</b><span>وقت التشغيل</span></div>
+      <div class="metric"><b>+12,400</b><span>مستخدم نشط</span></div>
+      <div class="metric"><b>256-bit</b><span>تشفير البيانات</span></div>
+    </div>
+  </aside>
+</main>
+
+<script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var form = $('loginForm'), email = $('email'), pass = $('password');
+    var emailErr = $('emailErr'), passErr = $('passErr'), formError = $('formError'), formOk = $('formOk');
+    var submit = $('submit'), submitText = $('submitText');
+
+    // Theme toggle (per-viewer convenience only)
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    $('themeBtn').addEventListener('click', function () {
+      var dark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var next = dark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+    // Show / hide password
+    $('toggle').addEventListener('click', function () {
+      var show = pass.type === 'password';
+      pass.type = show ? 'text' : 'password';
+      this.setAttribute('aria-pressed', String(show));
+      this.setAttribute('aria-label', show ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
+    });
+
+    function setErr(input, el, msg) {
+      el.textContent = msg || '';
+      if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
+      return !msg;
+    }
+    function checkEmail() {
+      var v = email.value.trim();
+      if (!v) return setErr(email, emailErr, 'أدخل البريد الإلكتروني.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return setErr(email, emailErr, 'صيغة البريد غير صحيحة، مثال: name@company.com');
+      return setErr(email, emailErr, '');
+    }
+    function checkPass() {
+      if (!pass.value) return setErr(pass, passErr, 'أدخل كلمة المرور.');
+      if (pass.value.length < 8) return setErr(pass, passErr, 'كلمة المرور لا تقل عن 8 أحرف.');
+      return setErr(pass, passErr, '');
+    }
+    email.addEventListener('blur', function () { if (email.value) checkEmail(); });
+    pass.addEventListener('blur', function () { if (pass.value) checkPass(); });
+    email.addEventListener('input', function () { if (email.getAttribute('aria-invalid')) checkEmail(); });
+    pass.addEventListener('input', function () { if (pass.getAttribute('aria-invalid')) checkPass(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formError.hidden = true; formOk.hidden = true;
+      var a = checkEmail(), b = checkPass();
+      if (!a || !b) { (a ? pass : email).focus(); return; }
+      submit.disabled = true;
+      submitText.textContent = 'جارٍ التحقق…';
+      submit.insertAdjacentHTML('afterbegin', '<span class="spinner" id="spin"></span>');
+      // Demo only: no server behind this page.
+      setTimeout(function () {
+        var spin = $('spin'); if (spin) spin.remove();
+        submit.disabled = false;
+        submitText.textContent = 'تسجيل الدخول';
+        formOk.textContent = 'تم التحقق من البيانات. هذه صفحة عرض ولا تتصل بخادم.';
+        formOk.hidden = false;
+      }, 1200);
+    });
+
+    $('sso').addEventListener('click', function () {
+      formOk.hidden = true;
+      formError.textContent = 'الدخول الموحّد غير مفعّل في نسخة العرض.';
+      formError.hidden = false;
+    });
+    ['forgot'].forEach(function (id) {
+      $(id).addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  })();
+</script>
+</body>
+</html>
